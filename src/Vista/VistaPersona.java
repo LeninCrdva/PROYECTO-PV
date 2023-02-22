@@ -441,7 +441,15 @@ public class VistaPersona extends javax.swing.JInternalFrame {
             new String [] {
                 "ID", "Cédula", "Nombre", "Apellido", "Tipo Documento", "Dirección", "Teléfono", "E-mail", "Género", "Fecha Nac."
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(tblpersona);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);

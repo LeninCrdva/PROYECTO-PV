@@ -242,7 +242,7 @@ public class VistaTipoDocumento extends javax.swing.JInternalFrame {
                 {null, null}
             },
             new String [] {
-                "ID", "Cédula"
+                "ID", "Nombre"
             }
         ) {
             boolean[] canEdit = new boolean [] {

@@ -82,11 +82,11 @@ public class VistaEmpleados extends javax.swing.JInternalFrame {
     }
 
     public JDialog getDlgcrudpersona() {
-        return dlgcrudpersona;
+        return dlgcrudemp;
     }
 
     public void setDlgcrudpersona(JDialog dlgcrudpersona) {
-        this.dlgcrudpersona = dlgcrudpersona;
+        this.dlgcrudemp = dlgcrudpersona;
     }
 
     public JLabel getLblidemp() {
@@ -113,11 +113,19 @@ public class VistaEmpleados extends javax.swing.JInternalFrame {
         this.txtbuscar = txtbuscar;
     }
 
+    public JDialog getDlgcrudemp() {
+        return dlgcrudemp;
+    }
+
+    public void setDlgcrudemp(JDialog dlgcrudemp) {
+        this.dlgcrudemp = dlgcrudemp;
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        dlgcrudpersona = new javax.swing.JDialog();
+        dlgcrudemp = new javax.swing.JDialog();
         jPanel5 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -207,15 +215,15 @@ public class VistaEmpleados extends javax.swing.JInternalFrame {
                 .addContainerGap())
         );
 
-        javax.swing.GroupLayout dlgcrudpersonaLayout = new javax.swing.GroupLayout(dlgcrudpersona.getContentPane());
-        dlgcrudpersona.getContentPane().setLayout(dlgcrudpersonaLayout);
-        dlgcrudpersonaLayout.setHorizontalGroup(
-            dlgcrudpersonaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout dlgcrudempLayout = new javax.swing.GroupLayout(dlgcrudemp.getContentPane());
+        dlgcrudemp.getContentPane().setLayout(dlgcrudempLayout);
+        dlgcrudempLayout.setHorizontalGroup(
+            dlgcrudempLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
-        dlgcrudpersonaLayout.setVerticalGroup(
-            dlgcrudpersonaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(dlgcrudpersonaLayout.createSequentialGroup()
+        dlgcrudempLayout.setVerticalGroup(
+            dlgcrudempLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(dlgcrudempLayout.createSequentialGroup()
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
@@ -263,7 +271,15 @@ public class VistaEmpleados extends javax.swing.JInternalFrame {
             new String [] {
                 "ID", "Cédula", "Nombre", "Apellido", "Dirección", "Teléfono", "E-mail", "Género", "Fecha Nac.", "Puesto"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, true, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(tblempleados);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -364,7 +380,7 @@ public class VistaEmpleados extends javax.swing.JInternalFrame {
     private javax.swing.JButton btneliminar;
     private javax.swing.JButton btnprint;
     private javax.swing.JComboBox<String> cblabor;
-    private javax.swing.JDialog dlgcrudpersona;
+    private javax.swing.JDialog dlgcrudemp;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;

@@ -305,7 +305,15 @@ public class VistaCuenta extends javax.swing.JInternalFrame {
             new String [] {
                 "N°", "Empleado", "Nombre de usuario"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(tblcuenta);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);

@@ -344,7 +344,15 @@ public class VistaLabor extends javax.swing.JInternalFrame {
             new String [] {
                 "ID", "Nombre", "Horas laborales", "Sueldo"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(tbllabor);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
