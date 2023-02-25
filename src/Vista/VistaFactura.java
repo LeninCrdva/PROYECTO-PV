@@ -276,6 +276,7 @@ public class VistaFactura extends javax.swing.JInternalFrame {
         txtCosto = new javax.swing.JTextField();
         btnElegirServicio = new javax.swing.JButton();
         btnElegirReserva = new javax.swing.JButton();
+        btnModificarD = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
@@ -341,6 +342,13 @@ public class VistaFactura extends javax.swing.JInternalFrame {
         btnElegirServicio.setText("Elegir");
 
         btnElegirReserva.setText("Elegir");
+
+        btnModificarD.setText("Modificar");
+        btnModificarD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarDActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -410,7 +418,9 @@ public class VistaFactura extends javax.swing.JInternalFrame {
                             .addGroup(jPanel6Layout.createSequentialGroup()
                                 .addGap(47, 47, 47)
                                 .addComponent(btnAgregar)
-                                .addGap(143, 143, 143)
+                                .addGap(38, 38, 38)
+                                .addComponent(btnModificarD)
+                                .addGap(32, 32, 32)
                                 .addComponent(btnCancelarD))
                             .addGroup(jPanel6Layout.createSequentialGroup()
                                 .addComponent(jLabel7)
@@ -488,7 +498,8 @@ public class VistaFactura extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAgregar)
-                    .addComponent(btnCancelarD))
+                    .addComponent(btnCancelarD)
+                    .addComponent(btnModificarD))
                 .addContainerGap())
         );
 
@@ -657,6 +668,10 @@ public class VistaFactura extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnModificarDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarDActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnModificarDActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDialog DlgCrudFactura;
@@ -671,6 +686,7 @@ public class VistaFactura extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnElegirReserva;
     private javax.swing.JButton btnElegirServicio;
     private javax.swing.JButton btnEliminar;
+    private javax.swing.JButton btnModificarD;
     private javax.swing.JButton btnPrint;
     private com.toedter.calendar.JDateChooser dcFecha;
     private javax.swing.JLabel jLabel1;

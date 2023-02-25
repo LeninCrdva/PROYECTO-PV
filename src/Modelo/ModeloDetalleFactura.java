@@ -45,7 +45,7 @@ public class ModeloDetalleFactura extends DetalleFactura{
     public List<DetalleFactura> buscarDetalleF(String id){
         try{
             List<DetalleFactura> lista=new ArrayList<>();
-            String sql="SELECT id_det,idencabezado_det,idservicio_det,idreserva_enc,observaciones_det,costo_det FROM det_factura WHERE id_det LIKE "+id;
+            String sql="SELECT id_det,idencabezado_det,idservicio_det,idreserva_enc,observaciones_det,costo_det FROM det_factura WHERE idencabezado_det = "+Integer.parseInt(id);
             ConnectionPG con=new ConnectionPG();
             ResultSet result=con.Consulta(sql);
             while (result.next()) {
