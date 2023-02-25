@@ -22,6 +22,8 @@ public class ControladorPrincipal {
     public void iniciaControl(){
         vistaPrincipal.getBtnEmpleado().addActionListener(l -> crudEmpleado());
         vistaPrincipal.getBtnLabor().addActionListener(l -> crudLabor());
+        vistaPrincipal.getBtnHabitacion().addActionListener(l-> crudHabitacion());
+        vistaPrincipal.getBtnReserva().addActionListener(l -> crudReserva());
     }
     
     private void crudEmpleado(){
