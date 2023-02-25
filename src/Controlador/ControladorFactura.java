@@ -26,15 +26,18 @@ public class ControladorFactura {
     private ModeloDetalleFactura modelo2;
     private VistaFactura vista;
 
-    public ControladorFactura(ModeloEncabezadoFactura modelo, VistaFactura vista) {
+    public ControladorFactura(ModeloEncabezadoFactura modelo, ModeloDetalleFactura modelo2, VistaFactura vista) {
         this.modelo = modelo;
+        this.modelo2 = modelo2;
         this.vista = vista;
         vista.setVisible(true);
     }
+
+    
     public void iniciarControl(){
         cargaEnc();
         vista.getBtnCrear().addActionListener(l->ingresarFacturaDialog(0));
-        vista.getBtnCrear().addActionListener(l->ingresarFacturaDialog(1));
+        vista.getBtnEditar().addActionListener(l->ingresarFacturaDialog(1));
         vista.getBtnAceptar().addActionListener(l->ingresarModificarFactura());
         vista.getBtnAgregar().addActionListener(l->ingresarModificarDetalle(0));
         vista.getBtnModificarD().addActionListener(l->ingresarModificarDetalle(1));
