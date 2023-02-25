@@ -21,12 +21,12 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Andrea
  */
-public class ControladorEncFactura {
+public class ControladorFactura {
     private ModeloEncabezadoFactura modelo;
     private ModeloDetalleFactura modelo2;
     private VistaFactura vista;
 
-    public ControladorEncFactura(ModeloEncabezadoFactura modelo, VistaFactura vista) {
+    public ControladorFactura(ModeloEncabezadoFactura modelo, VistaFactura vista) {
         this.modelo = modelo;
         this.vista = vista;
         vista.setVisible(true);
@@ -36,7 +36,14 @@ public class ControladorEncFactura {
         vista.getBtnCrear().addActionListener(l->ingresarFacturaDialog(0));
         vista.getBtnCrear().addActionListener(l->ingresarFacturaDialog(1));
         vista.getBtnAceptar().addActionListener(l->ingresarModificarFactura());
-        
+        vista.getBtnAgregar().addActionListener(l->ingresarModificarDetalle(0));
+        vista.getBtnModificarD().addActionListener(l->ingresarModificarDetalle(1));
+        vista.getBtnEliminar().addActionListener(l->eliminarFactura());
+        vista.getTxtBuscar().addKeyListener(new java.awt.event.KeyAdapter(){
+            public void keyTyped(java.awt.event.KeyEvent evt){
+                buscarFactura();
+            }
+        });
     }
     private void cargaEnc(){
         List<EncabezadoFactura> lista=modelo.listaEncabezadoFactura();
@@ -99,7 +106,7 @@ public class ControladorEncFactura {
             vista.getDlgCrudFactura().setLocationRelativeTo(vista);
             vista.getDlgCrudFactura().setVisible(true);
         }catch (SQLException ex) {
-            Logger.getLogger(ControladorEncFactura.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ControladorFactura.class.getName()).log(Level.SEVERE, null, ex);
         }
         
     }
@@ -158,6 +165,94 @@ public class ControladorEncFactura {
             cargaEnc();
         }
         limpiar();
+    }
+    private void ingresarModificarDetalle(int c){
+        if (c==0) {
+            if (vista.getTxtCodigoD().getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "DEBE DE INGRESAR UN CODIGO");
+                return;
+            }
+            if (!vista.getTxtCodigoD().getText().matches("[0-9]{1,20}")) {
+                JOptionPane.showMessageDialog(null, "DEBE DE INGRESAR UN CODIGO BIEN");
+                return;
+            }
+            if (vista.getTxtServicio().getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "DEBE DE ELEGIR UN SERVICIO");
+                return;
+            }
+            
+            if (vista.getTxtReserva().getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "DEBE DE ELEGIR UNA RESERVA");
+                return;
+            }
+            if (vista.getTxtObservaciones().getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "DEBE DE INGRESAR UNA OBSERVACION");
+                return;
+            }
+            if (vista.getTxtObservaciones().getText().trim().matches("[a-zA-Z0-9.,/-]{1,100}")==false) {
+                JOptionPane.showMessageDialog(null, "DEBE DE INGRESAR UNA OBSERVACION BIEN");
+                return;
+            }
+            new ModeloDetalleFactura(Integer.parseInt(vista.getTxtCodigoD().getText()),Integer.parseInt(vista.getTxtCodigoE().getText()),Integer.parseInt(vista.getTxtServicio().getText()),Integer.parseInt(vista.getTxtServicio().getText()),vista.getTxtObservaciones().getText(),Double.parseDouble(vista.getTxtCosto().getText())).grabarDetalleF();
+            cargaDet(vista.getTxtCodigoE().getText());
+        }else{
+            if (vista.getTxtCodigoD().getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "DEBE DE INGRESAR UN CODIGO");
+                return;
+            }
+            if (!vista.getTxtCodigoD().getText().matches("[0-9]{1,20}")) {
+                JOptionPane.showMessageDialog(null, "DEBE DE INGRESAR UN CODIGO BIEN");
+                return;
+            }
+            if (vista.getTxtServicio().getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "DEBE DE ELEGIR UN SERVICIO");
+                return;
+            }
+            
+            if (vista.getTxtReserva().getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "DEBE DE ELEGIR UNA RESERVA");
+                return;
+            }
+            if (vista.getTxtObservaciones().getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "DEBE DE INGRESAR UNA OBSERVACION");
+                return;
+            }
+            if (vista.getTxtObservaciones().getText().trim().matches("[a-zA-Z0-9.,/-]{1,100}")==false) {
+                JOptionPane.showMessageDialog(null, "DEBE DE INGRESAR UNA OBSERVACION BIEN");
+                return;
+            }
+            new ModeloDetalleFactura(Integer.parseInt(vista.getTxtCodigoD().getText()),Integer.parseInt(vista.getTxtCodigoE().getText()),Integer.parseInt(vista.getTxtServicio().getText()),Integer.parseInt(vista.getTxtServicio().getText()),vista.getTxtObservaciones().getText(),Double.parseDouble(vista.getTxtCosto().getText())).modificarDetalleF();
+            cargaDet(vista.getTxtCodigoE().getText());
+        }
+        limpiar();
+    }
+    private void eliminarFactura() {
+        try{
+            if (vista.getTblFactura().getSelectedRow()<0) {
+                JOptionPane.showMessageDialog(null, "DEBE DE SELECCIONAR LA FACTURA A ELIMINAR");
+                return;
+            }
+            if (modelo.buscaEncabezadoF(vista.getTblFactura().getValueAt(vista.getTblFactura().getSelectedRow(), 0).toString())==false) {
+                    JOptionPane.showMessageDialog(null, "NO SE ENCONTRO DICHA FACTURA");
+                    return;
+            }
+            new ModeloEncabezadoFactura().eliminarEncabeazadoF(vista.getTblFactura().getValueAt(vista.getTblFactura().getSelectedRow(), 0).toString());
+            cargaEnc();
+        }catch (SQLException ex) {
+            Logger.getLogger(ControladorFactura.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    };
+    private void buscarFactura(){
+        List<EncabezadoFactura> lista=modelo.buscarEncabezadoF(vista.getTxtBuscar().getText());
+        DefaultTableModel mTabla=(DefaultTableModel) vista.getTblFactura().getModel();
+        mTabla.setNumRows(0);   
+        String[] columnas={"ID","CLIENTE","EMPLEADO","FECHA","TOTAL","ESTADO"};
+        mTabla.setColumnIdentifiers(columnas);
+        lista.stream().forEach(enc->{
+            Object[] registro={enc.getId_enc(),enc.getIdCliente_enc(),enc.getIdEmpleado_enc(),enc.getFecha_enc(),enc.getTotal_enc(),enc.isEstado_enc()};
+            mTabla.addRow(registro);
+        });
     }
     private void limpiar(){
         vista.getTxtCodigoE().setText(null);
