@@ -1,8 +1,11 @@
 package Controlador;
 
 import Modelo.ModeloDetReserva;
+import Modelo.ModeloEmpleado;
 import Modelo.ModeloEncReserva;
 import Modelo.ModeloHabitación;
+import Modelo.ModeloLabor;
+import Modelo.ModeloPersona;
 import Modelo.ModeloTipo_Habitacion;
 import Vista.VistaEmpleados;
 import Vista.VistaHabitacion;
@@ -28,12 +31,13 @@ public class ControladorPrincipal {
     
     private void crudEmpleado(){
         ModeloEmpleado modelo = new ModeloEmpleado();
+        ModeloPersona modelop = new ModeloPersona();
         VistaEmpleados vista = new VistaEmpleados();
         
         vistaPrincipal.getPanelPrincipal().add(vista);
         
-        ControlEmpleado control = new ControlEmpleado(modelo, vista);
-        control.iniciaControl();
+        ControladorEmpleado control = new ControladorEmpleado(modelop, modelo, vista);
+        control.IniciarControl();
     }
     
     private void crudLabor(){
@@ -42,8 +46,8 @@ public class ControladorPrincipal {
         
         vistaPrincipal.getPanelPrincipal().add(vista);
         
-        ControladorLabor control = new ControladorLabor(modelo, vista);
-        control.iniciaControl();
+        ControladorLabor control = new ControladorLabor(vista, modelo);
+        control.IniciarControl();
     }
     
     private void crudHabitacion(){
