@@ -11,6 +11,11 @@ public class Labor {
     public Labor() {
     }
 
+    public Labor(int id_lab, String nombre_lab) {
+        this.id_lab = id_lab;
+        this.nombre_lab = nombre_lab;
+    }
+
     public Labor(int id_lab, String nombre_lab, int horaslaborales_lab, double sueldo_lab) {
         this.id_lab = id_lab;
         this.nombre_lab = nombre_lab;
@@ -52,6 +57,6 @@ public class Labor {
 
     @Override
     public String toString() {
-        return "Labor{" + "id_lab=" + id_lab + ", nombre_lab=" + nombre_lab + ", horaslaborales_lab=" + horaslaborales_lab + ", sueldo_lab=" + sueldo_lab + '}';
+        return id_lab + nombre_lab;
     }
 }
