@@ -5,6 +5,18 @@
 
 package Vista;
 
+import Modelo.Tipo_Habitacion;
+import javax.swing.ButtonGroup;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
+import javax.swing.JDialog;
+import javax.swing.JFormattedTextField;
+import javax.swing.JLabel;
+import javax.swing.JRadioButton;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+
 /**
  *
  * @author Lenin
@@ -14,6 +26,238 @@ public class VistaHabitacion extends javax.swing.JInternalFrame {
     /** Creates new form VistaHabitacion */
     public VistaHabitacion() {
         initComponents();
+    }
+
+    public JButton getBtnAceptarHab() {
+        return btnAceptarHab;
+    }
+
+    public void setBtnAceptarHab(JButton btnAceptarHab) {
+        this.btnAceptarHab = btnAceptarHab;
+    }
+
+    public JButton getBtnAceptarTipo() {
+        return btnAceptarTipo;
+    }
+
+    public void setBtnAceptarTipo(JButton btnAceptarTipo) {
+        this.btnAceptarTipo = btnAceptarTipo;
+    }
+
+    public JButton getBtnCancelarHab() {
+        return btnCancelarHab;
+    }
+
+    public void setBtnCancelarHab(JButton btnCancelarHab) {
+        this.btnCancelarHab = btnCancelarHab;
+    }
+
+    public JButton getBtnCancelarTipo() {
+        return btnCancelarTipo;
+    }
+
+    public void setBtnCancelarTipo(JButton btnCancelarTipo) {
+        this.btnCancelarTipo = btnCancelarTipo;
+    }
+
+    public JButton getBtnCrear() {
+        return btnCrear;
+    }
+
+    public void setBtnCrear(JButton btnCrear) {
+        this.btnCrear = btnCrear;
+    }
+
+    public JButton getBtnEditar() {
+        return btnEditar;
+    }
+
+    public void setBtnEditar(JButton btnEditar) {
+        this.btnEditar = btnEditar;
+    }
+
+    public JButton getBtnEliminar() {
+        return btnEliminar;
+    }
+
+    public void setBtnEliminar(JButton btnEliminar) {
+        this.btnEliminar = btnEliminar;
+    }
+
+    public JButton getBtnInfo() {
+        return btnInfo;
+    }
+
+    public void setBtnInfo(JButton btnInfo) {
+        this.btnInfo = btnInfo;
+    }
+
+    public JButton getBtnPrint() {
+        return btnPrint;
+    }
+
+    public void setBtnPrint(JButton btnPrint) {
+        this.btnPrint = btnPrint;
+    }
+
+    public JButton getBtnReserva() {
+        return btnReserva;
+    }
+
+    public void setBtnReserva(JButton btnReserva) {
+        this.btnReserva = btnReserva;
+    }
+
+    public JCheckBox getCheckDisponible() {
+        return checkDisponible;
+    }
+
+    public void setCheckDisponible(JCheckBox checkDisponible) {
+        this.checkDisponible = checkDisponible;
+    }
+
+    public JComboBox<String> getComboTipo() {
+        return comboTipo;
+    }
+
+    public void setComboTipo(JComboBox<String> comboTipo) {
+        this.comboTipo = comboTipo;
+    }
+
+    public JDialog getDialogHabi() {
+        return dialogHabi;
+    }
+
+    public void setDialogHabi(JDialog dialogHabi) {
+        this.dialogHabi = dialogHabi;
+    }
+
+    public JDialog getDialogTipo() {
+        return dialogTipo;
+    }
+
+    public void setDialogTipo(JDialog dialogTipo) {
+        this.dialogTipo = dialogTipo;
+    }
+
+    public JLabel getLabelIDHabi() {
+        return labelIDHabi;
+    }
+
+    public void setLabelIDHabi(JLabel labelIDHabi) {
+        this.labelIDHabi = labelIDHabi;
+    }
+
+    public JLabel getLabelIDTipo() {
+        return labelIDTipo;
+    }
+
+    public void setLabelIDTipo(JLabel labelIDTipo) {
+        this.labelIDTipo = labelIDTipo;
+    }
+
+    public JRadioButton getRdHab() {
+        return rdHab;
+    }
+
+    public void setRdHab(JRadioButton rdHab) {
+        this.rdHab = rdHab;
+    }
+
+    public JRadioButton getRdTipHab() {
+        return rdTipHab;
+    }
+
+    public void setRdTipHab(JRadioButton rdTipHab) {
+        this.rdTipHab = rdTipHab;
+    }
+
+    public JTable getTableHabitacion() {
+        return tableHabitacion;
+    }
+
+    public void setTableHabitacion(JTable tableHabitacion) {
+        this.tableHabitacion = tableHabitacion;
+    }
+
+    public JTable getTableTipoHabitacion() {
+        return tableTipoHabitacion;
+    }
+
+    public void setTableTipoHabitacion(JTable tableTipoHabitacion) {
+        this.tableTipoHabitacion = tableTipoHabitacion;
+    }
+
+    public JTextField getTxtBuscarHab() {
+        return txtBuscarHab;
+    }
+
+    public void setTxtBuscarHab(JTextField txtBuscarHab) {
+        this.txtBuscarHab = txtBuscarHab;
+    }
+
+    public JTextField getTxtBuscarTip() {
+        return txtBuscarTip;
+    }
+
+    public void setTxtBuscarTip(JTextField txtBuscarTip) {
+        this.txtBuscarTip = txtBuscarTip;
+    }
+
+    public JFormattedTextField getTxtCapacidad() {
+        return txtCapacidad;
+    }
+
+    public void setTxtCapacidad(JFormattedTextField txtCapacidad) {
+        this.txtCapacidad = txtCapacidad;
+    }
+
+    public JTextField getTxtNombreTipo() {
+        return txtNombreTipo;
+    }
+
+    public void setTxtNombreTipo(JTextField txtNombreTipo) {
+        this.txtNombreTipo = txtNombreTipo;
+    }
+
+    public JFormattedTextField getTxtNumCama() {
+        return txtNumCama;
+    }
+
+    public void setTxtNumCama(JFormattedTextField txtNumCama) {
+        this.txtNumCama = txtNumCama;
+    }
+
+    public JTextField getTxtNumHab() {
+        return txtNumHab;
+    }
+
+    public void setTxtNumHab(JTextField txtNumHab) {
+        this.txtNumHab = txtNumHab;
+    }
+
+    public JFormattedTextField getTxtPrecio() {
+        return txtPrecio;
+    }
+
+    public void setTxtPrecio(JFormattedTextField txtPrecio) {
+        this.txtPrecio = txtPrecio;
+    }
+
+    public JComboBox<Tipo_Habitacion> getCombTipSelc() {
+        return combTipSelc;
+    }
+
+    public void setCombTipSelc(JComboBox<Tipo_Habitacion> combTipSelc) {
+        this.combTipSelc = combTipSelc;
+    }
+
+    public ButtonGroup getGroupHab() {
+        return groupHab;
+    }
+
+    public void setGroupHab(ButtonGroup groupHab) {
+        this.groupHab = groupHab;
     }
 
     /** This method is called from within the constructor to
@@ -32,12 +276,13 @@ public class VistaHabitacion extends javax.swing.JInternalFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         labelIDHabi = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        combTipSelc = new javax.swing.JComboBox<>();
         txtNumHab = new javax.swing.JTextField();
         checkDisponible = new javax.swing.JCheckBox();
         btnAceptarHab = new javax.swing.JButton();
         btnCancelarHab = new javax.swing.JButton();
         dialogTipo = new javax.swing.JDialog();
+        jPanel4 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
@@ -68,7 +313,6 @@ public class VistaHabitacion extends javax.swing.JInternalFrame {
         btnPrint = new javax.swing.JButton();
         txtBuscarHab = new javax.swing.JTextField();
         txtBuscarTip = new javax.swing.JTextField();
-        comboHabi = new javax.swing.JComboBox<>();
         comboTipo = new javax.swing.JComboBox<>();
         jLabel4 = new javax.swing.JLabel();
         btnReserva = new javax.swing.JButton();
@@ -99,7 +343,7 @@ public class VistaHabitacion extends javax.swing.JInternalFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(labelIDHabi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jComboBox1, 0, 100, Short.MAX_VALUE)
+                        .addComponent(combTipSelc, 0, 100, Short.MAX_VALUE)
                         .addComponent(txtNumHab))
                     .addComponent(checkDisponible))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -120,7 +364,7 @@ public class VistaHabitacion extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(combTipSelc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
@@ -161,66 +405,83 @@ public class VistaHabitacion extends javax.swing.JInternalFrame {
 
         txtPrecio.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.##"))));
 
-        btnAceptarTipo.setText("jButton1");
+        btnAceptarTipo.setText("Aceptar");
 
-        btnCancelarTipo.setText("jButton2");
+        btnCancelarTipo.setText("Cancelar");
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel4Layout.createSequentialGroup()
+                    .addGap(28, 28, 28)
+                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel4Layout.createSequentialGroup()
+                            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jLabel12)
+                                .addComponent(jLabel11)
+                                .addComponent(jLabel10)
+                                .addComponent(jLabel9)
+                                .addComponent(jLabel8))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(txtNumCama, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
+                                .addComponent(txtCapacidad, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
+                                .addComponent(txtPrecio)
+                                .addComponent(txtNombreTipo)
+                                .addComponent(labelIDTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel4Layout.createSequentialGroup()
+                            .addComponent(btnAceptarTipo)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 92, Short.MAX_VALUE)
+                            .addComponent(btnCancelarTipo)))
+                    .addGap(29, 29, 29)))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 276, Short.MAX_VALUE)
+            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel4Layout.createSequentialGroup()
+                    .addGap(21, 21, 21)
+                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel8)
+                        .addComponent(labelIDTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGap(18, 18, 18)
+                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel9)
+                        .addComponent(txtNombreTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGap(18, 18, 18)
+                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel10)
+                        .addComponent(txtNumCama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGap(18, 18, 18)
+                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel11)
+                        .addComponent(txtCapacidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGap(18, 18, 18)
+                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel12)
+                        .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGap(34, 34, 34)
+                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnAceptarTipo)
+                        .addComponent(btnCancelarTipo))
+                    .addContainerGap(32, Short.MAX_VALUE)))
+        );
 
         javax.swing.GroupLayout dialogTipoLayout = new javax.swing.GroupLayout(dialogTipo.getContentPane());
         dialogTipo.getContentPane().setLayout(dialogTipoLayout);
         dialogTipoLayout.setHorizontalGroup(
             dialogTipoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(dialogTipoLayout.createSequentialGroup()
-                .addGap(36, 36, 36)
-                .addGroup(dialogTipoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(dialogTipoLayout.createSequentialGroup()
-                        .addGroup(dialogTipoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel12)
-                            .addComponent(jLabel11)
-                            .addComponent(jLabel10)
-                            .addComponent(jLabel9)
-                            .addComponent(jLabel8))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(dialogTipoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtNumCama, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
-                            .addComponent(txtCapacidad, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
-                            .addComponent(txtPrecio)
-                            .addComponent(txtNombreTipo)
-                            .addComponent(labelIDTipo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(dialogTipoLayout.createSequentialGroup()
-                        .addComponent(btnAceptarTipo)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 92, Short.MAX_VALUE)
-                        .addComponent(btnCancelarTipo)
-                        .addGap(21, 21, 21))))
+            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         dialogTipoLayout.setVerticalGroup(
             dialogTipoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(dialogTipoLayout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addGroup(dialogTipoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(labelIDTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(dialogTipoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel9)
-                    .addComponent(txtNombreTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(dialogTipoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel10)
-                    .addComponent(txtNumCama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(dialogTipoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel11)
-                    .addComponent(txtCapacidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(dialogTipoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel12)
-                    .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(34, 34, 34)
-                .addGroup(dialogTipoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAceptarTipo)
-                    .addComponent(btnCancelarTipo))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         setClosable(true);
@@ -234,13 +495,10 @@ public class VistaHabitacion extends javax.swing.JInternalFrame {
         };
         tableHabitacion.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+
             },
             new String [] {
-                "Numero Habitación", "Tipo habitación", "Disponibilidad"
+                "Id Habitación", "Numero Habitación", "Tipo habitación", "Disponibilidad"
             }
         ));
         tableHabitacion.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
@@ -254,13 +512,13 @@ public class VistaHabitacion extends javax.swing.JInternalFrame {
         };
         tableTipoHabitacion.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Tipo habitación", "Nº camas", "Capacidad", "Precio"
+                "Id", "Tipo habitación", "Nº camas", "Capacidad", "Precio"
             }
         ));
         tableTipoHabitacion.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
@@ -294,7 +552,7 @@ public class VistaHabitacion extends javax.swing.JInternalFrame {
 
         btnPrint.setText("Imprimir");
 
-        comboHabi.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Número", "Disponible" }));
+        txtBuscarHab.setToolTipText("Se buscará por número de habitación");
 
         comboTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nombre", "Nº camas", "Capacidad", "Precio" }));
 
@@ -317,11 +575,9 @@ public class VistaHabitacion extends javax.swing.JInternalFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtBuscarHab, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(comboHabi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(txtBuscarHab, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -372,7 +628,7 @@ public class VistaHabitacion extends javax.swing.JInternalFrame {
                             .addComponent(btnPrint))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap(35, Short.MAX_VALUE)
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(rdHab)
@@ -388,7 +644,6 @@ public class VistaHabitacion extends javax.swing.JInternalFrame {
                     .addComponent(jLabel2)
                     .addComponent(txtBuscarHab, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtBuscarTip, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(comboHabi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(comboTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -426,12 +681,11 @@ public class VistaHabitacion extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnPrint;
     private javax.swing.JButton btnReserva;
     private javax.swing.JCheckBox checkDisponible;
-    private javax.swing.JComboBox<String> comboHabi;
+    private javax.swing.JComboBox<Tipo_Habitacion> combTipSelc;
     private javax.swing.JComboBox<String> comboTipo;
     private javax.swing.JDialog dialogHabi;
     private javax.swing.JDialog dialogTipo;
     private javax.swing.ButtonGroup groupHab;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -446,6 +700,7 @@ public class VistaHabitacion extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;

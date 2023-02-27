@@ -56,6 +56,9 @@ public class ControladorPrincipal {
         VistaHabitacion vista = new VistaHabitacion();
         
         vistaPrincipal.getPanelPrincipal().add(vista);
+        
+        ControladorHabitacion control = new ControladorHabitacion(modelohab, modelotip, vista);
+        control.iniciarControl();
     }
     
     private void crudReserva(){
@@ -64,5 +67,8 @@ public class ControladorPrincipal {
         VistaReserva vista = new VistaReserva();
         
         vistaPrincipal.getPanelPrincipal().add(vista);
+        
+        ControladorReserva control = new ControladorReserva(modeloenc, modelodet, vista);
+        control.iniciarControl();
     }
 }

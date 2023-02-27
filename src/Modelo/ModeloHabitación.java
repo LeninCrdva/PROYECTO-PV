@@ -18,7 +18,8 @@ public class ModeloHabitación extends Habitacion{
     
     public List<Habitacion> ListHabitacion() {
         List<Habitacion> lista = new ArrayList<>();
-        String sql = "SELECT * FROM \"Habitacion\"";
+        String sql = "SELECT * FROM Habitacion";
+        
         ConnectionPG conpq = new ConnectionPG();
         ResultSet rs = conpq.Consulta(sql);
         try {
@@ -40,7 +41,7 @@ public class ModeloHabitación extends Habitacion{
     
     public List<Habitacion> SearchListHabitacion() {
         List<Habitacion> lista = new ArrayList<>();
-        String sql = "SELECT * FROM \"Habitacion\" WHERE numero_hab = " + getNumero_hab();
+        String sql = "SELECT * FROM Habitacion WHERE numero_hab = " + getNumero_hab();
         
         ConnectionPG conpq = new ConnectionPG();
         ResultSet rs = conpq.Consulta(sql);
@@ -57,12 +58,17 @@ public class ModeloHabitación extends Habitacion{
             return lista;
         } catch (SQLException ex) {
             Logger.getLogger(ModeloPersona.class.getName()).log(Level.SEVERE, null, ex);
+            try {
+                rs.close();
+            } catch (SQLException ex1) {
+                Logger.getLogger(ModeloHabitación.class.getName()).log(Level.SEVERE, null, ex1);
+            }
             return null;
         }
     }
 
     public SQLException CrearHabitacionDB() {
-        String sql = "INSERT INTO \"Habitacion\" (id_hab, idTipo_hab, numero_hab, estado_hab) VALUES ("+getId_hab() + ", " +
+        String sql = "INSERT INTO Habitacion (idTipo_hab, numero_hab, estado_hab) VALUES (" +
                 getIdTipo_hab() + ", "+ getNumero_hab() + ", " + isEstado_hab() +")"; //REVISAR EL INSERT 
 
         ConnectionPG con = new ConnectionPG();
@@ -71,8 +77,8 @@ public class ModeloHabitación extends Habitacion{
     }
 
     public SQLException EditHabitacionDB() {
-        String sql = "UPDATE \"Habitacion\" SET idTipo_hab = " + getIdTipo_hab() +", "
-                + " numero_hab = " + getNumero_hab()+ ", estado = " + isEstado_hab() +" "
+        String sql = "UPDATE Habitacion SET idTipo_hab = " + getIdTipo_hab() +", "
+                + " numero_hab = " + getNumero_hab()+ ", estado_hab = " + isEstado_hab() +" "
                 + "WHERE id_hab = " + getId_hab() + "";
         
         ConnectionPG con = new ConnectionPG();
@@ -81,7 +87,7 @@ public class ModeloHabitación extends Habitacion{
     }
     
     public SQLException DeletePhisicHabitacion(){
-        String sql = "DELETE FROM \"Habitacion\" WHERE id_hab = '" + getId_hab()+ "'";
+        String sql = "DELETE FROM Habitacion WHERE id_hab = '" + getId_hab()+ "'";
         
         ConnectionPG con = new ConnectionPG();
         SQLException ex = con.Accion(sql);

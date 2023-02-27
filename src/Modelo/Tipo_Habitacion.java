@@ -10,6 +10,11 @@ public class Tipo_Habitacion {
     public Tipo_Habitacion() {
     }
 
+    public Tipo_Habitacion(int id_tha, String nombre_tha) {
+        this.id_tha = id_tha;
+        this.nombre_tha = nombre_tha;
+    }
+    
     public Tipo_Habitacion(int id_tha, String nombre_tha, int numeroCamas_tha, int capacidad_tha, double precio_tha) {
         this.id_tha = id_tha;
         this.nombre_tha = nombre_tha;
@@ -56,5 +61,10 @@ public class Tipo_Habitacion {
 
     public void setPrecio_tha(double precio_tha) {
         this.precio_tha = precio_tha;
+    }
+
+    @Override
+    public String toString() {
+        return nombre_tha;
     }
 }

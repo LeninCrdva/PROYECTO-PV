@@ -18,7 +18,7 @@ public class ModeloTipo_Habitacion extends Tipo_Habitacion{
     
     public List<Tipo_Habitacion> ListTipoHab(){
         List<Tipo_Habitacion> lista = new ArrayList<>();
-        String sql = "SELECT * FROM \"Tipo_Habitacion\"";
+        String sql = "SELECT * FROM Tipo_Habitacion";
         ConnectionPG conpg = new ConnectionPG();
         ResultSet rs = conpg.Consulta(sql);
         try {
@@ -41,7 +41,7 @@ public class ModeloTipo_Habitacion extends Tipo_Habitacion{
     
     public List<Tipo_Habitacion> ListTipHabSearch(String columna, String dato){
         List<Tipo_Habitacion> lista = new ArrayList<>();
-        String sql = "SELECT * FROM \"Tipo_Habitacion\" WHERE " + columna + " = " + dato;
+        String sql = "SELECT * FROM Tipo_Habitacion WHERE " + columna + " = " + dato;
         ConnectionPG conpg = new ConnectionPG();
         ResultSet rs = conpg.Consulta(sql);
         try {
@@ -63,8 +63,8 @@ public class ModeloTipo_Habitacion extends Tipo_Habitacion{
     }
     
     public SQLException CrearTipoHabitacionBD(){
-        String sql = "INSERT INTO \"Tipo_Habitacion\" (id_tha, nombre_tha, numerocamas_tha, capacidad_tha, precio_tha)"
-                + " VALUES (" + getId_tha() + ", " + getNombre_tha() + ", " + getNumeroCamas_tha() + ","
+        String sql = "INSERT INTO Tipo_Habitacion (nombre_tha, numerocamas_tha, capacidad_tha, precio_tha)"
+                + " VALUES ('" + getNombre_tha() + "', " + getNumeroCamas_tha() + ","
                 + " " + getCapacidad_tha() + ", " + getPrecio_tha() +")";
         
         ConnectionPG conpg = new ConnectionPG();
@@ -73,7 +73,7 @@ public class ModeloTipo_Habitacion extends Tipo_Habitacion{
     }
     
     public SQLException EditTipHab(){
-        String sql = "UPDATE \"Tipo_Habitacion\" SET nombre_tha = " + getNombre_tha() + ", numeroCamas_tha = " + getNumeroCamas_tha()
+        String sql = "UPDATE Tipo_Habitacion SET nombre_tha = " + getNombre_tha() + ", numeroCamas_tha = " + getNumeroCamas_tha()
                 + ", capacidad_tha = " + getCapacidad_tha() + ", " + getPrecio_tha();
         
         ConnectionPG conpg = new ConnectionPG();
@@ -82,10 +82,27 @@ public class ModeloTipo_Habitacion extends Tipo_Habitacion{
     }
     
     public SQLException DeleteTipHab(){
-        String sql = "DELETE \"Tipo_Habitacion\" WHERE id_tha = " + getId_tha();
+        String sql = "DELETE Tipo_Habitacion WHERE id_tha = " + getId_tha();
         
         ConnectionPG conpg = new ConnectionPG();
         SQLException ex = conpg.Accion(sql);
         return ex;
+    }
+    
+    public int getId(){
+        int valor = 0;
+        String sql = "SELECT id_tha FROM Tipo_Habitacion WHERE nombre_tha = '" + getNombre_tha() + "'";
+        ConnectionPG conpg = new ConnectionPG();
+        ResultSet rs = conpg.Consulta(sql);
+        try {
+            while(rs.next()){
+                valor = rs.getInt(1);
+            }
+            rs.close();
+            return valor;
+        } catch (SQLException ex) {
+            Logger.getLogger(ModeloTipo_Habitacion.class.getName()).log(Level.SEVERE, null, ex);
+            return 0;
+        }
     }
 }
