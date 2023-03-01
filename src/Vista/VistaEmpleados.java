@@ -78,14 +78,6 @@ public class VistaEmpleados extends javax.swing.JInternalFrame {
         this.btnprint = btnprint;
     }
 
-    public JComboBox<String> getCblabor() {
-        return cblabor;
-    }
-
-    public void setCblabor(JComboBox<String> cblabor) {
-        this.cblabor = cblabor;
-    }
-
     public JTable getTblempleados() {
         return tblempleados;
     }
@@ -110,11 +102,11 @@ public class VistaEmpleados extends javax.swing.JInternalFrame {
         this.btngpgenero = btngpgenero;
     }
 
-    public JComboBox<String> getCbtipodoc() {
+    public JComboBox<Object> getCbtipodoc() {
         return cbtipodoc;
     }
 
-    public void setCbtipodoc(JComboBox<String> cbtipodoc) {
+    public void setCbtipodoc(JComboBox<Object> cbtipodoc) {
         this.cbtipodoc = cbtipodoc;
     }
 
@@ -214,6 +206,13 @@ public class VistaEmpleados extends javax.swing.JInternalFrame {
         this.txtdocnum = txtdocnum;
     }
 
+    public JComboBox<Object> getCblabor() {
+        return cblabor;
+    }
+
+    public void setCblabor(JComboBox<Object> cblabor) {
+        this.cblabor = cblabor;
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -295,8 +294,6 @@ public class VistaEmpleados extends javax.swing.JInternalFrame {
         btncancelar.setText("Cancelar");
 
         cbtipodoc.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        cblabor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jLabel14.setText("Labor:");
 
@@ -595,8 +592,8 @@ public class VistaEmpleados extends javax.swing.JInternalFrame {
     private javax.swing.JButton btneliminar;
     private javax.swing.ButtonGroup btngpgenero;
     private javax.swing.JButton btnprint;
-    private javax.swing.JComboBox<String> cblabor;
-    private javax.swing.JComboBox<String> cbtipodoc;
+    private javax.swing.JComboBox<Object> cblabor;
+    private javax.swing.JComboBox<Object> cbtipodoc;
     private javax.swing.JCheckBox chkdoctipo;
     private javax.swing.JDialog dlgcrudempleado;
     private com.toedter.calendar.JDateChooser dtefechanac;

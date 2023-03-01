@@ -6,6 +6,7 @@ import Modelo.Labor;
 import java.awt.event.KeyAdapter;
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 public class ControladorLabor {
@@ -35,18 +36,18 @@ public class ControladorLabor {
             }
         });
     }
-
+    
     private void CargaLabor() {
         List<Labor> listaLab = ml.ListaLaborBD();
-        DefaultTableModel df = (DefaultTableModel) vl.getTbllabor().getModel();
+        DefaultTableModel df;
+        df = (DefaultTableModel) vl.getTbllabor().getModel();
         df.setNumRows(0);
         listaLab.stream().forEach(lab -> {
-
             String[] fila = {
                 String.valueOf(lab.getId_lab()),
                 lab.getNombre_lab(),
-                Integer.toString(lab.getHoraslaborales_lab()),
-                Double.toString(lab.getSueldo_lab())
+                String.valueOf(lab.getHoraslaborales_lab()),
+                String.valueOf(lab.getSueldo_lab())
             };
             df.addRow(fila);
         });
@@ -69,9 +70,27 @@ public class ControladorLabor {
         });
     }
 
+    private boolean MousePress(JTable tb) {
+        boolean press = false;
+        try {
+            if (tb.getSelectedRowCount() == 1) {
+                press = true;
+                vl.getLblidlab().setText(vl.getTbllabor().getValueAt(vl.getTbllabor().getSelectedRow(), 0).toString());
+                vl.getTxtnombrelab().setText(vl.getTbllabor().getValueAt(vl.getTbllabor().getSelectedRow(), 1).toString());
+                vl.getSldhoras().setValue(Integer.parseInt(vl.getTbllabor().getValueAt(vl.getTbllabor().getSelectedRow(), 2).toString()));
+                vl.getTxtsueldo().setText(vl.getTbllabor().getValueAt(vl.getTbllabor().getSelectedRow(), 3).toString());
+            } else {
+                JOptionPane.showMessageDialog(vl, "Seleccione una fila primero");
+            }
+        } catch (NullPointerException e) {
+           System.err.print(e);
+        }
+        return press;
+    }
+    
     private void AbreDialogo(int ce) {
         String title = null;
-        boolean RowSelected = false;
+        boolean RowSelected = true;
         switch (ce) {
             case 1:
                 title = "Añadir una nueva labor";
@@ -80,21 +99,19 @@ public class ControladorLabor {
             case 2:
                 title = "Editar labor";
                 vl.getDlgcrudlabor().setName("editar");
-                RowSelected = true;
+                RowSelected = MousePress(vl.getTbllabor());
                 break;
             case 3:
                 title = "Eliminar labor";
                 vl.getDlgcrudlabor().setName("eliminar");
-                RowSelected = true;
+                RowSelected = MousePress(vl.getTbllabor());
                 break;
         }
         if (RowSelected) {
             vl.getDlgcrudlabor().setTitle(title);
-            vl.getDlgcrudlabor().setSize(300, 500);
+            vl.getDlgcrudlabor().setSize(580, 280);
             vl.getDlgcrudlabor().setLocationRelativeTo(vl);
-            vl.setVisible(true);
-        } else {
-            JOptionPane.showMessageDialog(vl, "Seleccione una fila de la tabla");
+            vl.getDlgcrudlabor().setVisible(true);
         }
     }
 
@@ -106,7 +123,7 @@ public class ControladorLabor {
                     int id_lab = Integer.parseInt(vl.getLblidlab().getText());
                     String nombre = vl.getTxtnombrelab().getText().trim();
                     int horas_laborales = vl.getSldhoras().getValue();
-                    double sueldo = vl.getSldsueldo().getValue();
+                    double sueldo = Double.parseDouble(vl.getTxtsueldo().getText());
                     ModeloLabor labor = new ModeloLabor();
                     labor.setId_lab(id_lab);
                     labor.setNombre_lab(nombre);
@@ -127,7 +144,7 @@ public class ControladorLabor {
                     int id_lab = Integer.parseInt(vl.getLblidlab().getText());
                     String nombre = vl.getTxtnombrelab().getText().trim();
                     int horas_laborales = vl.getSldhoras().getValue();
-                    double sueldo = vl.getSldsueldo().getValue();
+                    double sueldo = Double.parseDouble(vl.getTxtsueldo().getText());
                     ModeloLabor labor = new ModeloLabor();
                     labor.setId_lab(id_lab);
                     labor.setNombre_lab(nombre);
