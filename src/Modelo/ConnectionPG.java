@@ -9,6 +9,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class ConnectionPG {
+
     Connection con;
     String CadenaCon = "jdbc:postgresql://localhost:5432/OrquideaHotel";
     String UsuarioPG = "postgres";
@@ -26,18 +27,25 @@ public class ConnectionPG {
             Logger.getLogger(ConnectionPG.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     public ResultSet Consulta(String sql) {
         try {
             Statement st = con.createStatement();
             return st.executeQuery(sql);
-            
         } catch (SQLException ex) {
             Logger.getLogger(ConnectionPG.class.getName()).log(Level.SEVERE, null, ex);
             return null;
+        } finally {
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(ConnectionPG.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
         }
     }
-    
+
     public SQLException Accion(String sql) {
         try {
             try (Statement st = con.createStatement()) {
@@ -47,8 +55,17 @@ public class ConnectionPG {
         } catch (SQLException ex) {
             Logger.getLogger(ConnectionPG.class.getName()).log(Level.SEVERE, null, ex);
             return ex;
+        } finally {
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(ConnectionPG.class.getName()).log(Level.SEVERE, null, ex);
+                    return ex;
+                }
+            }
         }
-    } 
+    }
 
     public Connection getCon() {
         return con;

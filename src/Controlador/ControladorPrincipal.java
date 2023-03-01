@@ -1,18 +1,7 @@
 package Controlador;
 
-import Modelo.ModeloDetReserva;
-import Modelo.ModeloEmpleado;
-import Modelo.ModeloEncReserva;
-import Modelo.ModeloHabitación;
-import Modelo.ModeloLabor;
-import Modelo.ModeloPersona;
-import Modelo.ModeloTipo_Habitacion;
-import Modelo.ModeloTipoDocumento;
-import Vista.VistaEmpleados;
-import Vista.VistaHabitacion;
-import Vista.VistaLabor;
-import Vista.VistaPrincipal;
-import Vista.VistaReserva;
+import Modelo.*;
+import Vista.*;
 
 public class ControladorPrincipal {
     VistaPrincipal vistaPrincipal;
@@ -59,6 +48,9 @@ public class ControladorPrincipal {
         VistaHabitacion vista = new VistaHabitacion();
         
         vistaPrincipal.getPanelPrincipal().add(vista);
+        
+        ControladorHabitacion control = new ControladorHabitacion(modelohab, modelotip, vista);
+        control.iniciarControl();
     }
     
     private void crudReserva(){
@@ -67,5 +59,8 @@ public class ControladorPrincipal {
         VistaReserva vista = new VistaReserva();
         
         vistaPrincipal.getPanelPrincipal().add(vista);
+        
+        ControladorReserva control = new ControladorReserva(modeloenc, modelodet, vista);
+        control.iniciarControl();
     }
 }

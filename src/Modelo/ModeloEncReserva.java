@@ -19,7 +19,7 @@ public class ModeloEncReserva extends Enc_reserva{
     
     public List<Enc_reserva> ListEnc(){
         List<Enc_reserva> lista = new ArrayList<>();
-        String sql = "SELECT * FROM \"Enc_reserva\"";
+        String sql = "SELECT * FROM enc_reserva";
         ConnectionPG conpg = new ConnectionPG();
         ResultSet rs = conpg.Consulta(sql);
         try {
@@ -63,22 +63,26 @@ public class ModeloEncReserva extends Enc_reserva{
         }
     }
     
-    public SQLException CrearReserva(Det_reserva detalle){
+    public int CrearReserva(){
+        int id = 0;
         String sql = "WITH new_cliente AS("
-                + " INSERT INTO Enc_reserva(id_res, idCliente_res, fechaIngreso_res, fechaSalida_res, total_res, estado_res)"
-                + " VALUES ("+ getId_res() +", "+ getIdCliente_res() + ", '" + getFechaIngreso_res() + "', '" + getFechaSalida_res() +"', "
+                + " INSERT INTO Enc_reserva(idCliente_res, fechaIngreso_res, fechaSalida_res, total_res, estado_res)"
+                + " VALUES (" + getIdCliente_res() + ", '" + getFechaIngreso_res() + "', '" + getFechaSalida_res() +"', "
                 + getTotal_res() +", " + false + ")"
-                + "RETURNING id_res)"
-                + "INSERT INTO Det_reserva (id_rha, idReserva_rha, idHabitacion_rha, idCliente_rha)"
-                + " VALUES (" + detalle.getId_rha() + ", " + detalle.getIdReserva_rha() + ", "+ detalle.getIdHabitacion_rha() + ", " + detalle.getIdCliente_rha() +")";
+                + "RETURNING id_res)";
         ConnectionPG conpg = new ConnectionPG();
-        SQLException ex = conpg.Accion(sql);
-        return ex;
+        ResultSet ex = conpg.Consulta(sql);
+        try {
+            id = ex.getInt(1);
+        } catch (SQLException ex1) {
+            Logger.getLogger(ModeloEncReserva.class.getName()).log(Level.SEVERE, null, ex1);
+        }
+        return id;
     }
     
     public SQLException EditarReserva(){
         String sql = "UPDATE Enc_reserva SET idCliente_res = " + getIdCliente_res() + ", fechaIngreso_res = '" + getFechaIngreso_res() +"', "
-                + "fechaSalida_res = '" + getFechaSalida_res() + "', total_res = " + getTotal_res() + ", estado_res = " + isEstado_res();
+                + "fechaSalida_res = '" + getFechaSalida_res() + "', total_res = " + getTotal_res() + "WHERE id_res = " + getId_res();
         ConnectionPG conpg = new ConnectionPG();
         SQLException ex = conpg.Accion(sql);
         return ex;
