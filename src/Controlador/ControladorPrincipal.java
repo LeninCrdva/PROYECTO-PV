@@ -17,6 +17,7 @@ public class ControladorPrincipal {
         vistaPrincipal.getBtnLabor().addActionListener(l -> crudLabor());
         vistaPrincipal.getBtnHabitacion().addActionListener(l-> crudHabitacion());
         vistaPrincipal.getBtnReserva().addActionListener(l -> crudReserva());
+        vistaPrincipal.getBtnFactura().addActionListener(l -> CrudFactura());
     }
     
     private void crudEmpleado(){
@@ -61,6 +62,16 @@ public class ControladorPrincipal {
         vistaPrincipal.getPanelPrincipal().add(vista);
         
         ControladorReserva control = new ControladorReserva(modeloenc, modelodet, vista);
+        control.iniciarControl();
+    }
+    
+    private void CrudFactura(){
+        VistaFactura vistaF=new VistaFactura();
+        ModeloEncabezadoFactura modeloE=new ModeloEncabezadoFactura();
+        ModeloDetalleFactura modeloD=new ModeloDetalleFactura();
+        ControladorFactura control=new ControladorFactura(modeloE,modeloD,vistaF);
+        vp.getPanelPrincipal().add(vistaF);
+        
         control.iniciarControl();
     }
 }
