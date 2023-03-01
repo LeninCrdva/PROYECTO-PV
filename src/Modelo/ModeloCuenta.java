@@ -25,7 +25,7 @@ public class ModeloCuenta extends Cuenta {
     
     public List<Cuenta> ListarCuentas() {
         List<Cuenta> lista = new ArrayList<>();
-        String sql = "";
+        String sql = "SELECT ";
         ConnectionPG con = new ConnectionPG();
         ResultSet rs = con.Consulta(sql);
         

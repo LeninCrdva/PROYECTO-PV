@@ -27,7 +27,7 @@ public class ControladorLabor {
         vl.getBtneliminarlab().addActionListener(l -> AbreDialogo(3));
         vl.getBtnaceptar().addActionListener(l -> CrearEditarEliminarLabor());
         vl.getBtncancelar().addActionListener(l -> vl.getDlgcrudlabor().dispose());
-        
+        vl.getLblidlab().setText(Integer.toString(CreaID()));
         
         vl.getTxtbuscarlab().addKeyListener(new KeyAdapter() {
             @Override
@@ -115,11 +115,18 @@ public class ControladorLabor {
         }
     }
 
+    private int CreaID() {
+        int id_lab = ml.ObtenerID();
+        id_lab++;
+        return id_lab;
+    }
+    
     private void CrearEditarEliminarLabor() {
         String name = vl.getDlgcrudlabor().getName();
         switch (name) {
             case "crear":
                 try {
+                    vl.getLblidlab().setText(Integer.toString(CreaID()));
                     int id_lab = Integer.parseInt(vl.getLblidlab().getText());
                     String nombre = vl.getTxtnombrelab().getText().trim();
                     int horas_laborales = vl.getSldhoras().getValue();
@@ -131,6 +138,7 @@ public class ControladorLabor {
                     labor.setSueldo_lab(sueldo);
                     if (labor.InsertarLaborBD() == null) {
                         JOptionPane.showMessageDialog(vl, "Registro de labor añadido correctamente");
+                        vl.getDlgcrudlabor().dispose();
                     } else {
                         JOptionPane.showMessageDialog(vl, "No se pudo añadir el registro");
                     }
@@ -152,6 +160,7 @@ public class ControladorLabor {
                     labor.setSueldo_lab(sueldo);
                     if (labor.ModificaLaborBD(id_lab)== null) {
                         JOptionPane.showMessageDialog(vl, "Registro de labor editado correctamente");
+                        vl.getDlgcrudlabor().dispose();
                     } else {
                         JOptionPane.showMessageDialog(vl, "No se pudo editar el registro");
                     }
@@ -165,6 +174,7 @@ public class ControladorLabor {
                     ModeloLabor labor = new ModeloLabor();
                     if (labor.EliminarLaborBD(id_lab)== null) {
                         JOptionPane.showMessageDialog(vl, "Registro de labor eliminado correctamente");
+                        vl.getDlgcrudlabor().dispose();
                     } else {
                         JOptionPane.showMessageDialog(vl, "No se pudo eliminar el registro");
                     }
@@ -173,6 +183,7 @@ public class ControladorLabor {
             }
                 break;
         }
+        CargaLabor();
     }
 
 }

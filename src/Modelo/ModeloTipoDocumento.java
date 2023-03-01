@@ -97,4 +97,21 @@ public class ModeloTipoDocumento extends TipoDocumento {
         return ex;
     }
 
+    public int ConsultaIDBD(String name) {
+        int id_tip = 0;
+        String sql = "SELECT id_tip FROM tipo_doc WHERE nombre_doc LIKE '%" + name + "%'";
+        ConnectionPG con = new ConnectionPG();
+        ResultSet rs = con.Consulta(sql);
+        
+        try {
+            if (rs.next()) {
+                id_tip = rs.getInt(1);
+            }
+            rs.close();
+            return id_tip;
+        } catch (Exception e) {
+            return id_tip;
+        }
+    }
+    
 }

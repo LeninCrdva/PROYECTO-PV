@@ -43,6 +43,20 @@ public class ModeloEmpleado extends Empleado {
         return ex;
     }
 
-    
+    public int ObtieneIDBD() {
+        int id_emp = 0;
+        String sql = "SELECT max(id_emp) FROM empleado";
+        ConnectionPG con = new ConnectionPG();
+        ResultSet rs = con.Consulta(sql);
+        try {
+            if (rs.next()) {
+                id_emp = rs.getInt(1);
+            }
+            rs.close();
+            return id_emp;
+        } catch (SQLException e) {
+            return id_emp;
+        }
+    }
     
 }

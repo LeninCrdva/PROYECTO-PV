@@ -35,15 +35,33 @@ public class ModeloLabor extends Labor {
         return lista;
     }
 
+    public int ObtenerID() {
+        int id_lab = 0;
+        String sql = "SELECT MAX(id_lab) from labor";
+        ConnectionPG con = new ConnectionPG();
+        ResultSet rs = con.Consulta(sql);
+        try {
+            if (rs.next()) {
+                id_lab = rs.getInt(1);
+            }
+            rs.close();
+            return id_lab;
+        } catch (SQLException e) {
+            System.err.print(e);
+            return id_lab;
+        }
+    }
+    
     public List<Labor> LlenaComboBD() {
         List<Labor> lista = new ArrayList<>();
-        String sql = "SELECT nombre_lab FROM labor";
+        String sql = "SELECT id_lab, nombre_lab FROM labor";
         ConnectionPG con = new ConnectionPG();
         ResultSet rs = con.Consulta(sql);
         try {
             while (rs.next()) {                
                 Labor lab = new Labor();
-                lab.setNombre_lab(rs.getString(1));
+                lab.setId_lab(rs.getInt(1));
+                lab.setNombre_lab(rs.getString(2));
                 lista.add(lab);
             }
             rs.close();

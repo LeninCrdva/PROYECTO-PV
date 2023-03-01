@@ -106,11 +106,11 @@ public class VistaCuenta extends javax.swing.JInternalFrame {
         this.txtusername = txtusername;
     }
 
-    public JComboBox<String> getCbempleado() {
+    public JComboBox<Object> getCbempleado() {
         return cbempleado;
     }
 
-    public void setCbempleado(JComboBox<String> cbempleado) {
+    public void setCbempleado(JComboBox<Object> cbempleado) {
         this.cbempleado = cbempleado;
     }
 
@@ -166,8 +166,6 @@ public class VistaCuenta extends javax.swing.JInternalFrame {
         jLabel2.setText("N° Cuenta:");
 
         jLabel3.setText("Empleado:");
-
-        cbempleado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jLabel4.setText("UserName:");
 
@@ -303,7 +301,7 @@ public class VistaCuenta extends javax.swing.JInternalFrame {
                 {null, null, null}
             },
             new String [] {
-                "N°", "Empleado", "Nombre de usuario"
+                "N°", "Nombre de usuario", "Empleado"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -409,7 +407,7 @@ public class VistaCuenta extends javax.swing.JInternalFrame {
     private javax.swing.JButton btncrearcuenta;
     private javax.swing.JButton btndeletecuenta;
     private javax.swing.JButton btneditcuenta;
-    private javax.swing.JComboBox<String> cbempleado;
+    private javax.swing.JComboBox<Object> cbempleado;
     private javax.swing.JDialog dlgcrudcuenta;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

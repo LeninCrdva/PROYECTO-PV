@@ -57,6 +57,6 @@ public class Labor {
 
     @Override
     public String toString() {
-        return id_lab + nombre_lab;
+        return nombre_lab;
     }
 }
