@@ -3,7 +3,6 @@ package Controlador;
 import Modelo.*;
 import Vista.VistaEmpleados;
 import java.awt.event.KeyAdapter;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -30,6 +29,7 @@ public class ControladorEmpleado {
         CargaEmpleados();
         LlenaComboLabor();
         LlenaComboTipoDoc();
+        IncrementaIDE();
         ve.getBtncrear().addActionListener(l -> AbreDialogo(1));
         ve.getBtneditar().addActionListener(l -> AbreDialogo(2));
         ve.getBtneliminar().addActionListener(l -> AbreDialogo(3));
@@ -144,6 +144,12 @@ public class ControladorEmpleado {
         return id_per;
     }
     
+    private int IncrementaIDE() {
+        ModeloEmpleado me = new ModeloEmpleado();
+        int id_emp = me.ObtieneIDBD() + 1;
+        return id_emp;
+    }
+    
     private void crearEditarEliminarEmpleado() {
         if (ve.getDlgcrudempleado().getName().equals("crear")) {
             try {
@@ -159,11 +165,13 @@ public class ControladorEmpleado {
                 } else if (ve.getRdfemenino().isSelected()) {
                     sexo = "Femenino";
                 }
-                int tipodoc = ve.getCbtipodoc().getSelectedIndex();
+                TipoDocumento tipodoc = (TipoDocumento) ve.getCbtipodoc().getSelectedItem();
+                int id_tipo = mtd.ConsultaIDBD(tipodoc.toString());
                 String direccion = ve.getTxtdireccion().getText();
                 String email = ve.getTxtemail().getText();
                 int labor = ve.getCblabor().getSelectedIndex();
-
+                
+                System.out.println(id_tipo);
                 ModeloPersona persona = new ModeloPersona();
 
                 persona.setId_per(id_per);
@@ -173,19 +181,27 @@ public class ControladorEmpleado {
                 persona.setFecha_nac(fechanac);
                 persona.setTelefono_per(telefono);
                 persona.setGenero_per(sexo);
-                persona.setTipo_doc(tipodoc);
+                persona.setTipo_doc(id_tipo);
                 persona.setDireccion_per(direccion);
                 persona.setEmail_per(email);
 
                 if (persona.InsertaPersonaBD() == null) {
                     ModeloEmpleado empleado = new ModeloEmpleado();
-                    empleado.setId_emp(1);
+                    empleado.setId_emp(IncrementaIDE());
                     empleado.setIdlabor_emp(labor);
                     empleado.setId_per(id_per);
                     empleado.setIdcuenta_emp(1);
                     if (empleado.InsertaEmpleado() == null) {
                         ve.getDlgcrudempleado().setVisible(false);
-                        JOptionPane.showMessageDialog(ve, "Empleado añadido correctamente");
+                        int create_account = JOptionPane.showConfirmDialog(ve, "Empleado añadido correctamente.\n¿Desea crear un cuenta para este usuario?"
+                        ,"Creación de cuenta" ,JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                        
+                        if (create_account == JOptionPane.YES_OPTION) {
+                            
+                        } else {
+                            System.out.println("No");
+                        }
+                        
                     } else {
                         JOptionPane.showMessageDialog(ve, "No se pudo añadir al empleado");
                     }
