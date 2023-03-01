@@ -104,4 +104,19 @@ public class ModeloPersona extends Persona {
         return ex;
     }
 
+    public int ObtieneID() {
+        String sql = "SELECT max(id_per) from persona";
+        ConnectionPG con = new ConnectionPG();
+        ResultSet rs = con.Consulta(sql);
+        int id_per = 0;
+        try {
+            if (rs.next()) {
+                id_per = rs.getInt(1);
+            }
+            return id_per;
+        } catch (SQLException e) {
+            System.err.print(e);
+        }
+        return id_per;
+    }
 }

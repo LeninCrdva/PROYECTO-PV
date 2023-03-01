@@ -19,19 +19,38 @@ public class ModeloLabor extends Labor {
         String sql = "SELECT id_lab, nombre_lab, horaslaborales_lab, sueldo FROM labor";
         ConnectionPG con = new ConnectionPG();
         ResultSet rs = con.Consulta(sql);
-
         try {
-            Labor lab = new Labor();
-            lab.setId_lab(rs.getInt(1));
-            lab.setNombre_lab(rs.getString(2));
-            lab.setHoraslaborales_lab(rs.getInt(3));
-            lab.setSueldo_lab(rs.getDouble(4));
+            while (rs.next()) {
+                Labor lab = new Labor();
+                lab.setId_lab(rs.getInt(1));
+                lab.setNombre_lab(rs.getString(2));
+                lab.setHoraslaborales_lab(rs.getInt(3));
+                lab.setSueldo_lab(rs.getDouble(4));
 
-            lista.add(lab);
+                lista.add(lab);
+            }
         } catch (SQLException e) {
             System.out.println(e);
         }
         return lista;
+    }
+
+    public List<Labor> LlenaComboBD() {
+        List<Labor> lista = new ArrayList<>();
+        String sql = "SELECT nombre_lab FROM labor";
+        ConnectionPG con = new ConnectionPG();
+        ResultSet rs = con.Consulta(sql);
+        try {
+            while (rs.next()) {                
+                Labor lab = new Labor();
+                lab.setNombre_lab(rs.getString(1));
+                lista.add(lab);
+            }
+            rs.close();
+            return lista;
+        } catch (SQLException e) {
+            return null;
+        }
     }
 
     public SQLException InsertarLaborBD() {
@@ -50,12 +69,14 @@ public class ModeloLabor extends Labor {
         ResultSet rs = con.Consulta(sql);
 
         try {
-            Labor lab = new Labor();
-            lab.setId_lab(rs.getInt(1));
-            lab.setNombre_lab(rs.getString(2));
-            lab.setHoraslaborales_lab(rs.getInt(3));
-            lab.setSueldo_lab(rs.getDouble(4));
-            lista.add(lab);
+            while (rs.next()) {
+                Labor lab = new Labor();
+                lab.setId_lab(rs.getInt(1));
+                lab.setNombre_lab(rs.getString(2));
+                lab.setHoraslaborales_lab(rs.getInt(3));
+                lab.setSueldo_lab(rs.getDouble(4));
+                lista.add(lab);
+            }
             return lista;
         } catch (SQLException e) {
             System.out.println(e);
@@ -64,8 +85,8 @@ public class ModeloLabor extends Labor {
     }
 
     public SQLException ModificaLaborBD(int id_lab) {
-        String slq = "UPDATE labor SET nombre_lab = '"+getNombre_lab() + "', horaslaborales_lab = " + getHoraslaborales_lab() + 
-                ", sueldo = " + getSueldo_lab() + " WHERE id_lab = " + id_lab;
+        String slq = "UPDATE labor SET nombre_lab = '" + getNombre_lab() + "', horaslaborales_lab = " + getHoraslaborales_lab()
+                + ", sueldo = " + getSueldo_lab() + " WHERE id_lab = " + id_lab;
         ConnectionPG con = new ConnectionPG();
         SQLException ex = con.Accion(slq);
         return ex;

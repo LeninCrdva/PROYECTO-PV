@@ -29,7 +29,8 @@ public class ModeloEmpleado extends Empleado {
             while (rs.next()) {
                 Empleado emp = new Empleado();
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
+            System.err.print(e);
         }
         return lista;
     }

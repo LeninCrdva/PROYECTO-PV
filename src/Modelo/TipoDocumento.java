@@ -1,7 +1,7 @@
 package Modelo;
 
 public class TipoDocumento {
-    
+
     private int id_tip;
     private String nombre_doc;
 
@@ -31,6 +31,6 @@ public class TipoDocumento {
 
     @Override
     public String toString() {
-        return "TipoDocumento{" + "id_tip=" + id_tip + ", nombre_doc=" + nombre_doc + '}';
+        return id_tip + " " + nombre_doc;
     }
 }
