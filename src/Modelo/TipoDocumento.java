@@ -31,6 +31,6 @@ public class TipoDocumento {
 
     @Override
     public String toString() {
-        return id_tip + " " + nombre_doc;
+        return nombre_doc;
     }
 }
