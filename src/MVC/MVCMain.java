@@ -6,7 +6,7 @@ import Vista.VistaPrincipal;
 public class MVCMain {
     public static void main(String[] args) {
         VistaPrincipal vista = new VistaPrincipal();
-        ControladorPrincipal controlador=new ControladorPrincipal(vista);
-        controlador.IniciaControlVP();
+        ControladorPrincipal control = new ControladorPrincipal(vista);
+        control.iniciaControl();
     }
 }
