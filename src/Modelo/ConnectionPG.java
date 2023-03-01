@@ -11,9 +11,9 @@ import java.util.logging.Logger;
 public class ConnectionPG {
 
     Connection con;
-    String CadenaCon = "jdbc:postgresql://localhost:5432/OrquideaHotel";
-    String UsuarioPG = "postgres";
-    String PasswordPG = "1234";
+    String CadenaCon = "jdbc:postgresql://babar.db.elephantsql.com/zfztqpco";
+    String UsuarioPG = "zfztqpco";
+    String PasswordPG = "hpWtOk0G6E49nZXcbm275KFoDYQiiMJV";
 
     public ConnectionPG() {
         try {
