@@ -19,7 +19,7 @@ public class ModeloEncReserva extends Enc_reserva{
     
     public List<Enc_reserva> ListEnc(){
         List<Enc_reserva> lista = new ArrayList<>();
-        String sql = "SELECT * FROM \"Enc_reserva\"";
+        String sql = "SELECT * FROM enc_reserva";
         ConnectionPG conpg = new ConnectionPG();
         ResultSet rs = conpg.Consulta(sql);
         try {

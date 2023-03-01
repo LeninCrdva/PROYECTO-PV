@@ -6,6 +6,7 @@ import Modelo.Enc_reserva;
 import Modelo.ModeloDetReserva;
 import Modelo.ModeloEncReserva;
 import Vista.VistaReserva;
+import java.awt.event.MouseAdapter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -32,6 +33,8 @@ public class ControladorReserva {
     }
     
     public void iniciarControl(){
+        showDetails(vista.getTablaReserva());
+        cargarEncabezado();
         vista.getBtnCrear().addActionListener(l -> abrirCrearHab(1));
         vista.getBtnEditar().addActionListener(l -> abrirCrearHab(2));
         vista.getBtnAceptar().addActionListener(l -> crearEditarHab());
@@ -40,7 +43,6 @@ public class ControladorReserva {
     
     private void cargarEncabezado() {
         List<Enc_reserva> lista = mdEnc.ListEnc();
-        Det_reserva det  = mdDet.ShowDetail();
 
         DefaultTableModel mTabla;
         mTabla = (DefaultTableModel) vista.getTablaReserva().getModel();
@@ -170,5 +172,16 @@ public class ControladorReserva {
         vista.getComboClientes().setSelectedItem(null);
         vista.getDtchoEntrada().setDate(null);
         vista.getDtchSalida().setDate(null);
+    }
+    
+    private void showDetails(JTable table){
+        table.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt){
+                if(evt.getClickCount() == 2){
+                    JOptionPane.showMessageDialog(null, "Logrado");
+                }
+            }
+        });
     }
 }

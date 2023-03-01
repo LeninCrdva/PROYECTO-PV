@@ -1,17 +1,7 @@
 package Controlador;
 
-import Modelo.ModeloDetReserva;
-import Modelo.ModeloEmpleado;
-import Modelo.ModeloEncReserva;
-import Modelo.ModeloHabitación;
-import Modelo.ModeloLabor;
-import Modelo.ModeloPersona;
-import Modelo.ModeloTipo_Habitacion;
-import Vista.VistaEmpleados;
-import Vista.VistaHabitacion;
-import Vista.VistaLabor;
-import Vista.VistaPrincipal;
-import Vista.VistaReserva;
+import Modelo.*;
+import Vista.*;
 
 public class ControladorPrincipal {
     VistaPrincipal vistaPrincipal;
@@ -32,11 +22,13 @@ public class ControladorPrincipal {
     private void crudEmpleado(){
         ModeloEmpleado modelo = new ModeloEmpleado();
         ModeloPersona modelop = new ModeloPersona();
+        ModeloLabor modelol = new ModeloLabor();
+        ModeloTipoDocumento modelot = new ModeloTipoDocumento();
         VistaEmpleados vista = new VistaEmpleados();
         
         vistaPrincipal.getPanelPrincipal().add(vista);
         
-        ControladorEmpleado control = new ControladorEmpleado(modelop, modelo, vista);
+        ControladorEmpleado control = new ControladorEmpleado(modelop, modelo, vista, modelol, modelot);
         control.IniciarControl();
     }
     

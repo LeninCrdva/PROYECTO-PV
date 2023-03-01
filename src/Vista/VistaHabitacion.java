@@ -244,14 +244,6 @@ public class VistaHabitacion extends javax.swing.JInternalFrame {
         this.txtPrecio = txtPrecio;
     }
 
-    public JComboBox<Tipo_Habitacion> getCombTipSelc() {
-        return combTipSelc;
-    }
-
-    public void setCombTipSelc(JComboBox<Tipo_Habitacion> combTipSelc) {
-        this.combTipSelc = combTipSelc;
-    }
-
     public ButtonGroup getGroupHab() {
         return groupHab;
     }
@@ -259,6 +251,16 @@ public class VistaHabitacion extends javax.swing.JInternalFrame {
     public void setGroupHab(ButtonGroup groupHab) {
         this.groupHab = groupHab;
     }
+
+    public JComboBox<Tipo_Habitacion> getComboTipoHab() {
+        return comboTipoHab;
+    }
+
+    public void setComboTipoHab(JComboBox<Tipo_Habitacion> comboTipoHab) {
+        this.comboTipoHab = comboTipoHab;
+    }
+    
+    
 
     /** This method is called from within the constructor to
      * initialize the form.
@@ -276,11 +278,11 @@ public class VistaHabitacion extends javax.swing.JInternalFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         labelIDHabi = new javax.swing.JLabel();
-        combTipSelc = new javax.swing.JComboBox<>();
         txtNumHab = new javax.swing.JTextField();
         checkDisponible = new javax.swing.JCheckBox();
         btnAceptarHab = new javax.swing.JButton();
         btnCancelarHab = new javax.swing.JButton();
+        comboTipoHab = new javax.swing.JComboBox<>();
         dialogTipo = new javax.swing.JDialog();
         jPanel4 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
@@ -340,12 +342,11 @@ public class VistaHabitacion extends javax.swing.JInternalFrame {
                     .addComponent(jLabel5)
                     .addComponent(jLabel6))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(labelIDHabi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(combTipSelc, 0, 100, Short.MAX_VALUE)
-                        .addComponent(txtNumHab))
-                    .addComponent(checkDisponible))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(labelIDHabi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtNumHab, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+                    .addComponent(checkDisponible)
+                    .addComponent(comboTipoHab, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(29, 29, 29)
@@ -364,7 +365,7 @@ public class VistaHabitacion extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(combTipSelc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(comboTipoHab, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
@@ -628,7 +629,7 @@ public class VistaHabitacion extends javax.swing.JInternalFrame {
                             .addComponent(btnPrint))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap(35, Short.MAX_VALUE)
+                        .addContainerGap(39, Short.MAX_VALUE)
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(rdHab)
@@ -681,8 +682,8 @@ public class VistaHabitacion extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnPrint;
     private javax.swing.JButton btnReserva;
     private javax.swing.JCheckBox checkDisponible;
-    private javax.swing.JComboBox<Tipo_Habitacion> combTipSelc;
     private javax.swing.JComboBox<String> comboTipo;
+    private javax.swing.JComboBox<Tipo_Habitacion> comboTipoHab;
     private javax.swing.JDialog dialogHabi;
     private javax.swing.JDialog dialogTipo;
     private javax.swing.ButtonGroup groupHab;

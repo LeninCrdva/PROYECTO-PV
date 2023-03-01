@@ -58,18 +58,13 @@ public class ModeloHabitación extends Habitacion{
             return lista;
         } catch (SQLException ex) {
             Logger.getLogger(ModeloPersona.class.getName()).log(Level.SEVERE, null, ex);
-            try {
-                rs.close();
-            } catch (SQLException ex1) {
-                Logger.getLogger(ModeloHabitación.class.getName()).log(Level.SEVERE, null, ex1);
-            }
             return null;
         }
     }
 
     public SQLException CrearHabitacionDB() {
         String sql = "INSERT INTO Habitacion (idTipo_hab, numero_hab, estado_hab) VALUES (" +
-                getIdTipo_hab() + ", "+ getNumero_hab() + ", " + isEstado_hab() +")"; //REVISAR EL INSERT 
+                getIdTipo_hab() + ", "+ getNumero_hab() + ", " + isEstado_hab() +")";
 
         ConnectionPG con = new ConnectionPG();
         SQLException ex = con.Accion(sql);
@@ -87,7 +82,7 @@ public class ModeloHabitación extends Habitacion{
     }
     
     public SQLException DeletePhisicHabitacion(){
-        String sql = "DELETE FROM Habitacion WHERE id_hab = '" + getId_hab()+ "'";
+        String sql = "DELETE FROM Habitacion WHERE id_hab = " + getId_hab()+ "";
         
         ConnectionPG con = new ConnectionPG();
         SQLException ex = con.Accion(sql);

@@ -62,9 +62,15 @@ public class Tipo_Habitacion {
     public void setPrecio_tha(double precio_tha) {
         this.precio_tha = precio_tha;
     }
-
+    
     @Override
     public String toString() {
         return nombre_tha;
     }
+    
+    public String returnString() {
+        return "Tipo_Habitacion{" + "id_tha=" + id_tha + ", nombre_tha=" + nombre_tha + ", numeroCamas_tha=" + numeroCamas_tha + ", capacidad_tha=" + capacidad_tha + ", precio_tha=" + precio_tha + '}';
+    }
+    
+    
 }

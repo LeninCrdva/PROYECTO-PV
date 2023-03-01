@@ -82,7 +82,7 @@ public class ModeloTipo_Habitacion extends Tipo_Habitacion{
     }
     
     public SQLException DeleteTipHab(){
-        String sql = "DELETE Tipo_Habitacion WHERE id_tha = " + getId_tha();
+        String sql = "DELETE FROM Tipo_habitacion WHERE id_tha = " + getId_tha();
         
         ConnectionPG conpg = new ConnectionPG();
         SQLException ex = conpg.Accion(sql);
