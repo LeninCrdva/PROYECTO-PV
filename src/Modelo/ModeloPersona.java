@@ -97,7 +97,7 @@ public class ModeloPersona extends Persona {
     }
 
     public SQLException EliminarPersonaDB(int id_per) {
-        String sql = "DELETE FROM persona WHERE idpersona = " + id_per;
+        String sql = "DELETE FROM persona WHERE id_per = " + id_per;
 
         ConnectionPG con = new ConnectionPG();
         SQLException ex = con.Accion(sql);

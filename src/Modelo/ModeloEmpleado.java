@@ -15,8 +15,8 @@ public class ModeloEmpleado extends Empleado {
         super(id_per, numeroidentificacion_per, nombre_per, apellido_per, tipo_doc, direccion_per, telefono_per, email_per, fecha_nac, genero_per);
     }
 
-    public ModeloEmpleado(int id_emp, int id_per, int idcuenta_emp, int idlabor_emp) {
-        super(id_emp, id_per, idcuenta_emp, idlabor_emp);
+    public ModeloEmpleado(int id_emp, int id_per, int idlabor_emp) {
+        super(id_emp, id_per,  idlabor_emp);
     }
 
     public List<Empleado> ListarEmpleados() {
@@ -36,8 +36,8 @@ public class ModeloEmpleado extends Empleado {
     }
 
     public SQLException InsertaEmpleado() {
-        String sql = "INSERT INTO empleado (id_emp, id_per, idcuenta_emp, idlabor_emp) VALUES "
-                + "(" + getId_emp() + ", " + getId_per() + ", " + getIdcuenta_emp() + ", " + getIdlabor_emp() + ")";
+        String sql = "INSERT INTO empleado (id_emp, id_per, idlabor_emp) VALUES "
+                + "(" + getId_emp() + ", " + getId_per() + ", " + getIdlabor_emp() + ")";
         ConnectionPG con = new ConnectionPG();
         SQLException ex = con.Accion(sql);
         return ex;
