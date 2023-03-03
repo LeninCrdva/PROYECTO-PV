@@ -14,6 +14,7 @@ public class ControladorPrincipal {
 
     public void iniciaControl(){
         vistaPrincipal.getBtnEmpleado().addActionListener(l -> crudEmpleado());
+        vistaPrincipal.getBtnCliente().addActionListener(l -> crudCliente());
         vistaPrincipal.getBtnLabor().addActionListener(l -> crudLabor());
         vistaPrincipal.getBtnHabitacion().addActionListener(l-> crudHabitacion());
         vistaPrincipal.getBtnReserva().addActionListener(l -> crudReserva());
@@ -41,6 +42,28 @@ public class ControladorPrincipal {
         
         ControladorLabor control = new ControladorLabor(vista, modelo);
         control.IniciarControl();
+    }
+    
+    private void crudCliente(){
+        ModeloCliente modelo = new ModeloCliente();
+        ModeloPersona modelop = new ModeloPersona();
+        ModeloTipoCliente modelol = new ModeloTipoCliente();
+       
+        VistaClientes vista = new VistaClientes();
+        
+        vistaPrincipal.getPanelPrincipal().add(vista);
+        
+      
+        
+        ControladorCliente control =new ControladorCliente(modelop, modelo, vista, modelol);
+        control.IniciarControl();
+    }
+    
+    private void crudTipoCliente(){
+        ModeloTipoCliente modelo = new ModeloTipoCliente();
+        VistaTipoCliente vista = new VistaTipoCliente();
+        
+        vistaPrincipal.getPanelPrincipal().add(vista);   
     }
     
     private void crudHabitacion(){
