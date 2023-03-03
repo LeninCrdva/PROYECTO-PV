@@ -11,6 +11,7 @@ public class MVCMain {
         VistaLogin vs = new VistaLogin();
         ModeloCuenta mc = new ModeloCuenta();
         ControladorLogin ctr = new ControladorLogin(vs, mc);
+        ctr.InciarControl();
         
         VistaPrincipal vista = new VistaPrincipal();
         ControladorPrincipal control = new ControladorPrincipal(vista);
