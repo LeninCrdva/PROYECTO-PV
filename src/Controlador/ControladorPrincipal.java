@@ -1,21 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Controlador;
 
-import Modelo.ModeloCliente;
-import Modelo.ModeloPersona;
-import Modelo.ModeloTipoCliente;
-import Vista.VistaClientes;
-import Vista.VistaPrincipal;
-import Vista.VistaTipoCliente;
+import Modelo.*;
+import Vista.*;
 
-/**
- *
- * @author ERIKA
- */
 public class ControladorPrincipal {
     VistaPrincipal vistaPrincipal;
 
@@ -26,9 +13,35 @@ public class ControladorPrincipal {
     }
 
     public void iniciaControl(){
+        vistaPrincipal.getBtnEmpleado().addActionListener(l -> crudEmpleado());
         vistaPrincipal.getBtnCliente().addActionListener(l -> crudCliente());
-     
-
+        vistaPrincipal.getBtnLabor().addActionListener(l -> crudLabor());
+        vistaPrincipal.getBtnHabitacion().addActionListener(l-> crudHabitacion());
+        vistaPrincipal.getBtnReserva().addActionListener(l -> crudReserva());
+        vistaPrincipal.getBtnFactura().addActionListener(l -> CrudFactura());
+    }
+    
+    private void crudEmpleado(){
+        ModeloEmpleado modelo = new ModeloEmpleado();
+        ModeloPersona modelop = new ModeloPersona();
+        ModeloLabor modelol = new ModeloLabor();
+        ModeloTipoDocumento modelot = new ModeloTipoDocumento();
+        VistaEmpleados vista = new VistaEmpleados();
+        
+        vistaPrincipal.getPanelPrincipal().add(vista);
+        
+        ControladorEmpleado control = new ControladorEmpleado(modelop, modelo, vista, modelol, modelot);
+        control.IniciarControl();
+    }
+    
+    private void crudLabor(){
+        ModeloLabor modelo = new ModeloLabor();
+        VistaLabor vista = new VistaLabor();
+        
+        vistaPrincipal.getPanelPrincipal().add(vista);
+        
+        ControladorLabor control = new ControladorLabor(vista, modelo);
+        control.IniciarControl();
     }
     
     private void crudCliente(){
@@ -50,12 +63,40 @@ public class ControladorPrincipal {
         ModeloTipoCliente modelo = new ModeloTipoCliente();
         VistaTipoCliente vista = new VistaTipoCliente();
         
-        vistaPrincipal.getPanelPrincipal().add(vista);
-        
-        
+        vistaPrincipal.getPanelPrincipal().add(vista);   
     }
     
-  
-
+    private void crudHabitacion(){
+        ModeloHabitación modelohab = new ModeloHabitación();
+        ModeloTipo_Habitacion modelotip = new ModeloTipo_Habitacion();
+        VistaHabitacion vista = new VistaHabitacion();
+        
+        vistaPrincipal.getPanelPrincipal().add(vista);
+        
+        ControladorHabitacion control = new ControladorHabitacion(modelohab, modelotip, vista);
+        control.iniciarControl();
+    }
     
+    private void crudReserva(){
+        ModeloEncReserva modeloenc = new ModeloEncReserva();
+        ModeloDetReserva modelodet = new ModeloDetReserva();
+        VistaReserva vista = new VistaReserva();
+        
+        vistaPrincipal.getPanelPrincipal().add(vista);
+        
+        ControladorReserva control = new ControladorReserva(modeloenc, modelodet, vista);
+        control.iniciarControl();
+    }
+    
+    private void CrudFactura(){
+        VistaFactura vistaF=new VistaFactura();
+        ModeloEncabezadoFactura modeloE=new ModeloEncabezadoFactura();
+        ModeloDetalleFactura modeloD=new ModeloDetalleFactura();
+        
+        ControladorFactura control=new ControladorFactura(modeloE,modeloD,vistaF);
+        
+        vistaPrincipal.getPanelPrincipal().add(vistaF);
+        
+        control.iniciarControl();
+    }
 }
