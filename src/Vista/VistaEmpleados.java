@@ -214,6 +214,22 @@ public class VistaEmpleados extends javax.swing.JInternalFrame {
         this.cblabor = cblabor;
     }
 
+    public JButton getBtnaddlab() {
+        return btnaddlab;
+    }
+
+    public void setBtnaddlab(JButton btnaddlab) {
+        this.btnaddlab = btnaddlab;
+    }
+
+    public JButton getBtnaddtipodoc() {
+        return btnaddtipodoc;
+    }
+
+    public void setBtnaddtipodoc(JButton btnaddtipodoc) {
+        this.btnaddtipodoc = btnaddtipodoc;
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -247,6 +263,8 @@ public class VistaEmpleados extends javax.swing.JInternalFrame {
         jLabel14 = new javax.swing.JLabel();
         txtdocnum = new javax.swing.JFormattedTextField();
         chkdoctipo = new javax.swing.JCheckBox();
+        btnaddtipodoc = new javax.swing.JButton();
+        btnaddlab = new javax.swing.JButton();
         btngpgenero = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
@@ -260,6 +278,8 @@ public class VistaEmpleados extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblempleados = new javax.swing.JTable();
         jPanel4 = new javax.swing.JPanel();
+
+        dlgcrudempleado.setResizable(false);
 
         jPanel8.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -293,8 +313,6 @@ public class VistaEmpleados extends javax.swing.JInternalFrame {
 
         btncancelar.setText("Cancelar");
 
-        cbtipodoc.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         jLabel14.setText("Labor:");
 
         try {
@@ -304,6 +322,10 @@ public class VistaEmpleados extends javax.swing.JInternalFrame {
         }
 
         chkdoctipo.setText("Autmático");
+
+        btnaddtipodoc.setText("+");
+
+        btnaddlab.setText("+");
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
@@ -315,8 +337,7 @@ public class VistaEmpleados extends javax.swing.JInternalFrame {
                     .addGroup(jPanel8Layout.createSequentialGroup()
                         .addComponent(btnaceptar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btncancelar)
-                        .addGap(1, 1, 1))
+                        .addComponent(btncancelar))
                     .addGroup(jPanel8Layout.createSequentialGroup()
                         .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel4)
@@ -332,7 +353,6 @@ public class VistaEmpleados extends javax.swing.JInternalFrame {
                             .addComponent(jLabel14))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cblabor, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(dtefechanac, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(txtnombreper)
                             .addComponent(txtapellidoper)
@@ -341,16 +361,21 @@ public class VistaEmpleados extends javax.swing.JInternalFrame {
                             .addComponent(txttelefono)
                             .addComponent(txtemail)
                             .addGroup(jPanel8Layout.createSequentialGroup()
-                                .addComponent(rdmasculino, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(rdmasculino, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(18, 18, 18)
                                 .addComponent(rdfemenino))
                             .addComponent(txtdocnum)
                             .addGroup(jPanel8Layout.createSequentialGroup()
                                 .addComponent(cbtipodoc, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(chkdoctipo)
-                                .addGap(0, 0, Short.MAX_VALUE)))))
-                .addGap(25, 25, 25))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnaddtipodoc)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(chkdoctipo, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel8Layout.createSequentialGroup()
+                                .addComponent(cblabor, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnaddlab)))))
+                .addGap(20, 20, 20))
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -367,7 +392,7 @@ public class VistaEmpleados extends javax.swing.JInternalFrame {
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(txtapellidoper, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(14, 14, 14)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(dtefechanac, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel13))
@@ -375,7 +400,8 @@ public class VistaEmpleados extends javax.swing.JInternalFrame {
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(cbtipodoc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(chkdoctipo))
+                    .addComponent(chkdoctipo)
+                    .addComponent(btnaddtipodoc))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
@@ -400,7 +426,8 @@ public class VistaEmpleados extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel14)
-                    .addComponent(cblabor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cblabor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnaddlab))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnaceptar)
@@ -586,6 +613,8 @@ public class VistaEmpleados extends javax.swing.JInternalFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnaceptar;
+    private javax.swing.JButton btnaddlab;
+    private javax.swing.JButton btnaddtipodoc;
     private javax.swing.JButton btncancelar;
     private javax.swing.JButton btncrear;
     private javax.swing.JButton btneditar;
