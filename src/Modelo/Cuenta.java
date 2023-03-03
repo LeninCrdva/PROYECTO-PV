@@ -3,14 +3,16 @@ package Modelo;
 public class Cuenta {
     
     private int id_cue;
+    private int id_emp;
     private String username_cue;
     private String password_cue;
 
     public Cuenta() {
     }
 
-    public Cuenta(int id_cue, String username_cue, String password_cue) {
+    public Cuenta(int id_cue, int id_emp, String username_cue, String password_cue) {
         this.id_cue = id_cue;
+        this.id_emp = id_emp;
         this.username_cue = username_cue;
         this.password_cue = password_cue;
     }
@@ -37,6 +39,14 @@ public class Cuenta {
 
     public void setPassword_cue(String password_cue) {
         this.password_cue = password_cue;
+    }
+
+    public int getId_emp() {
+        return id_emp;
+    }
+
+    public void setId_emp(int id_emp) {
+        this.id_emp = id_emp;
     }
 
     @Override
