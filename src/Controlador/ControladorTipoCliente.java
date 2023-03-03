@@ -8,7 +8,6 @@ package Controlador;
 import Modelo.ModeloTipoCliente;
 import Modelo.TipoCliente;
 import Vista.VistaTipoCliente;
-import com.sun.jdi.IntegerValue;
 import java.awt.event.KeyAdapter;
 import java.sql.SQLException;
 import java.util.List;
