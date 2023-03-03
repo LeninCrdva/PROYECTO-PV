@@ -25,6 +25,8 @@ public class ControladorCuenta {
         vc.getBtncrearcuenta().addActionListener(l -> AbreDialogo(1));
         vc.getBtneditcuenta().addActionListener(l -> AbreDialogo(2));
         vc.getBtndeletecuenta().addActionListener(l -> AbreDialogo(3));
+        vc.getBtnaceptar().addActionListener(l -> CrearEditarEliminarCuenta());
+        vc.getBtncancelar().addActionListener(l -> vc.getDlgcrudcuenta().dispose());
         vc.getTxtbuscarcuenta().addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(java.awt.event.KeyEvent e) {
@@ -34,7 +36,7 @@ public class ControladorCuenta {
     }
 
     private void CargaCuentas() {
-        List<Cuenta> lista = mc.ListarCuentas();
+        List<Cuenta> lista = mc.ListarCuentasBD();
         DefaultTableModel df = (DefaultTableModel) vc.getTblcuenta().getModel();
         df.setRowCount(0);
 
@@ -48,7 +50,7 @@ public class ControladorCuenta {
     }
 
     private void BuscaCuentas() { //Incompleto
-        List<Cuenta> lista = mc.ListarCuentas();
+        List<Cuenta> lista = mc.BuscarCuentasBD(vc.getTxtbuscarcuenta().getText());
         DefaultTableModel df = (DefaultTableModel) vc.getTblcuenta().getModel();
         df.setRowCount(0);
 
@@ -61,7 +63,7 @@ public class ControladorCuenta {
         });
     }
 
-    private void AbreDialogo(int ce) {
+    protected void AbreDialogo(int ce) {
         String title = null;
         boolean RowSelected = true;
 
@@ -122,7 +124,7 @@ public class ControladorCuenta {
                 cuenta.setId_cue(id_cuenta);
                 cuenta.setUsername_cue(user);
                 cuenta.setPassword_cue(password);
-                if (cuenta.InsertarLaborBD() == null) {
+                if (cuenta.InsertaCuentaBD()== null) {
                     JOptionPane.showMessageDialog(vc, "Cuenta creada correctamente");
                     vc.getDlgcrudcuenta().dispose();
                 } else {
@@ -143,7 +145,7 @@ public class ControladorCuenta {
                 cuenta.setId_cue(id_cuenta);
                 cuenta.setUsername_cue(user);
                 cuenta.setPassword_cue(password);
-                if (cuenta.ModificaLaborBD(id_cuenta) == null) {
+                if (cuenta.ModificarCuentaBD(id_cuenta) == null) {
                     JOptionPane.showMessageDialog(vc, "Datos de la cuenta editados correctamente");
                     vc.getDlgcrudcuenta().dispose();
                 } else {
@@ -157,7 +159,7 @@ public class ControladorCuenta {
                 try {
                 int id_cuenta = Integer.parseInt(vc.getLblidcuenta().getText());
                 ModeloCuenta cuenta = new ModeloCuenta();
-                if (cuenta.EliminarLaborBD(id_cuenta) == null) {
+                if (cuenta.EliminarCuentaBD(id_cuenta) == null) {
                     JOptionPane.showMessageDialog(vc, "Cuenta eliminada correctamente");
                     vc.getDlgcrudcuenta().dispose();
                 } else {
