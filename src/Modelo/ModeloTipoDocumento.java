@@ -54,6 +54,23 @@ public class ModeloTipoDocumento extends TipoDocumento {
         }
     }
 
+    public int ObtenerIDTDBD() {
+        int id_lab = 0;
+        String sql = "SELECT MAX(id_tip) from tipo_doc";
+        ConnectionPG con = new ConnectionPG();
+        ResultSet rs = con.Consulta(sql);
+        try {
+            if (rs.next()) {
+                id_lab = rs.getInt(1);
+            }
+            rs.close();
+            return id_lab;
+        } catch (SQLException e) {
+            System.err.print(e);
+            return id_lab;
+        }
+    }
+    
     public SQLException InsertaTipoDocBD() {
         String sql = "INSERT INTO tipo_doc (id_tip, nombre_doc) VALUES (" + getId_tip() + ", '" + getNombre_doc() + "')";
 
@@ -109,7 +126,8 @@ public class ModeloTipoDocumento extends TipoDocumento {
             }
             rs.close();
             return id_tip;
-        } catch (Exception e) {
+        } catch (SQLException e) {
+            System.err.print(e);
             return id_tip;
         }
     }

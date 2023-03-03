@@ -71,6 +71,24 @@ public class ModeloLabor extends Labor {
         }
     }
 
+    public int ConsultaIDBD(String name) {
+        int id_tip = 0;
+        String sql = "SELECT id_lab FROM labor WHERE nombre_lab LIKE '%" + name + "%'";
+        ConnectionPG con = new ConnectionPG();
+        ResultSet rs = con.Consulta(sql);
+        
+        try {
+            if (rs.next()) {
+                id_tip = rs.getInt(1);
+            }
+            rs.close();
+            return id_tip;
+        } catch (SQLException e) {
+            System.err.print(e);
+            return id_tip;
+        }
+    }
+    
     public SQLException InsertarLaborBD() {
         String sql = "INSERT INTO labor (id_lab, nombre_lab, horaslaborales_lab, sueldo) "
                 + "VALUES (" + getId_lab() + ", '" + getNombre_lab() + "', " + getHoraslaborales_lab() + ", " + getSueldo_lab() + ")";
