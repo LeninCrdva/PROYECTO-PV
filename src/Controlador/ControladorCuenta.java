@@ -110,6 +110,10 @@ public class ControladorCuenta {
         return press;
     }
 
+    private boolean SecurePassword(String password) {
+        return password.matches("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$");
+    }
+
     private void CrearEditarEliminarCuenta() {
         String name = vc.getDlgcrudcuenta().getName();
         switch (name) {
@@ -120,15 +124,27 @@ public class ControladorCuenta {
                 String user = vc.getTxtusername().getText().trim();
                 String password = Arrays.toString(vc.getTxtpassword().getPassword());
                 String confirm_password = Arrays.toString(vc.getTxtconfirmpassword().getPassword());
-                ModeloCuenta cuenta = new ModeloCuenta();
-                cuenta.setId_cue(id_cuenta);
-                cuenta.setUsername_cue(user);
-                cuenta.setPassword_cue(password);
-                if (cuenta.InsertaCuentaBD()== null) {
-                    JOptionPane.showMessageDialog(vc, "Cuenta creada correctamente");
-                    vc.getDlgcrudcuenta().dispose();
+                if (password.equals(confirm_password)) {
+                    if (SecurePassword(password)) {
+                        ModeloCuenta cuenta = new ModeloCuenta();
+                        cuenta.setId_cue(id_cuenta);
+                        cuenta.setUsername_cue(user);
+                        cuenta.setPassword_cue(password);
+                        if (cuenta.InsertaCuentaBD() == null) {
+                            JOptionPane.showMessageDialog(vc, "Cuenta creada correctamente");
+                            vc.getDlgcrudcuenta().dispose();
+                        } else {
+                            JOptionPane.showMessageDialog(vc, "No se pudo crear la cuenta");
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(vc, "La contraseña debe contener:\n"
+                                + "• Al menos una letra en mayúscula, una mínuscula, un número\n"
+                                + "• Un tamaño mínimo de 8 dígitos", "Contraseña inválida",
+                                JOptionPane.INFORMATION_MESSAGE);
+                    }
                 } else {
-                    JOptionPane.showMessageDialog(vc, "No se pudo crear la cuenta");
+                    JOptionPane.showConfirmDialog(vc, "Las contraseñas no coinciden",
+                            "Error", JOptionPane.ERROR_MESSAGE);
                 }
             } catch (NullPointerException | NumberFormatException e) {
                 System.err.println(e);
@@ -140,16 +156,22 @@ public class ControladorCuenta {
                 int id_cuenta = Integer.parseInt(vc.getLblidcuenta().getText());
                 String user = vc.getTxtusername().getText().trim();
                 String password = Arrays.toString(vc.getTxtpassword().getPassword());
-
-                ModeloCuenta cuenta = new ModeloCuenta();
-                cuenta.setId_cue(id_cuenta);
-                cuenta.setUsername_cue(user);
-                cuenta.setPassword_cue(password);
-                if (cuenta.ModificarCuentaBD(id_cuenta) == null) {
-                    JOptionPane.showMessageDialog(vc, "Datos de la cuenta editados correctamente");
-                    vc.getDlgcrudcuenta().dispose();
+                if (SecurePassword(password)) {
+                    ModeloCuenta cuenta = new ModeloCuenta();
+                    cuenta.setId_cue(id_cuenta);
+                    cuenta.setUsername_cue(user);
+                    cuenta.setPassword_cue(password);
+                    if (cuenta.ModificarCuentaBD(id_cuenta) == null) {
+                        JOptionPane.showMessageDialog(vc, "Datos de la cuenta editados correctamente");
+                        vc.getDlgcrudcuenta().dispose();
+                    } else {
+                        JOptionPane.showMessageDialog(vc, "No se pudo editar el registro");
+                    }
                 } else {
-                    JOptionPane.showMessageDialog(vc, "No se pudo editar el registro");
+                    JOptionPane.showMessageDialog(vc, "La contraseña debe contener:\n"
+                            + "• Al menos una letra en mayúscula, una mínuscula, un número\n"
+                            + "• Un tamaño mínimo de 8 dígitos", "Contraseña inválida",
+                            JOptionPane.INFORMATION_MESSAGE);
                 }
             } catch (NullPointerException | NumberFormatException e) {
                 System.err.println(e);
