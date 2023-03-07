@@ -28,7 +28,7 @@ public class ControladorLabor {
         vl.getBtnaceptar().addActionListener(l -> CrearEditarEliminarLabor());
         vl.getBtncancelar().addActionListener(l -> vl.getDlgcrudlabor().dispose());
         vl.getLblidlab().setText(Integer.toString(CreaID()));
-        
+
         vl.getTxtbuscarlab().addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -36,7 +36,7 @@ public class ControladorLabor {
             }
         });
     }
-    
+
     private void CargaLabor() {
         List<Labor> listaLab = ml.ListaLaborBD();
         DefaultTableModel df;
@@ -83,11 +83,11 @@ public class ControladorLabor {
                 JOptionPane.showMessageDialog(vl, "Seleccione una fila primero");
             }
         } catch (NullPointerException e) {
-           System.err.print(e);
+            System.err.print(e);
         }
         return press;
     }
-    
+
     private void AbreDialogo(int ce) {
         String title = null;
         boolean RowSelected = true;
@@ -120,28 +120,28 @@ public class ControladorLabor {
         id_lab++;
         return id_lab;
     }
-    
+
     private void CrearEditarEliminarLabor() {
         String name = vl.getDlgcrudlabor().getName();
         switch (name) {
             case "crear":
                 try {
-                    vl.getLblidlab().setText(Integer.toString(CreaID()));
-                    int id_lab = Integer.parseInt(vl.getLblidlab().getText());
-                    String nombre = vl.getTxtnombrelab().getText().trim();
-                    int horas_laborales = vl.getSldhoras().getValue();
-                    double sueldo = Double.parseDouble(vl.getTxtsueldo().getText());
-                    ModeloLabor labor = new ModeloLabor();
-                    labor.setId_lab(id_lab);
-                    labor.setNombre_lab(nombre);
-                    labor.setHoraslaborales_lab(horas_laborales);
-                    labor.setSueldo_lab(sueldo);
-                    if (labor.InsertarLaborBD() == null) {
-                        JOptionPane.showMessageDialog(vl, "Registro de labor añadido correctamente");
-                        vl.getDlgcrudlabor().dispose();
-                    } else {
-                        JOptionPane.showMessageDialog(vl, "No se pudo añadir el registro");
-                    }
+                vl.getLblidlab().setText(Integer.toString(CreaID()));
+                int id_lab = Integer.parseInt(vl.getLblidlab().getText());
+                String nombre = vl.getTxtnombrelab().getText().trim();
+                int horas_laborales = vl.getSldhoras().getValue();
+                double sueldo = Double.parseDouble(vl.getTxtsueldo().getText());
+                ModeloLabor labor = new ModeloLabor();
+                labor.setId_lab(id_lab);
+                labor.setNombre_lab(nombre);
+                labor.setHoraslaborales_lab(horas_laborales);
+                labor.setSueldo_lab(sueldo);
+                if (labor.InsertarLaborBD() == null) {
+                    JOptionPane.showMessageDialog(vl, "Registro de labor añadido correctamente");
+                    vl.getDlgcrudlabor().dispose();
+                } else {
+                    JOptionPane.showMessageDialog(vl, "No se pudo añadir el registro");
+                }
             } catch (NullPointerException | NumberFormatException e) {
                 System.err.println(e);
             }
@@ -149,39 +149,39 @@ public class ControladorLabor {
 
             case "editar":
                 try {
-                    int id_lab = Integer.parseInt(vl.getLblidlab().getText());
-                    String nombre = vl.getTxtnombrelab().getText().trim();
-                    int horas_laborales = vl.getSldhoras().getValue();
-                    double sueldo = Double.parseDouble(vl.getTxtsueldo().getText());
-                    ModeloLabor labor = new ModeloLabor();
-                    labor.setId_lab(id_lab);
-                    labor.setNombre_lab(nombre);
-                    labor.setHoraslaborales_lab(horas_laborales);
-                    labor.setSueldo_lab(sueldo);
-                    if (labor.ModificaLaborBD(id_lab)== null) {
-                        JOptionPane.showMessageDialog(vl, "Registro de labor editado correctamente");
-                        vl.getDlgcrudlabor().dispose();
-                    } else {
-                        JOptionPane.showMessageDialog(vl, "No se pudo editar el registro");
-                    }
+                int id_lab = Integer.parseInt(vl.getLblidlab().getText());
+                String nombre = vl.getTxtnombrelab().getText().trim();
+                int horas_laborales = vl.getSldhoras().getValue();
+                double sueldo = Double.parseDouble(vl.getTxtsueldo().getText());
+                ModeloLabor labor = new ModeloLabor();
+                labor.setId_lab(id_lab);
+                labor.setNombre_lab(nombre);
+                labor.setHoraslaborales_lab(horas_laborales);
+                labor.setSueldo_lab(sueldo);
+                if (labor.ModificaLaborBD(id_lab) == null) {
+                    JOptionPane.showMessageDialog(vl, "Registro de labor editado correctamente");
+                    vl.getDlgcrudlabor().dispose();
+                } else {
+                    JOptionPane.showMessageDialog(vl, "No se pudo editar el registro");
+                }
             } catch (NullPointerException | NumberFormatException e) {
                 System.err.println(e);
             }
-                break;
+            break;
             case "eliminar":
                 try {
-                    int id_lab = Integer.parseInt(vl.getLblidlab().getText());
-                    ModeloLabor labor = new ModeloLabor();
-                    if (labor.EliminarLaborBD(id_lab)== null) {
-                        JOptionPane.showMessageDialog(vl, "Registro de labor eliminado correctamente");
-                        vl.getDlgcrudlabor().dispose();
-                    } else {
-                        JOptionPane.showMessageDialog(vl, "No se pudo eliminar el registro");
-                    }
+                int id_lab = Integer.parseInt(vl.getLblidlab().getText());
+                ModeloLabor labor = new ModeloLabor();
+                if (labor.EliminarLaborBD(id_lab) == null) {
+                    JOptionPane.showMessageDialog(vl, "Registro de labor eliminado correctamente");
+                    vl.getDlgcrudlabor().dispose();
+                } else {
+                    JOptionPane.showMessageDialog(vl, "No se pudo eliminar el registro");
+                }
             } catch (NullPointerException | NumberFormatException e) {
                 System.err.println(e);
             }
-                break;
+            break;
         }
         CargaLabor();
     }
