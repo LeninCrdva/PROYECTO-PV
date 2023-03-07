@@ -13,23 +13,26 @@ import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
-import javax.swing.JRadioButton;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 public class ControladorEmpleado {
 
-    private final ModeloPersona mp;
     private final ModeloEmpleado me;
     private final VistaEmpleados ve;
+    private final VistaTipoDocumento vd;
+    private final VistaCuenta vcc;
+    private final VistaLabor vl;
     private final ModeloLabor ml;
     private final ModeloTipoDocumento mtd;
 
-    public ControladorEmpleado(ModeloPersona mp, ModeloEmpleado me, VistaEmpleados ve, ModeloLabor ml, ModeloTipoDocumento mtd) {
-        this.mp = mp;
+    public ControladorEmpleado(ModeloEmpleado me, VistaEmpleados ve, VistaTipoDocumento vd, VistaCuenta vcc, VistaLabor vl, ModeloLabor ml, ModeloTipoDocumento mtd) {
         this.me = me;
         this.ve = ve;
+        this.vd = vd;
+        this.vcc = vcc;
+        this.vl = vl;
         this.ml = ml;
         this.mtd = mtd;
         ve.setVisible(true);
@@ -48,23 +51,31 @@ public class ControladorEmpleado {
         ve.getBtnaceptar().addActionListener(l -> crearEditarEliminarEmpleado());
         ve.getBtncancelar().addActionListener(l -> ve.getDlgcrudempleado().dispose());
         ve.getLblidper().setText(Integer.toString(IncrementaID()));
-        ve.getBtnaddtipodoc().addActionListener(l -> AddToCombo(1));
-        ve.getBtnaddlab().addActionListener(l -> AddToCombo(2));
+
+        /*Actions subviews*/
+        ve.getBtnaddtipodoc().addActionListener(l -> AbreSubDialogo(1));
+        ve.getBtnaddlab().addActionListener(l -> AbreSubDialogo(2));
+        vd.getBtnaceptar().addActionListener(l -> UsaSubDialogo());
+        vl.getBtnaceptar().addActionListener(l -> UsaSubDialogo());
+        vd.getBtncancelar().addActionListener(l -> vd.getDlgtipodoc().dispose());
+        vl.getBtncancelar().addActionListener(l -> vl.getDlgcrudlabor().dispose());
+        ve.getTxtbuscar().addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                BuscarEmpleadosBD();
+            }
+        });
     }
 
     private void ValidarCampos() {
         ve.getDtefechanac().setDateFormatString("yyyy-MM-dd");
-        ve.getTxtbuscar().addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                BuscaEmpleados();
-            }
-        });
+
         addTextKeyListenerNotNumber(ve.getTxtnombreper(), 50);
         addTextKeyListenerNotNumber(ve.getTxtapellidoper(), 50);
         MaxLengthOnly(ve.getTxtdireccion(), 250);
         MaxLengthOnly(ve.getTxtemail(), 250);
         addTextKeyListenerNotText(ve.getTxttelefono(), 20);
+
     }
 
     private void addTextKeyListenerNotNumber(JTextField text, int maxLength) {
@@ -103,26 +114,7 @@ public class ControladorEmpleado {
         });
     }
 
-    private void AddToCombo(int ce) {
-        if (ce == 1) {
-            VistaTipoDocumento vt = new VistaTipoDocumento();
-            vt.getBtnaceptar().addActionListener(l -> UsaDialogoTipoDoc());
-            vt.getBtncancelar().addActionListener(l -> vt.getDlgtipodoc().dispose());
-            vt.getDlgtipodoc().setSize(290, 180);
-            vt.getDlgtipodoc().setLocationRelativeTo(ve);
-            vt.getDlgtipodoc().setVisible(true);
-        } else {
-            VistaLabor vl = new VistaLabor();
-            vl.getBtnaceptar().addActionListener(l -> UsaDialogoLabor());
-            vl.getBtncancelar().addActionListener(l -> vl.getDlgcrudlabor().dispose());
-            vl.getDlgcrudlabor().setSize(580, 280);
-            vl.getDlgcrudlabor().setLocationRelativeTo(ve);
-            vl.getDlgcrudlabor().setVisible(true);
-        }
-    }
-
     private int IncrementaIDtipodoc() {
-
         int id_tip = mtd.ObtenerIDTDBD();
         if (id_tip >= 1) {
             id_tip++;
@@ -140,76 +132,174 @@ public class ControladorEmpleado {
         return id_tip;
     }
 
-    private void UsaDialogoTipoDoc() {
-        VistaTipoDocumento vt = new VistaTipoDocumento();
-        try {
-            int id_tip = IncrementaIDtipodoc();
-            String nombre = vt.getTxtdocname().getText().toUpperCase().trim();
-
-            ModeloTipoDocumento doc = new ModeloTipoDocumento();
-            doc.setId_tip(id_tip);
-            doc.setNombre_doc(nombre);
-
-            if (doc.InsertaTipoDocBD() == null) {
-                vt.getDlgtipodoc().setVisible(false);
-                JOptionPane.showMessageDialog(vt, "Tipo añadido correctamente");
-
-            } else {
-                JOptionPane.showMessageDialog(vt, "No se pudo añadir el tipo");
-            }
-        } catch (NullPointerException | NumberFormatException e) {
-            System.out.println(e);
+    private void AbreSubDialogo(int ce) {
+        if (ce == 1) {
+            vd.getDlgtipodoc().setName("documento");
+            vd.getDlgtipodoc().setSize(290, 200);
+            vd.getDlgtipodoc().setModal(true);
+            vd.getDlgtipodoc().setLocationRelativeTo(ve);
+            vd.getDlgtipodoc().setVisible(true);
+        } else {
+            vl.getDlgcrudlabor().setName("labor");
+            vl.getDlgcrudlabor().setSize(580, 280);
+            vl.getDlgcrudlabor().setModal(true);
+            vl.getDlgcrudlabor().setLocationRelativeTo(ve);
+            vl.getDlgcrudlabor().setVisible(true);
         }
     }
 
-    private void UsaDialogoLabor() {
-        VistaLabor vl = new VistaLabor();
-        try {
-            int id_lab = IncrementaIDlabor();
-            String nombre = vl.getTxtnombrelab().getText().toUpperCase().trim();
-            int horas_laborales = vl.getSldhoras().getValue();
-            double sueldo = Double.parseDouble(vl.getTxtsueldo().getText());
+    private void UsaSubDialogo() {
+        if (vl.getDlgcrudlabor().getName().equals("labor")) {
+            try {
+                vl.getLblidlab().setText(Integer.toString(IncrementaIDlabor()));
 
-            ModeloLabor labor = new ModeloLabor();
-            labor.setId_lab(id_lab);
-            labor.setNombre_lab(nombre);
-            labor.setHoraslaborales_lab(horas_laborales);
-            labor.setSueldo_lab(sueldo);
+                int id_lab = Integer.parseInt(vl.getLblidlab().getText());
+                String nombre = vl.getTxtnombrelab().getText().toUpperCase().trim();
+                int horas_laborales = vl.getSldhoras().getValue();
+                double sueldo = Double.parseDouble(vl.getTxtsueldo().getText());
 
-            if (labor.InsertarLaborBD() == null) {
-                vl.getDlgcrudlabor().setVisible(false);
-                JOptionPane.showMessageDialog(vl, "Labor añadido correctamente");
-
-            } else {
-                JOptionPane.showMessageDialog(vl, "No se pudo añadir la Labor");
+                ModeloLabor labor = new ModeloLabor();
+                labor.setId_lab(id_lab);
+                labor.setNombre_lab(nombre);
+                labor.setHoraslaborales_lab(horas_laborales);
+                labor.setSueldo_lab(sueldo);
+                System.out.println(labor);
+                if (labor.InsertarLaborBD() == null) {
+                    vl.getDlgcrudlabor().setVisible(false);
+                    LlenaComboLabor();
+                    JOptionPane.showMessageDialog(vl, "Labor añadido correctamente");
+                } else {
+                    JOptionPane.showMessageDialog(vl, "No se pudo añadir la Labor");
+                }
+            } catch (NullPointerException | NumberFormatException e) {
+                System.out.println(e);
             }
-        } catch (NullPointerException | NumberFormatException e) {
-            System.out.println(e);
+        } else if (vd.getDlgtipodoc().getName().equals("documento")) {
+
+            vd.getLblnumdoc().setText(Integer.toString(IncrementaIDtipodoc()));
+            int id_doc = IncrementaIDtipodoc();
+            String nombre_doc = vd.getTxtdocname().getText();
+
+            ModeloTipoDocumento mt = new ModeloTipoDocumento();
+            mt.setId_tip(id_doc);
+            mt.setNombre_doc(nombre_doc);
+            if (mt.InsertaTipoDocBD() == null) {
+                vd.getDlgtipodoc().dispose();
+                LlenaComboTipoDoc();
+                JOptionPane.showMessageDialog(ve, "Tipo de documento añadido correctamente");
+            } else {
+                JOptionPane.showMessageDialog(ve, "No se pudo añadir el documento");
+            }
         }
+    }
+
+    private void UsaDialogCuenta() {
+        vcc.getDlgcrudcuenta().setSize(295, 305);
+        vcc.getDlgcrudcuenta().setLocationRelativeTo(vcc);
+        vcc.getDlgcrudcuenta().setVisible(true);
     }
 
     private void CargaEmpleados() {
-        List<Persona> listaemp = mp.ListarPersonas();
+        List<Persona> listaper = me.ListarPersonasEmpleadosBD();
+        List<Empleado> listaemp = me.ListarEmpleadosBD();
+        List<Labor> listalab = ml.ListaLaborBD();
         DefaultTableModel df;
         df = (DefaultTableModel) ve.getTblempleados().getModel();
         df.setNumRows(0);
 
-        listaemp.stream().forEach(em -> {
-            String[] FilaNueva = {
-                Integer.toString(em.getId_per()),
-                em.getNumeroidentificacion_per(),
-                em.getNombre_per(),
-                em.getApellido_per(),
-                em.getDireccion_per(),
-                em.getTelefono_per(),
-                em.getEmail_per(),
-                em.getGenero_per(),
-                String.valueOf(em.getFecha_nac())
-            };
-            df.addRow(FilaNueva);
+        listaper.stream().forEach(pe -> {
+            listaemp.stream().forEach(em -> {
+                listalab.stream().forEach(lab -> {
+                    if (pe.getId_per() == em.getId_per()) {
+                        if (em.getIdlabor_emp() == lab.getId_lab()) {
+                            String[] FilaNueva = {
+                                Integer.toString(em.getId_per()),
+                                pe.getNumeroidentificacion_per(),
+                                pe.getNombre_per(),
+                                pe.getApellido_per(),
+                                pe.getDireccion_per(),
+                                pe.getTelefono_per(),
+                                pe.getEmail_per(),
+                                pe.getGenero_per(),
+                                String.valueOf(pe.getFecha_nac()),
+                                lab.getNombre_lab()
+                            };
+                            df.addRow(FilaNueva);
+                        }
+                    }
+                });
+            });
         });
     }
 
+    private void BuscarEmpleadosBD() {
+        String search = ve.getTxtbuscar().getText().trim();
+        List<Persona> listaper = me.BuscarEmpleadosBD(search);
+        List<Empleado> listaemp = me.ListarEmpleadosBD();
+        List<Labor> listalab = ml.ListaLaborBD();
+        DefaultTableModel df;
+        df = (DefaultTableModel) ve.getTblempleados().getModel();
+        df.setNumRows(0);
+        listaper.stream().forEach(pe -> {
+            listaemp.stream().forEach(em -> {
+                if (pe.getId_per() == em.getId_per()) {
+                    listalab.stream().forEach(lab -> {
+                        if (em.getIdlabor_emp() == lab.getId_lab()) {
+                            String[] FilaNueva = {
+                                Integer.toString(em.getId_per()),
+                                pe.getNumeroidentificacion_per(),
+                                pe.getNombre_per(),
+                                pe.getApellido_per(),
+                                pe.getDireccion_per(),
+                                pe.getTelefono_per(),
+                                pe.getEmail_per(),
+                                pe.getGenero_per(),
+                                String.valueOf(pe.getFecha_nac()),
+                                lab.getNombre_lab()
+                            };
+                            df.addRow(FilaNueva);
+                        }
+                    });
+                }
+            });
+        });
+    }
+
+//    private void BuscarEmpleadosBD() {
+//        String search = ve.getTxtbuscar().getText().trim();
+//        List<Persona> listaper = me.BuscarEmpleadosBD(search);
+//        List<Empleado> listaemp = me.ListarEmpleadosBD();
+//        List<Labor> listalab = ml.ListaLaborBD();
+//        DefaultTableModel df = (DefaultTableModel) ve.getTblempleados().getModel();
+//        df.setNumRows(0);
+//        for (Persona pe : listaper) {
+//            Empleado em = listaemp.stream()
+//                    .filter(e -> e.getId_per() == pe.getId_per())
+//                    .findFirst()
+//                    .orElse(null);
+//            if (em != null) {
+//                Labor lab = listalab.stream()
+//                        .filter(l -> l.getId_lab() == em.getIdlabor_emp())
+//                        .findFirst()
+//                        .orElse(null);
+//                if (lab != null) {
+//                    String[] FilaNueva = {
+//                        Integer.toString(em.getId_per()),
+//                        pe.getNumeroidentificacion_per(),
+//                        pe.getNombre_per(),
+//                        pe.getApellido_per(),
+//                        pe.getDireccion_per(),
+//                        pe.getTelefono_per(),
+//                        pe.getEmail_per(),
+//                        pe.getGenero_per(),
+//                        String.valueOf(pe.getFecha_nac()),
+//                        lab.getNombre_lab()
+//                    };
+//                    df.addRow(FilaNueva);
+//                }
+//            }
+//        }
+//    }
     private void LlenaComboLabor() {
         ve.getCblabor().removeAllItems();
         List<Labor> list = ml.LlenaComboBD();
@@ -223,28 +313,6 @@ public class ControladorEmpleado {
         List<TipoDocumento> list = mtd.LlenaComboBD();
         list.stream().forEach(doc -> {
             ve.getCbtipodoc().addItem(new TipoDocumento(doc.getId_tip(), doc.getNombre_doc()));
-        });
-    }
-
-    private void BuscaEmpleados() {
-        List<Persona> listaemp = mp.BuscaPersonaDB(ve.getTxtbuscar().getText());
-        DefaultTableModel df;
-        df = (DefaultTableModel) ve.getTblempleados().getModel();
-        df.setNumRows(0);
-
-        listaemp.stream().forEach(em -> {
-            String[] FilaNueva = {
-                Integer.toString(em.getId_per()),
-                em.getNumeroidentificacion_per(),
-                em.getNombre_per(),
-                em.getApellido_per(),
-                em.getDireccion_per(),
-                em.getTelefono_per(),
-                em.getEmail_per(),
-                em.getGenero_per(),
-                String.valueOf(em.getFecha_nac())
-            };
-            df.addRow(FilaNueva);
         });
     }
 
@@ -345,7 +413,7 @@ public class ControladorEmpleado {
             if (component instanceof JTextField) {
                 ((JTextField) component).setEnabled(true);
             } else if (component instanceof JDateChooser) {
-                ((JDateChooser) component).setEnabled(true);
+                ((JDateChooser) component).setEnabled(false);
                 ((JDateChooser) component).getCalendarButton().setEnabled(true);
             } else if (component instanceof JComboBox) {
                 ((JComboBox) component).setEnabled(true);
@@ -438,17 +506,13 @@ public class ControladorEmpleado {
                     int labor = ml.ConsultaIDBD(lab.toString());
                     empleado.setIdlabor_emp(labor);
                     empleado.setId_per(id_per);
-                    if (empleado.InsertaEmpleado() == null) {
+                    if (empleado.InsertaEmpleadoBD() == null) {
                         ve.getDlgcrudempleado().setVisible(false);
                         int create_account = JOptionPane.showConfirmDialog(ve, "Empleado añadido correctamente.\n¿Desea crear un cuenta para este usuario?",
                                 "Creación de cuenta", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 
                         if (create_account == JOptionPane.YES_OPTION) {
-                            VistaCuenta vc = new VistaCuenta();
-                            ModeloCuenta mc = new ModeloCuenta();
-
-                            ControladorCuenta cc = new ControladorCuenta(mc, vc);
-                            cc.AbreDialogo(1);
+                            UsaDialogCuenta();
                         }
                     } else {
                         JOptionPane.showMessageDialog(ve, "No se pudo añadir al empleado");
@@ -479,7 +543,6 @@ public class ControladorEmpleado {
                     int id_tipo = mtd.ConsultaIDBD(tipodoc.toString());
                     String direccion = ve.getTxtdireccion().getText();
                     String email = ve.getTxtemail().getText();
-                    int labor = ve.getCblabor().getSelectedIndex();
 
                     ModeloPersona persona = new ModeloPersona();
 
@@ -494,10 +557,21 @@ public class ControladorEmpleado {
                     persona.setEmail_per(email);
 
                     if (persona.ModficarPersonaDB(id_per) == null) {
-                        ve.getDlgcrudempleado().setVisible(false);
-                        JOptionPane.showMessageDialog(ve, "Empleado editado correctamente");
+                        ModeloEmpleado empleado = new ModeloEmpleado();
+                        empleado.setId_emp(IncrementaIDE());
+                        Labor lab = (Labor) ve.getCblabor().getSelectedItem();
+
+                        int labor = ml.ConsultaIDBD(lab.toString());
+                        empleado.setIdlabor_emp(labor);
+                        empleado.setId_per(id_per);
+                        if (empleado.InsertaEmpleadoBD() == null) {
+                            ve.getDlgcrudempleado().setVisible(false);
+                            JOptionPane.showMessageDialog(ve, "Empleado editado correctamente");
+                        } else {
+                            JOptionPane.showMessageDialog(ve, "No se pudo editar al empleado");
+                        }
                     } else {
-                        JOptionPane.showMessageDialog(ve, "No se pudo editar al empleado");
+                        JOptionPane.showMessageDialog(ve, "No se pudo editar el registro");
                     }
 
                 } catch (NumberFormatException | NullPointerException e) {
