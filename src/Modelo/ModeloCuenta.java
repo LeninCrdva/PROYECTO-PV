@@ -87,19 +87,16 @@ public class ModeloCuenta extends Cuenta {
     }
 
     public boolean ExistenDatosBD(String username, String password) {
-        String sql = "SELECT COUNT(*) FROM cuenta WHERE id_cue LIKE '%" + username + "%' "
-                + "AND password cue '%" + password + "%'";
+        String sql = "SELECT COUNT(*) FROM cuenta WHERE username_cue LIKE '%" + username + "%' "
+                + "AND password_cue LIKE '%" + password + "%'";
         ConnectionPG con = new ConnectionPG();
         ResultSet rs = con.Consulta(sql);
         
         try {
-            if (rs.next()) {
-                return true;
-            }
-            rs.close();
+            return rs.getInt(1) > 0;
         } catch (SQLException e) {
             System.err.println(e);
+            return false;
         }
-        return false;
     }
 }
