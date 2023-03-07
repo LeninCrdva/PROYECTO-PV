@@ -18,9 +18,17 @@ public class ControladorLogin {
 
     public void InciarControl() {
         vl.getBtnlogin().addActionListener(l -> InformacionValida());
+        vl.getLblhidepass().setVisible(false);
         vl.getLblviewpass().addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseClicked(java.awt.event.MouseEvent e) {
+            public void mousePressed(java.awt.event.MouseEvent e) {
+                VerOcultarPassword();
+            }
+
+        });
+        vl.getLblhidepass().addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(java.awt.event.MouseEvent e) {
                 VerOcultarPassword();
             }
 
@@ -42,6 +50,7 @@ public class ControladorLogin {
                 } else {
                     if (mc.ExistenDatosBD(username, password)) {
                         //Llamar al main view
+
                     } else {
                         JOptionPane.showMessageDialog(null, "Datos erróneos, inténtelo otra vez", "Error",
                                 JOptionPane.ERROR_MESSAGE);
@@ -56,10 +65,10 @@ public class ControladorLogin {
             vl.getLblviewpass().setVisible(false);
             vl.getLblhidepass().setVisible(true);
             vl.getTxtpassword().setEchoChar((char) 0);
-        } else { // password is currently shown
+        } else {
             vl.getLblviewpass().setVisible(true);
             vl.getLblhidepass().setVisible(false);
-            vl.getTxtpassword().setEchoChar('*');
+            vl.getTxtpassword().setEchoChar('•');
         }
     }
 }
