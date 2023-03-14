@@ -9,6 +9,7 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import org.mindrot.jbcrypt.BCrypt;
 
 public class ControladorCuenta {
 
@@ -110,10 +111,10 @@ public class ControladorCuenta {
         return press;
     }
 
-    private boolean SecurePassword(String password) {
+    protected static boolean SecurePassword(String password) {
         return password.matches("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$");
     }
-
+    
     private void CrearEditarEliminarCuenta() {
         String name = vc.getDlgcrudcuenta().getName();
         switch (name) {
@@ -122,14 +123,20 @@ public class ControladorCuenta {
                 vc.getLblidcuenta().setText(Integer.toString(1));
                 int id_cuenta = Integer.parseInt(vc.getLblidcuenta().getText());
                 String user = vc.getTxtusername().getText().trim();
-                String password = Arrays.toString(vc.getTxtpassword().getPassword());
-                String confirm_password = Arrays.toString(vc.getTxtconfirmpassword().getPassword());
+                char[] passwordkey = vc.getTxtpassword().getPassword();
+                
+                String password = new String(passwordkey);
+                
+                char[] passwordkeyconfirm = vc.getTxtpassword().getPassword();
+                String confirm_password = new String(passwordkeyconfirm);
+                                
                 if (password.equals(confirm_password)) {
                     if (SecurePassword(password)) {
+                        String encryptedpassword = BCrypt.hashpw(password, BCrypt.gensalt());
                         ModeloCuenta cuenta = new ModeloCuenta();
                         cuenta.setId_cue(id_cuenta);
                         cuenta.setUsername_cue(user);
-                        cuenta.setPassword_cue(password);
+                        cuenta.setPassword_cue(encryptedpassword);
                         if (cuenta.InsertaCuentaBD() == null) {
                             JOptionPane.showMessageDialog(vc, "Cuenta creada correctamente");
                             vc.getDlgcrudcuenta().dispose();
