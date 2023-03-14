@@ -57,7 +57,7 @@ public class ControladorCliente {
     }
 
     private void CargarClientes() {
-        List<Persona> listaclientes = mp.ListarPersonas();
+        List<Cliente> listaclientes = mc.listarclientes();
         DefaultTableModel dt;
         dt = (DefaultTableModel) vc.getTblClientes().getModel();
         dt.setNumRows(0);

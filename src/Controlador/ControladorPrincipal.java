@@ -19,6 +19,7 @@ public class ControladorPrincipal {
         vistaPrincipal.getBtnHabitacion().addActionListener(l-> crudHabitacion());
         vistaPrincipal.getBtnReserva().addActionListener(l -> crudReserva());
         vistaPrincipal.getBtnFactura().addActionListener(l -> CrudFactura());
+        vistaPrincipal.getBtnCuenta().addActionListener(l -> crudCuenta());
     }
     
     private void crudEmpleado(){
@@ -98,5 +99,16 @@ public class ControladorPrincipal {
         vistaPrincipal.getPanelPrincipal().add(vistaF);
         
         control.iniciarControl();
+    }
+    
+    private void crudCuenta(){
+        VistaCuenta vista = new VistaCuenta();
+        ModeloCuenta modeloCuenta = new ModeloCuenta();
+        
+        ControladorCuenta control = new ControladorCuenta(modeloCuenta, vista);
+        
+        vistaPrincipal.getPanelPrincipal().add(vista);
+        
+        control.AbreDialogo(0);
     }
 }

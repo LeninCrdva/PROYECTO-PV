@@ -518,6 +518,11 @@ public class VistaClientes extends javax.swing.JInternalFrame {
 
         btnImprimir.setText("Imprimir");
 
+        tblClientes = new javax.swing.JTable(){
+            public boolean isCellEditable(int rowIndex, int colIndex){
+                return false;
+            }
+        };
         tblClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null},
