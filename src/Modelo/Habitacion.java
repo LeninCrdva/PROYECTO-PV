@@ -47,4 +47,9 @@ public class Habitacion {
     public void setEstado_hab(boolean estado_hab) {
         this.estado_hab = estado_hab;
     }
+
+    @Override
+    public String toString() {
+        return "Habitacion Nº: " + numero_hab;
+    }
 }

@@ -26,7 +26,7 @@ public class ModeloTipoCliente extends TipoCliente {
 
     public List<TipoCliente> ListaTipoCliente() {
         List<TipoCliente> lista = new ArrayList<>();
-        String sql = "SELECT id_tip,nombre_tip";
+        String sql = "SELECT id_tip,nombre_tip from tipo_cliente";
         ConnectionPG con = new ConnectionPG();
         ResultSet rs = con.Consulta(sql);
         try {
@@ -44,10 +44,46 @@ public class ModeloTipoCliente extends TipoCliente {
         return lista;
 
     }
+   public  int ObtenerIdTipoCliente(){
+   int id_tip =0 ;
+   String sql = "select max(id_tip) from tipo_cliente";
+   ConnectionPG con =new ConnectionPG(); 
+   ResultSet rs = con.Consulta(sql);
+   
+       try {
+           if (rs.next()) {
+               id_tip= rs.getInt(sql);
+               
+           }
+           rs.close();
+           return id_tip;
+       } catch (SQLException e) {
+           System.err.println(e);
+           return id_tip;
+       }
+   }
+   public int  ConsularIDBD(String nombre){
+       int id_tip= 0;
+       String sql ="select id_tip  from tipo_cliente where nombre_tip like '%"+nombre+"%'";
+       ConnectionPG con = new ConnectionPG();
+       ResultSet rs = con.Consulta(sql);
+       
+       try {
+           if (rs.next()) {
+               id_tip = rs.getInt(1);
+           }
+           rs.close();
+           return id_tip;
+       } catch (SQLException e) {
+           System.err.println();
+           return id_tip;
+       }
+   
+   }
 
     public List<TipoCliente> LlenarCombo() {
         List<TipoCliente> lista = new ArrayList<>();
-        String sql = "SELECT nombre_tip FROM tipo_cliente";
+        String sql = "SELECT id_tip, nombre_tip FROM tipo_cliente";
 
         ConnectionPG con = new ConnectionPG();
         ResultSet rs = con.Consulta(sql);
@@ -75,7 +111,7 @@ public class ModeloTipoCliente extends TipoCliente {
 
     }
 
-    public List<TipoCliente> BuscarTipoCliente(String bus) {
+    public List<TipoCliente> BuscarTipoClienteBD(String bus) {
         List<TipoCliente> lista = new ArrayList<>();
         String sql = "SELECT  id_tip, nombre_tip FROM  tipo_cliente where  nombre_tip LIKE '%" + bus + "%'";
         ConnectionPG con = new ConnectionPG();
@@ -106,7 +142,7 @@ public class ModeloTipoCliente extends TipoCliente {
     }
 
     public SQLException EliminarTipoCliente(int id_tip) {
-        String sql = "DELETE FROM tipo cliente  WHERE  id_tip = " + id_tip;
+        String sql = "DELETE FROM tipo_cliente  WHERE  id_tip = " + id_tip;
         ConnectionPG con = new ConnectionPG();
         SQLException ex = con.Accion(sql);
         return ex;

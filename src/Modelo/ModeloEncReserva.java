@@ -68,11 +68,12 @@ public class ModeloEncReserva extends Enc_reserva{
         String sql = "WITH new_cliente AS("
                 + " INSERT INTO Enc_reserva(idCliente_res, fechaIngreso_res, fechaSalida_res, total_res, estado_res)"
                 + " VALUES (" + getIdCliente_res() + ", '" + getFechaIngreso_res() + "', '" + getFechaSalida_res() +"', "
-                + getTotal_res() +", " + false + ")"
-                + "RETURNING id_res)";
+                + getTotal_res() +", " + false + ") "
+                + "RETURNING id_res) SELECT * FROM new_cliente";
         ConnectionPG conpg = new ConnectionPG();
         ResultSet ex = conpg.Consulta(sql);
         try {
+            ex.next();
             id = ex.getInt(1);
         } catch (SQLException ex1) {
             Logger.getLogger(ModeloEncReserva.class.getName()).log(Level.SEVERE, null, ex1);

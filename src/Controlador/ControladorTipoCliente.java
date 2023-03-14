@@ -32,7 +32,6 @@ public class ControladorTipoCliente {
 
     private void CargarTipoCliente() {
         List<TipoCliente> listatipoclie = mtc.ListaTipoCliente();
-
         DefaultTableModel mol;
         mol = (DefaultTableModel) vtc.getTblTipoCliente().getModel();
         mol.setNumRows(0);
@@ -40,7 +39,8 @@ public class ControladorTipoCliente {
         listatipoclie.stream().forEach(tip -> {
             String[] tipo = {
                 String.valueOf(tip.getId_tip()),
-                tip.getNombre_tip(),};
+                tip.getNombre_tip(),
+            };
             mol.addRow(tipo);
 
         });
@@ -94,12 +94,18 @@ public class ControladorTipoCliente {
         }
 
     }
+    private int CrearID(){
+        int id_tip = mtc.ObtenerIdTipoCliente();
+        id_tip ++;
+        return  id_tip;
+    }
 
     private void CrearEditarEliminarTipoCliente() {
         String nomb = vtc.getDlgCrudTipoCliente().getName();
         switch (nomb) {
             case "crear":
             try {
+                vtc.getLblIdTipoCliente().setText(Integer.toString(CrearID()));
                 int id_tip = Integer.parseInt(vtc.getLblIdTipoCliente().getText());
                 String nombre = vtc.getTxtNombreTipoCliente().getText();
 
@@ -108,7 +114,7 @@ public class ControladorTipoCliente {
                 tipo.setNombre_tip(nombre);
                 if (tipo.InsertarTipoCliente() == null) {
                     JOptionPane.showMessageDialog(vtc, "    Se registro correctamente ");
-
+                    vtc.getDlgCrudTipoCliente().dispose();
                 } else {
                     JOptionPane.showMessageDialog(vtc, " Error ! .. no se puedo anadir");
                 }
@@ -121,12 +127,13 @@ public class ControladorTipoCliente {
             try {
                 int id_tip = Integer.parseInt(vtc.getLblIdTipoCliente().getText());
                 String nombre = vtc.getTxtNombreTipoCliente().getText();
-
+                
                 ModeloTipoCliente mol = new ModeloTipoCliente();
                 mol.setId_tip(id_tip);
                 mol.setNombre_tip(nombre);
                 if (mol.modificarTipoCliente(id_tip) == null) {
                     JOptionPane.showMessageDialog(vtc, "Editado correctamente");
+                    vtc.getDlgCrudTipoCliente().dispose();
                 } else {
                     JOptionPane.showMessageDialog(vtc, "ERROR!..no se pudo editar ");
                 }
@@ -142,6 +149,7 @@ public class ControladorTipoCliente {
                 ModeloTipoCliente tipo = new ModeloTipoCliente();
                 if (tipo.EliminarTipoCliente(id_tip) == null) {
                     JOptionPane.showMessageDialog(vtc, "Eliminado correctamente ");
+                    vtc.getDlgCrudTipoCliente().dispose();
                 } else {
                     JOptionPane.showMessageDialog(vtc, "ERROR!..no se pudo eliminar ");
                 }
@@ -151,11 +159,12 @@ public class ControladorTipoCliente {
             break;
 
         }
+        CargarTipoCliente();
     }
 
     private void BuscarTipoCliente() {
-        String bus = vtc.getTxtBuscar().getText();
-        List<TipoCliente> listatipo = mtc.BuscarTipoCliente(bus);
+        String bus = vtc.getTxtBuscar().getText().trim();
+        List<TipoCliente> listatipo = mtc.BuscarTipoClienteBD(bus);
         DefaultTableModel mol = (DefaultTableModel) vtc.getTblTipoCliente().getModel();
         mol.setNumRows(0);
         listatipo.stream().forEach(tipo -> {
@@ -175,6 +184,7 @@ public class ControladorTipoCliente {
         vtc.getBtnEleminar().addActionListener(l -> AbrirDialogo(3));
         vtc.getBtnAceptar().addActionListener(l -> CrearEditarEliminarTipoCliente());
         vtc.getBtnCancelar().addActionListener(l -> vtc.getDlgCrudTipoCliente().dispose());
+        vtc.getLblIdTipoCliente().setText(Integer.toString(CrearID()));
         vtc.getTxtBuscar().addKeyListener(new KeyAdapter() {
          
             public void KeyTyped(java.awt.event.KeyEvent evt) {

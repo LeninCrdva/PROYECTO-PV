@@ -18,7 +18,7 @@ public class ModeloTipo_Habitacion extends Tipo_Habitacion{
     
     public List<Tipo_Habitacion> ListTipoHab(){
         List<Tipo_Habitacion> lista = new ArrayList<>();
-        String sql = "SELECT * FROM Tipo_Habitacion";
+        String sql = "SELECT * FROM Tipo_Habitacion ORDER BY 1";
         ConnectionPG conpg = new ConnectionPG();
         ResultSet rs = conpg.Consulta(sql);
         try {
@@ -73,8 +73,8 @@ public class ModeloTipo_Habitacion extends Tipo_Habitacion{
     }
     
     public SQLException EditTipHab(){
-        String sql = "UPDATE Tipo_Habitacion SET nombre_tha = " + getNombre_tha() + ", numeroCamas_tha = " + getNumeroCamas_tha()
-                + ", capacidad_tha = " + getCapacidad_tha() + ", " + getPrecio_tha();
+        String sql = "UPDATE Tipo_Habitacion SET nombre_tha = '" + getNombre_tha() + "', numeroCamas_tha = " + getNumeroCamas_tha()
+                + ", capacidad_tha = " + getCapacidad_tha() + ", precio_tha =" + getPrecio_tha() + "WHERE id_tha = " + getId_tha();
         
         ConnectionPG conpg = new ConnectionPG();
         SQLException ex = conpg.Accion(sql);
