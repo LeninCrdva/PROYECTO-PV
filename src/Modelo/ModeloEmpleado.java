@@ -15,8 +15,8 @@ public class ModeloEmpleado extends Empleado {
         super(id_per, numeroidentificacion_per, nombre_per, apellido_per, tipo_doc, direccion_per, telefono_per, email_per, fecha_nac, genero_per);
     }
 
-    public ModeloEmpleado(int id_emp, int id_per, int idlabor_emp) {
-        super(id_emp, id_per, idlabor_emp);
+    public ModeloEmpleado(int id_emp, int id_per, int idlabor_emp, Date fecha_contratacion_emp) {
+        super(id_emp, id_per, idlabor_emp, fecha_contratacion_emp);
     }
 
     public List<Persona> ListarPersonasEmpleadosBD() {
@@ -78,10 +78,10 @@ public class ModeloEmpleado extends Empleado {
         }
         return lista;
     }
-    
+
     public List<Empleado> ListarEmpleadosBD() {
         List<Empleado> lista = new ArrayList<>();
-        String sql = "SELECT id_emp, id_per, idlabor_emp FROM empleado";
+        String sql = "SELECT id_emp, id_per, idlabor_emp, fecha_contratacion_emp FROM empleado";
         ConnectionPG con = new ConnectionPG();
         ResultSet rs = con.Consulta(sql);
 
@@ -91,6 +91,7 @@ public class ModeloEmpleado extends Empleado {
                 emp.setId_emp(rs.getInt(1));
                 emp.setId_per(rs.getInt(2));
                 emp.setIdlabor_emp(rs.getInt(3));
+                emp.setFecha_contratacion_emp(rs.getDate(4));
                 lista.add(emp);
             }
             rs.close();
@@ -99,10 +100,36 @@ public class ModeloEmpleado extends Empleado {
         }
         return lista;
     }
-    
+
+    public List<Empleado> LlenaComboBD() {
+        List<Empleado> lista = new ArrayList<>();
+        String sql = "SELECT id_emp FROM empleado";
+        ConnectionPG con = new ConnectionPG();
+        ResultSet rs = con.Consulta(sql);
+        try {
+            while (rs.next()) {
+                Empleado emp = new Empleado();
+                emp.setId_emp(rs.getInt(1));
+                lista.add(emp);
+            }
+            rs.close();
+            return lista;
+        } catch (SQLException e) {
+            return null;
+        }
+    }
+
     public SQLException InsertaEmpleadoBD() {
-        String sql = "INSERT INTO empleado (id_emp, id_per, idlabor_emp) VALUES "
-                + "(" + getId_emp() + ", " + getId_per() + ", " + getIdlabor_emp() + ")";
+        String sql = "INSERT INTO empleado (id_emp, id_per, idlabor_emp, fecha_contratacion_emp) VALUES "
+                + "(" + getId_emp() + ", " + getId_per() + ", " + getIdlabor_emp() + ", '" + getFecha_contratacion_emp() + "')";
+        ConnectionPG con = new ConnectionPG();
+        SQLException ex = con.Accion(sql);
+        return ex;
+    }
+
+    public SQLException ModificarEmpleadoBD(int id_emp) {
+        String sql = "UPDATE empleado SET idlabor_emp = " + getIdlabor_emp() + ","
+                + " fecha_contratacion_emp = '" + getFecha_contratacion_emp() + "'" + "WHERE id_emp = " + id_emp;
         ConnectionPG con = new ConnectionPG();
         SQLException ex = con.Accion(sql);
         return ex;
@@ -124,4 +151,19 @@ public class ModeloEmpleado extends Empleado {
         }
     }
 
+    public int ObtieneIDBD(int id_per) {
+        int id_per_emp = 0;
+        String sql = "SELECT id_emp FROM empleado  WHERE id_per = " + id_per;
+        ConnectionPG con = new ConnectionPG();
+        ResultSet rs = con.Consulta(sql);
+        try {
+            if (rs.next()) {
+                id_per_emp = rs.getInt(1);
+            }
+            rs.close();
+            return id_per_emp;
+        } catch (SQLException e) {
+            return id_per_emp;
+        }
+    }
 }

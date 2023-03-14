@@ -4,6 +4,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class ModeloLabor extends Labor {
 
@@ -51,14 +53,14 @@ public class ModeloLabor extends Labor {
             return id_lab;
         }
     }
-    
+
     public List<Labor> LlenaComboBD() {
         List<Labor> lista = new ArrayList<>();
         String sql = "SELECT id_lab, nombre_lab FROM labor";
         ConnectionPG con = new ConnectionPG();
         ResultSet rs = con.Consulta(sql);
         try {
-            while (rs.next()) {                
+            while (rs.next()) {
                 Labor lab = new Labor();
                 lab.setId_lab(rs.getInt(1));
                 lab.setNombre_lab(rs.getString(2));
@@ -76,7 +78,7 @@ public class ModeloLabor extends Labor {
         String sql = "SELECT id_lab FROM labor WHERE nombre_lab LIKE '%" + name + "%'";
         ConnectionPG con = new ConnectionPG();
         ResultSet rs = con.Consulta(sql);
-        
+
         try {
             if (rs.next()) {
                 id_tip = rs.getInt(1);
@@ -88,7 +90,7 @@ public class ModeloLabor extends Labor {
             return id_tip;
         }
     }
-    
+
     public SQLException InsertarLaborBD() {
         String sql = "INSERT INTO labor (id_lab, nombre_lab, horaslaborales_lab, sueldo) "
                 + "VALUES (" + getId_lab() + ", '" + getNombre_lab() + "', " + getHoraslaborales_lab() + ", " + getSueldo_lab() + ")";
@@ -117,6 +119,23 @@ public class ModeloLabor extends Labor {
         } catch (SQLException e) {
             System.out.println(e);
             return null;
+        }
+    }
+
+    public boolean ExisteNombreLaborBD(String nombre_lab) {
+        String sql = "SELECT COUNT(*) FROM labor WHERE nombre_lab = '" + nombre_lab + "'";
+        ConnectionPG con = new ConnectionPG();
+        ResultSet rs = con.Consulta(sql);
+        try {
+            if (rs.next()) {
+                int count = rs.getInt(1);
+                return count > 0;
+            } else {
+                return false;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ModeloLabor.class.getName()).log(Level.SEVERE, null, ex);
+            return true;
         }
     }
 

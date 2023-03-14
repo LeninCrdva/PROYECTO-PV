@@ -89,8 +89,8 @@ public class ModeloPersona extends Persona {
 
     public SQLException ModficarPersonaDB(int bus) {
         String sql = "UPDATE persona SET  nombre_per = '" + getNombre_per() + "', apellido_per = '" + getApellido_per() + "', tipo_doc = " + getTipo_doc()
-                + ", direccion_per = '" + getDireccion_per() + "', telefono_per = '" + getTelefono_per() + "', email_per = '" + getEmail_per() + "', fecha_nac = " + getFecha_nac() + ", genero_per ="
-                + " '" + getGenero_per() + "'" + "WHERE idpersona = " + bus + "";
+                + ", direccion_per = '" + getDireccion_per() + "', telefono_per = '" + getTelefono_per() + "', email_per = '" + getEmail_per() + "', fecha_nac = '" + getFecha_nac() + "', genero_per ="
+                + " '" + getGenero_per() + "' " + "WHERE id_per = " + bus;
         ConnectionPG con = new ConnectionPG();
         SQLException ex = con.Accion(sql);
         return ex;
@@ -118,5 +118,21 @@ public class ModeloPersona extends Persona {
             System.err.print(e);
         }
         return id_per;
+    }
+    
+    public int ObtieneID(int id_per) {
+        String sql = "SELECT tipo_doc FROM persona WHERE id_per = " + id_per;
+        ConnectionPG con = new ConnectionPG();
+        ResultSet rs = con.Consulta(sql);
+        int id_doc = 0;
+        try {
+            if (rs.next()) {
+                id_doc = rs.getInt(1);
+            }
+            rs.close();
+            return id_doc;
+        } catch (SQLException e) {
+            return id_doc;
+        }
     }
 }

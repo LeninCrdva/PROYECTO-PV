@@ -132,4 +132,21 @@ public class ModeloTipoDocumento extends TipoDocumento {
         }
     }
     
+       public boolean ExisteNombreTipoDocBD(String nombre_doc) {
+        String sql = "SELECT COUNT(*) FROM tipo_doc WHERE nombre_doc = '" + nombre_doc + "'";
+        ConnectionPG con = new ConnectionPG();
+        ResultSet rs = con.Consulta(sql);
+        try {
+            if (rs.next()) {
+                int count = rs.getInt(1);
+                return count > 0;
+            } else {
+                return false;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ModeloLabor.class.getName()).log(Level.SEVERE, null, ex);
+            return true;
+        }
+    }
+    
 }
