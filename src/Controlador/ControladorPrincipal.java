@@ -35,13 +35,10 @@ public class ControladorPrincipal {
         VistaLabor vl = new VistaLabor();
         VistaCuenta vcc = new VistaCuenta();
         vistaPrincipal.getPanelPrincipal().add(vista);
-        
+
         //ControladorEmpleado control = new ControladorEmpleado(modelop, modelo, vista, modelol, modelot);
         ControladorEmpleado control = new ControladorEmpleado(modelo, vista, vd, vcc, vl, modelol, modelot);
-
-        vistaPrincipal.getPanelPrincipal().add(vista);
-
-        ControladorEmpleado control = new ControladorEmpleado(modelop, modelo, vista, modelol, modelot);
+        
         control.IniciarControl();
     }
 
@@ -111,18 +108,17 @@ public class ControladorPrincipal {
 
         control.iniciarControl();
     }
-    
-    private void crudCuenta(){
+
+    private void crudCuenta() {
         VistaCuenta vista = new VistaCuenta();
         ModeloCuenta modeloCuenta = new ModeloCuenta();
-        
+
         ControladorCuenta control = new ControladorCuenta(modeloCuenta, vista);
-        
+
         vistaPrincipal.getPanelPrincipal().add(vista);
-        
+
         control.AbreDialogo(0);
     }
-}
 
     private void CrudServicios() {
         VistaServicio vistaS = new VistaServicio();
