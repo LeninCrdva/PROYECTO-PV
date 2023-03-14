@@ -1,14 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Modelo;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class ModeloCuenta extends Cuenta {
 
@@ -86,20 +83,54 @@ public class ModeloCuenta extends Cuenta {
         return ex;
     }
 
-    public boolean ExistenDatosBD(String username, String password) {
-        String sql = "SELECT COUNT(*) FROM cuenta WHERE id_cue LIKE '%" + username + "%' "
-                + "AND password cue '%" + password + "%'";
+    public String ExistenDatosBD(String username) {
+        String sql = "SELECT password_cue FROM cuenta WHERE username_cue LIKE '%" + username + "%' ";
+        String pass = null;        
         ConnectionPG con = new ConnectionPG();
         ResultSet rs = con.Consulta(sql);
-        
         try {
             if (rs.next()) {
-                return true;
+                pass = rs.getString(1);
             }
             rs.close();
+            return pass;
         } catch (SQLException e) {
             System.err.println(e);
+            return null;
         }
-        return false;
+    }
+    
+       public static boolean ExisteUserNameBD(String username_cue) {
+        String sql = "SELECT COUNT(*) FROM cuenta WHERE username_cue = '" + username_cue + "'";
+        ConnectionPG con = new ConnectionPG();
+        ResultSet rs = con.Consulta(sql);
+        try {
+            if (rs.next()) {
+                int count = rs.getInt(1);
+                return count > 0;
+            } else {
+                return false;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ModeloLabor.class.getName()).log(Level.SEVERE, null, ex);
+            return true;
+        }
+    }
+    
+    public int ObtenerIDCuentaBD() {
+        String sql = "SELECT MAX(id_cue) FROM cuenta";
+        ConnectionPG con = new ConnectionPG();
+        ResultSet rs = con.Consulta(sql);
+        int id_cue = 0;
+        try {
+            if (rs.next()) {
+                id_cue = rs.getInt(1);
+            }
+            rs.close();
+            return id_cue;
+        } catch (Exception e) {
+            System.out.println(e);
+            return id_cue;
+        }
     }
 }

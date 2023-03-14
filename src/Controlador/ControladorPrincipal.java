@@ -30,6 +30,14 @@ public class ControladorPrincipal {
         ModeloLabor modelol = new ModeloLabor();
         ModeloTipoDocumento modelot = new ModeloTipoDocumento();
         VistaEmpleados vista = new VistaEmpleados();
+        /*Add de dos vistas más vd y vl -- vcc*/
+        VistaTipoDocumento vd = new VistaTipoDocumento();
+        VistaLabor vl = new VistaLabor();
+        VistaCuenta vcc = new VistaCuenta();
+        vistaPrincipal.getPanelPrincipal().add(vista);
+        
+        //ControladorEmpleado control = new ControladorEmpleado(modelop, modelo, vista, modelol, modelot);
+        ControladorEmpleado control = new ControladorEmpleado(modelo, vista, vd, vcc, vl, modelol, modelot);
 
         vistaPrincipal.getPanelPrincipal().add(vista);
 

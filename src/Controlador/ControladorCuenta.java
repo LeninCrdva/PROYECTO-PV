@@ -9,6 +9,7 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import org.mindrot.jbcrypt.BCrypt;
 
 public class ControladorCuenta {
 
@@ -110,6 +111,10 @@ public class ControladorCuenta {
         return press;
     }
 
+    protected static boolean SecurePassword(String password) {
+        return password.matches("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$");
+    }
+    
     private void CrearEditarEliminarCuenta() {
         String name = vc.getDlgcrudcuenta().getName();
         switch (name) {
@@ -118,17 +123,35 @@ public class ControladorCuenta {
                 vc.getLblidcuenta().setText(Integer.toString(1));
                 int id_cuenta = Integer.parseInt(vc.getLblidcuenta().getText());
                 String user = vc.getTxtusername().getText().trim();
-                String password = Arrays.toString(vc.getTxtpassword().getPassword());
-                String confirm_password = Arrays.toString(vc.getTxtconfirmpassword().getPassword());
-                ModeloCuenta cuenta = new ModeloCuenta();
-                cuenta.setId_cue(id_cuenta);
-                cuenta.setUsername_cue(user);
-                cuenta.setPassword_cue(password);
-                if (cuenta.InsertaCuentaBD()== null) {
-                    JOptionPane.showMessageDialog(vc, "Cuenta creada correctamente");
-                    vc.getDlgcrudcuenta().dispose();
+                char[] passwordkey = vc.getTxtpassword().getPassword();
+                
+                String password = new String(passwordkey);
+                
+                char[] passwordkeyconfirm = vc.getTxtpassword().getPassword();
+                String confirm_password = new String(passwordkeyconfirm);
+                                
+                if (password.equals(confirm_password)) {
+                    if (SecurePassword(password)) {
+                        String encryptedpassword = BCrypt.hashpw(password, BCrypt.gensalt());
+                        ModeloCuenta cuenta = new ModeloCuenta();
+                        cuenta.setId_cue(id_cuenta);
+                        cuenta.setUsername_cue(user);
+                        cuenta.setPassword_cue(encryptedpassword);
+                        if (cuenta.InsertaCuentaBD() == null) {
+                            JOptionPane.showMessageDialog(vc, "Cuenta creada correctamente");
+                            vc.getDlgcrudcuenta().dispose();
+                        } else {
+                            JOptionPane.showMessageDialog(vc, "No se pudo crear la cuenta");
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(vc, "La contraseña debe contener:\n"
+                                + "• Al menos una letra en mayúscula, una mínuscula, un número\n"
+                                + "• Un tamaño mínimo de 8 dígitos", "Contraseña inválida",
+                                JOptionPane.INFORMATION_MESSAGE);
+                    }
                 } else {
-                    JOptionPane.showMessageDialog(vc, "No se pudo crear la cuenta");
+                    JOptionPane.showConfirmDialog(vc, "Las contraseñas no coinciden",
+                            "Error", JOptionPane.ERROR_MESSAGE);
                 }
             } catch (NullPointerException | NumberFormatException e) {
                 System.err.println(e);
@@ -140,16 +163,22 @@ public class ControladorCuenta {
                 int id_cuenta = Integer.parseInt(vc.getLblidcuenta().getText());
                 String user = vc.getTxtusername().getText().trim();
                 String password = Arrays.toString(vc.getTxtpassword().getPassword());
-
-                ModeloCuenta cuenta = new ModeloCuenta();
-                cuenta.setId_cue(id_cuenta);
-                cuenta.setUsername_cue(user);
-                cuenta.setPassword_cue(password);
-                if (cuenta.ModificarCuentaBD(id_cuenta) == null) {
-                    JOptionPane.showMessageDialog(vc, "Datos de la cuenta editados correctamente");
-                    vc.getDlgcrudcuenta().dispose();
+                if (SecurePassword(password)) {
+                    ModeloCuenta cuenta = new ModeloCuenta();
+                    cuenta.setId_cue(id_cuenta);
+                    cuenta.setUsername_cue(user);
+                    cuenta.setPassword_cue(password);
+                    if (cuenta.ModificarCuentaBD(id_cuenta) == null) {
+                        JOptionPane.showMessageDialog(vc, "Datos de la cuenta editados correctamente");
+                        vc.getDlgcrudcuenta().dispose();
+                    } else {
+                        JOptionPane.showMessageDialog(vc, "No se pudo editar el registro");
+                    }
                 } else {
-                    JOptionPane.showMessageDialog(vc, "No se pudo editar el registro");
+                    JOptionPane.showMessageDialog(vc, "La contraseña debe contener:\n"
+                            + "• Al menos una letra en mayúscula, una mínuscula, un número\n"
+                            + "• Un tamaño mínimo de 8 dígitos", "Contraseña inválida",
+                            JOptionPane.INFORMATION_MESSAGE);
                 }
             } catch (NullPointerException | NumberFormatException e) {
                 System.err.println(e);
