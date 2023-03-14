@@ -2,7 +2,11 @@ package Controlador;
 
 import Vista.VistaLogin;
 import Modelo.ModeloCuenta;
+import Vista.VistaPrincipal;
 import java.awt.event.MouseAdapter;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 import javax.swing.JOptionPane;
 import org.mindrot.jbcrypt.BCrypt;
 
@@ -15,6 +19,7 @@ public class ControladorLogin {
         this.vl = vl;
         this.mc = mc;
         vl.setVisible(true);
+        vl.setLocationRelativeTo(null);
     }
 
     public void InciarControl() {
@@ -36,7 +41,6 @@ public class ControladorLogin {
         });
     }
 
-    
     private void InformacionValida() {
         String username = vl.getTxtusername().getText().trim().toUpperCase();
         char[] passwordKey = vl.getTxtpassword().getPassword();
@@ -51,10 +55,21 @@ public class ControladorLogin {
                 if (password.isEmpty()) {
                     JOptionPane.showMessageDialog(vl, "Campo de contraseña vacío");
                 } else {
-                    if (BCrypt.checkpw(password, hashpassword)) {
-                        //Llamar al main view
-                        System.out.println("Pasa al main view");
-                    } else {
+                    try {
+                        if (BCrypt.checkpw(password, hashpassword)) {
+                            VistaPrincipal vista = new VistaPrincipal();
+                            ControladorPrincipal control = new ControladorPrincipal(vista);
+                            LocalDate fechaActual = LocalDate.now();
+                            DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd 'de' MMMM 'de' yyyy", new Locale("es", "ES"));
+                            String fechaFormateada = fechaActual.format(formato);
+                            vista.getLblfechaDiaria().setText(fechaFormateada);
+                            control.iniciaControl();
+                            vl.dispose();
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Datos erróneos, inténtelo otra vez", "Error",
+                                    JOptionPane.ERROR_MESSAGE);
+                        }
+                    } catch (NullPointerException ex) {
                         JOptionPane.showMessageDialog(null, "Datos erróneos, inténtelo otra vez", "Error",
                                 JOptionPane.ERROR_MESSAGE);
                     }

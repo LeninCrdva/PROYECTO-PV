@@ -19,9 +19,10 @@ public class ControladorCuenta {
     public ControladorCuenta(ModeloCuenta mc, VistaCuenta vc) {
         this.mc = mc;
         this.vc = vc;
+        this.vc.setVisible(true);
     }
 
-    private void IniciarControl() {
+    public void IniciarControl() {
         CargaCuentas();
         vc.getBtncrearcuenta().addActionListener(l -> AbreDialogo(1));
         vc.getBtneditcuenta().addActionListener(l -> AbreDialogo(2));

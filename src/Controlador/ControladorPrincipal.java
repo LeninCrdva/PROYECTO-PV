@@ -90,7 +90,7 @@ public class ControladorPrincipal {
         ModeloEncReserva modeloenc = new ModeloEncReserva();
         ModeloDetReserva modelodet = new ModeloDetReserva();
         VistaReserva vista = new VistaReserva();
-
+        vista.setTitle(null);
         vistaPrincipal.getPanelPrincipal().add(vista);
 
         ControladorReserva control = new ControladorReserva(modeloenc, modelodet, vista);
@@ -117,13 +117,15 @@ public class ControladorPrincipal {
 
         vistaPrincipal.getPanelPrincipal().add(vista);
 
-        control.AbreDialogo(0);
+        control.IniciarControl();
     }
 
     private void CrudServicios() {
         VistaServicio vistaS = new VistaServicio();
         ModeloServicio modeloS = new ModeloServicio();
+        
         ControladorServicio control = new ControladorServicio(vistaS, modeloS);
+        
         vistaPrincipal.getPanelPrincipal();
 
         control.IniciarControl();
