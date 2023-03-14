@@ -17,6 +17,12 @@ public class Persona {
 
     public Persona() {
     }
+    
+    public Persona(String numeroIdentificacion, String nombre_per, String apellido_per){
+        this.numeroidentificacion_per = numeroIdentificacion;
+        this.nombre_per = nombre_per;
+        this.apellido_per = apellido_per;
+    }
 
     public Persona(int id_per, String numeroidentificacion_per, String nombre_per, String apellido_per, int tipo_doc, String direccion_per, String telefono_per, String email_per, Date fecha_nac, String genero_per) {
         this.id_per = id_per;
@@ -113,6 +119,6 @@ public class Persona {
 
     @Override
     public String toString() {
-        return "Persona{" + "id_per=" + id_per + ", numeroidentificacion_per=" + numeroidentificacion_per + ", nombre_per=" + nombre_per + ", apellido_per=" + apellido_per + ", tipo_doc=" + tipo_doc + ", direccion_per=" + direccion_per + ", telefono_per=" + telefono_per + ", email_per=" + email_per + ", fecha_nac=" + fecha_nac + ", genero_per=" + genero_per + '}';
+        return nombre_per + " " + apellido_per + ": " + numeroidentificacion_per;
     }
 }

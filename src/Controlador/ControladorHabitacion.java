@@ -31,6 +31,7 @@ public class ControladorHabitacion {
     }
 
     public void iniciarControl() {
+        automaticRd();
         cargarHabitacion();
         cargarTpHab();
         cargarComboTip();
@@ -136,13 +137,13 @@ public class ControladorHabitacion {
         } else if (vista.getDialogHabi().getName().equals("editar")) {
             //EDITAR
             int idhab = Integer.parseInt(vista.getLabelIDHabi().getText());
-            int numtipo = vista.getComboTipoHab().getSelectedIndex() + 1;
+            Tipo_Habitacion tipo = (Tipo_Habitacion) vista.getComboTipoHab().getSelectedItem();
             int numhab = Integer.parseInt(vista.getTxtNumHab().getText());
             boolean estado = vista.getCheckDisponible().isSelected();
 
             ModeloHabitación hb = new ModeloHabitación();
             hb.setId_hab(idhab);
-            hb.setIdTipo_hab(numtipo);
+            hb.setIdTipo_hab(tipo.getId_tha());
             hb.setNumero_hab(numhab);
             hb.setEstado_hab(estado);
 
@@ -221,7 +222,7 @@ public class ControladorHabitacion {
             ModeloTipo_Habitacion tip = new ModeloTipo_Habitacion();
             tip.setNombre_tha(vista.getTableHabitacion().getValueAt(vista.getTableHabitacion().getSelectedRow(), 2).toString());
             vista.getLabelIDHabi().setText(vista.getTableHabitacion().getValueAt(vista.getTableHabitacion().getSelectedRow(), 0).toString());
-            vista.getComboTipoHab().setSelectedIndex(tip.getId() - 1);
+            vista.getComboTipoHab().getModel().setSelectedItem(tip);
             vista.getTxtNumHab().setText(vista.getTableHabitacion().getValueAt(vista.getTableHabitacion().getSelectedRow(), 1).toString());
             vista.getCheckDisponible().setSelected(Boolean.parseBoolean(vista.getTableHabitacion().getValueAt(vista.getTableHabitacion().getSelectedRow(), 3).toString()));
         } else {
@@ -260,9 +261,9 @@ public class ControladorHabitacion {
             openwindow = true;
         } else {
             title = "Editar Tipo de Habitacion";
-            vista.getDialogHabi().setName("editar");
+            vista.getDialogTipo().setName("editar");
             try {
-                openwindow = uploadTpDates(vista.getTableHabitacion());
+                openwindow = uploadTpDates(vista.getTableTipoHabitacion());
             } catch (ParseException ex) {
                 Logger.getLogger(ControladorHabitacion.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -282,7 +283,7 @@ public class ControladorHabitacion {
             String nombre = vista.getTxtNombreTipo().getText();
             int numcamas = Integer.parseInt(vista.getTxtNumCama().getText());
             int capacidad = Integer.parseInt(vista.getTxtCapacidad().getText());
-            double precio = Double.parseDouble(vista.getTxtPrecio().getText());
+            double precio = Double.parseDouble(vista.getTxtPrecio().getText().replace(',', '.'));
 
             ModeloTipo_Habitacion thb = new ModeloTipo_Habitacion();
             thb.setNombre_tha(nombre);
@@ -301,7 +302,7 @@ public class ControladorHabitacion {
             String nombre = vista.getTxtNombreTipo().getText();
             int numcamas = Integer.parseInt(vista.getTxtNumCama().getText());
             int capacidad = Integer.parseInt(vista.getTxtCapacidad().getText());
-            double precio = Double.parseDouble(vista.getTxtPrecio().getText());
+            double precio = Double.parseDouble(vista.getTxtPrecio().getText().replace(',', '.'));
 
             ModeloTipo_Habitacion thb = new ModeloTipo_Habitacion();
             thb.setId_tha(id);
@@ -309,7 +310,7 @@ public class ControladorHabitacion {
             thb.setNumeroCamas_tha(numcamas);
             thb.setCapacidad_tha(capacidad);
             thb.setPrecio_tha(precio);
-
+            
             if (thb.EditTipHab() == null) {
                 JOptionPane.showMessageDialog(null, "SE HA EDITADO LOS DATOS DE LA HABITACIÓN CON ÉXITO");
             } else {
@@ -318,6 +319,7 @@ public class ControladorHabitacion {
         }
         cleanTpCamps();
         cargarTpHab();
+        cargarHabitacion();
         cargarComboTip();
         vista.getDialogTipo().dispose();
     }
@@ -362,14 +364,19 @@ public class ControladorHabitacion {
         }
         
         String valor = vista.getTxtBuscarTip().getText();
-
-        List<Tipo_Habitacion> listah = tip.ListTipHabSearch(col, valor);
+        List<Tipo_Habitacion> listah;
+        
+        if(col.equals("nombre_tha")){
+             listah = tip.ListTipHabSearch(col, "\'" + valor + "\'");
+        } else {
+             listah = tip.ListTipHabSearch(col, valor);
+        }
 
         if (listah.isEmpty()) {
             JOptionPane.showMessageDialog(null, "NO SE HA ENCONTRADO UN TIPO DE HABITACIÓN CON LOS PARÁMETROS ESPECIFICADOS");
         } else {
             DefaultTableModel mTabla;
-            mTabla = (DefaultTableModel) vista.getTableHabitacion().getModel();
+            mTabla = (DefaultTableModel) vista.getTableTipoHabitacion().getModel();
             mTabla.setNumRows(0); //Limpio la tabla
             
             listah.stream().forEach(tp -> {
@@ -384,11 +391,17 @@ public class ControladorHabitacion {
         if (table.getSelectedRowCount() == 1) {
             a = true;
             ModeloTipo_Habitacion tip = new ModeloTipo_Habitacion();
-            tip.setNombre_tha(vista.getTableTipoHabitacion().getValueAt(vista.getTableTipoHabitacion().getSelectedRow(), 2).toString());
+            tip.setNombre_tha(vista.getTableTipoHabitacion().getValueAt(vista.getTableTipoHabitacion().getSelectedRow(), 1).toString());
             vista.getLabelIDHabi().setText(vista.getTableTipoHabitacion().getValueAt(vista.getTableTipoHabitacion().getSelectedRow(), 0).toString());
-            vista.getComboTipoHab().setSelectedIndex(tip.getId() - 1);
+            vista.getComboTipoHab().setSelectedItem(tip);
             vista.getTxtNumHab().setText(vista.getTableTipoHabitacion().getValueAt(vista.getTableTipoHabitacion().getSelectedRow(), 1).toString());
             vista.getCheckDisponible().setSelected(Boolean.parseBoolean(vista.getTableTipoHabitacion().getValueAt(vista.getTableTipoHabitacion().getSelectedRow(), 3).toString()));
+            
+            vista.getLabelIDTipo().setText(table.getValueAt(table.getSelectedRow(), 0).toString());
+            vista.getTxtNombreTipo().setText(table.getValueAt(table.getSelectedRow(), 1).toString());
+            vista.getTxtNumCama().setText(table.getValueAt(table.getSelectedRow(), 2).toString());
+            vista.getTxtCapacidad().setText(table.getValueAt(table.getSelectedRow(), 3).toString());
+            vista.getTxtPrecio().setText(table.getValueAt(table.getSelectedRow(), 4).toString());
         } else {
             JOptionPane.showMessageDialog(null, "SELECCIONE UNA FILA DE LA TABLA");
         }
@@ -401,5 +414,13 @@ public class ControladorHabitacion {
         vista.getTxtNumCama().setText("");
         vista.getTxtCapacidad().setText("");
         vista.getTxtPrecio().setText("");
+    }
+    
+    private void automaticRd(){
+        if(vista.getTableHabitacion().getSelectedRowCount()>1){
+            vista.getRdHab().setSelected(true);
+        } else if (vista.getTableTipoHabitacion().getSelectedRowCount()>1){
+            vista.getRdTipHab().setSelected(true);
+        }
     }
 }
