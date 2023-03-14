@@ -4,6 +4,7 @@ import Vista.VistaLogin;
 import Modelo.ModeloCuenta;
 import java.awt.event.MouseAdapter;
 import javax.swing.JOptionPane;
+import org.mindrot.jbcrypt.BCrypt;
 
 public class ControladorLogin {
 
@@ -35,10 +36,12 @@ public class ControladorLogin {
         });
     }
 
+    
     private void InformacionValida() {
-        String username = vl.getTxtusername().getText().trim();
+        String username = vl.getTxtusername().getText().trim().toUpperCase();
         char[] passwordKey = vl.getTxtpassword().getPassword();
         String password = new String(passwordKey);
+        String hashpassword = mc.ExistenDatosBD(username);
         if (username.isEmpty() && password.isEmpty()) {
             JOptionPane.showMessageDialog(vl, "Campos vacíos");
         } else {
@@ -48,9 +51,9 @@ public class ControladorLogin {
                 if (password.isEmpty()) {
                     JOptionPane.showMessageDialog(vl, "Campo de contraseña vacío");
                 } else {
-                    if (mc.ExistenDatosBD(username, password)) {
+                    if (BCrypt.checkpw(password, hashpassword)) {
                         //Llamar al main view
-
+                        System.out.println("Pasa al main view");
                     } else {
                         JOptionPane.showMessageDialog(null, "Datos erróneos, inténtelo otra vez", "Error",
                                 JOptionPane.ERROR_MESSAGE);
