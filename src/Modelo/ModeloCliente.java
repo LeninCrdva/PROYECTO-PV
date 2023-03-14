@@ -95,5 +95,20 @@ public class ModeloCliente extends Cliente {
         SQLException op = con.Accion(sql);
         return op;
     }
-
-}
+    
+    public int ObtenerID(){
+    int id_cli=0;
+    String sql ="SELECT max(id_cli) from cliente ";
+    ConnectionPG con = new ConnectionPG();
+    ResultSet rs = con.Consulta(sql);
+        try {
+            if (rs.next()) {
+                id_cli = rs.getInt(1);
+                
+            }
+            rs.close();
+            return  id_cli;
+        } catch (SQLException e) {
+            return id_cli;
+        }
+    }
