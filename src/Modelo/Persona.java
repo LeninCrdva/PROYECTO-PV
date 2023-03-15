@@ -30,7 +30,11 @@ public class Persona {
         this.fecha_nac = fecha_nac;
         this.genero_per = genero_per;
     }
-
+    public Persona(String numeroIdentificacion, String nombre_per, String apellido_per){
+        this.numeroidentificacion_per = numeroIdentificacion;
+        this.nombre_per = nombre_per;
+        this.apellido_per = apellido_per;
+    }
     public int getId_per() {
         return id_per;
     }
