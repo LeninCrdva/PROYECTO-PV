@@ -70,7 +70,7 @@ public class ControladorPrincipal {
         ModeloEncabezadoFactura modeloE=new ModeloEncabezadoFactura();
         ModeloDetalleFactura modeloD=new ModeloDetalleFactura();
         ControladorFactura control=new ControladorFactura(modeloE,modeloD,vistaF);
-        vp.getPanelPrincipal().add(vistaF);
+        vistaPrincipal.getPanelPrincipal().add(vistaF);
         
         control.iniciarControl();
     }
