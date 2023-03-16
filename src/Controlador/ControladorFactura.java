@@ -7,15 +7,26 @@ package Controlador;
 
 import Modelo.*;
 import Vista.VistaFactura;
+import java.awt.Color;
+import java.awt.Font;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -55,7 +66,24 @@ public class ControladorFactura {
         });
         vista.getBtnSalirCliente().addActionListener(l->salirCliente());
         vista.getBtnBuscarCliente().addActionListener(l->BuscaClientes());
+        vista.getBtnElegirServicio().addActionListener(l->elegirServicio());
+        vista.getTblServicios().addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseCliked(java.awt.event.MouseEvent evt){
+                clickTblServicio();
+            }
+        });
+        vista.getBtnSalirServicio().addActionListener(l->salirServicio());
+        vista.getBtnBuscarServicio().addActionListener(l->BuscarServicio());
+        vista.getBtnElegirReserva().addActionListener(l->elegirReserva());
+        vista.getTablaReserva().addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt){
+                clickTblReserva();
+            }
+        });
+        vista.getBtnSalirReserva().addActionListener(l->salirReserva());
+        vista.getBtnBuscarReserva().addActionListener(l->BuscarReserva());
     }
+    
     private void cargaEnc(){
         List<EncabezadoFactura> lista=modelo.listaEncabezadoFactura();
         DefaultTableModel mTabla=(DefaultTableModel) vista.getTblFactura().getModel();
@@ -113,7 +141,7 @@ public class ControladorFactura {
                 vista.getTxtTotal().setEnabled(false);
             }
             
-            vista.getDlgCrudFactura().setSize(600,600);
+            vista.getDlgCrudFactura().setSize(890,600);
             vista.getDlgCrudFactura().setLocationRelativeTo(vista);
             vista.getDlgCrudFactura().setVisible(true);
         }catch (SQLException ex) {
@@ -285,6 +313,97 @@ public class ControladorFactura {
         vista.getTxtCliente().setText(vista.getTblClientes().getValueAt(vista.getTblClientes().getSelectedRow(), 0).toString());
         vista.getDlgSeleccionarCliente().dispose();
     }
+    private void elegirServicio(){
+        vista.getDlgSeleccionarServicio().setTitle("SELECCIONAR SERVICIO");
+        vista.getDlgSeleccionarServicio().setSize(890,270);
+        vista.getDlgSeleccionarServicio().setLocationRelativeTo(vista);
+        ModeloServicio modeloS=new ModeloServicio();
+        List<Servicio> lista=modeloS.ListarServiciosBD();
+        DefaultTableModel mTabla=(DefaultTableModel) vista.getTblServicios().getModel();
+        mTabla.setNumRows(0);   
+        String[] columnas={"ID","NOMBRE","DESCRIPCION","PRECIO"};
+        mTabla.setColumnIdentifiers(columnas);
+        lista.stream().forEach(pe->{
+            Object[] registro={String.valueOf(pe.getId_ser()), pe.getNombre_ser(), pe.getDescripcion_ser(), pe.getPrecio_ser()};
+            mTabla.addRow(registro);
+        });
+        vista.getDlgSeleccionarServicio().setVisible(true);
+    }
+    private void clickTblServicio(){
+        vista.getTxtServicio().setText(vista.getTblServicios().getValueAt(vista.getTblServicios().getSelectedRow(), 0).toString());
+        vista.getDlgSeleccionarServicio().dispose();
+    }
+    private void salirServicio(){
+        vista.getDlgSeleccionarServicio().dispose();
+    }
+    private void BuscarServicio() {
+        String bus = vista.getTxtBuscarServicio().getText().trim();
+        ModeloServicio modeloS=new ModeloServicio();
+        List<Servicio> listaser = modeloS.BuscarServicioBD(bus);
+        DefaultTableModel df = (DefaultTableModel) vista.getTblServicios().getModel();
+        df.setNumRows(0);
+
+        listaser.stream().forEach(ser -> {
+            String[] fila = {
+                String.valueOf(ser.getId_ser()),
+                ser.getNombre_ser(),
+                ser.getDescripcion_ser(),
+                Double.toString(ser.getPrecio_ser())
+            };
+            df.addRow(fila);
+
+        });
+
+    }
+    private void elegirReserva(){
+        vista.getDlgSeleccionarReserva().setTitle("SELECCIONAR RESERVA");
+        vista.getDlgSeleccionarReserva().setSize(890,270);
+        vista.getDlgSeleccionarReserva().setLocationRelativeTo(vista);
+        ModeloEncReserva mdEnc=new ModeloEncReserva();
+        List<Enc_reserva> lista = mdEnc.ListEnc();
+
+        DefaultTableModel mTabla;
+        mTabla = (DefaultTableModel) vista.getTablaReserva().getModel();
+        mTabla.setNumRows(0); //Limpio la tabla
+        vista.getTablaReserva().getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 12));
+        vista.getTablaReserva().getTableHeader().setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        vista.getTablaReserva().getTableHeader().setOpaque(false);
+        vista.getTablaReserva().getTableHeader().setBackground(new Color(32, 136, 203));
+        vista.getTablaReserva().getTableHeader().setForeground(new Color(255, 255, 255));
+        vista.getTablaReserva().setRowHeight(25);
+
+        lista.stream().forEach(ec -> {
+            String[] fila = {String.valueOf(ec.getId_res()), String.valueOf(ec.getIdCliente_res()), String.valueOf(ec.getFechaIngreso_res()), String.valueOf(ec.getFechaSalida_res()), String.valueOf(ec.getTotal_res()), String.valueOf(ec.isEstado_res())};
+            mTabla.addRow(fila);
+        });
+        vista.getDlgSeleccionarReserva().setVisible(true);
+    }
+    private void clickTblReserva(){
+        vista.getTxtReserva().setText(vista.getTablaReserva().getValueAt(vista.getTablaReserva().getSelectedRow(), 0).toString());
+        vista.getDlgSeleccionarReserva().dispose();
+    }
+    private void salirReserva(){
+        vista.getDlgSeleccionarReserva().dispose();
+    }
+    private void BuscarReserva() {
+        String bus = String.valueOf(vista.getTxtBuscarReserva().getText().trim());
+        ModeloEncReserva modeloR=new ModeloEncReserva();
+        modeloR.setIdCliente_res(Integer.parseInt(bus));
+        List<Enc_reserva> listares = modeloR.ListEncSearch();
+        DefaultTableModel mTabla = (DefaultTableModel) vista.getTablaReserva().getModel();
+        mTabla.setNumRows(0);
+        vista.getTablaReserva().getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 12));
+        vista.getTablaReserva().getTableHeader().setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        vista.getTablaReserva().getTableHeader().setOpaque(false);
+        vista.getTablaReserva().getTableHeader().setBackground(new Color(32, 136, 203));
+        vista.getTablaReserva().getTableHeader().setForeground(new Color(255, 255, 255));
+        vista.getTablaReserva().setRowHeight(25);
+        listares.stream().forEach(ec -> {
+            String[] fila = {String.valueOf(ec.getId_res()), String.valueOf(ec.getIdCliente_res()), String.valueOf(ec.getFechaIngreso_res()), String.valueOf(ec.getFechaSalida_res()), String.valueOf(ec.getTotal_res()), String.valueOf(ec.isEstado_res())};
+            mTabla.addRow(fila);
+        });
+
+    }
     private void limpiar(){
         vista.getTxtCodigoE().setText(null);
         vista.getTxtCliente().setText(null);
@@ -319,5 +438,24 @@ public class ControladorFactura {
             };
             df.addRow(Nuevo);
         });
+    }
+    private void imprimirFactura() {
+        if (vista.getTblFactura().getSelectedRowCount() == 1) {
+            try {
+                ConnectionPG con = new ConnectionPG();
+                JasperReport jr = (JasperReport) JRLoader.loadObject(getClass().getResource("/Vista/Reportes/FACTURA.jasper"));
+                //DECLARACION DEL MAP Y AGREGACIÓN DE LOS DATOS, SIN EMBARGO, SE DEBEN CAMBIAR POR DATOS DINAMICOS
+                Map<String, Object> parametro = new HashMap<>();
+                int id = Integer.parseInt(vista.getTblFactura().getValueAt(vista.getTblFactura().getSelectedRow(), 0).toString());
+                parametro.put("IDENC", id);
+                JasperPrint jp = JasperFillManager.fillReport(jr, parametro, con.getCon());
+                JasperViewer jv = new JasperViewer(jp, false);
+                jv.setVisible(true);
+            } catch (JRException ex) {
+                Logger.getLogger(ControladorReserva.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "SELECCIONE UNA FILA DE LA TABLA");
+        }
     }
 }

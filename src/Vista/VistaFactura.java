@@ -24,6 +24,86 @@ public class VistaFactura extends javax.swing.JInternalFrame {
         initComponents();
     }
 
+    public JDialog getDlgSeleccionarReserva() {
+        return DlgSeleccionarReserva;
+    }
+
+    public void setDlgSeleccionarReserva(JDialog DlgSeleccionarReserva) {
+        this.DlgSeleccionarReserva = DlgSeleccionarReserva;
+    }
+
+    public JButton getBtnBuscarReserva() {
+        return btnBuscarReserva;
+    }
+
+    public void setBtnBuscarReserva(JButton btnBuscarReserva) {
+        this.btnBuscarReserva = btnBuscarReserva;
+    }
+
+    public JButton getBtnSalirReserva() {
+        return btnSalirReserva;
+    }
+
+    public void setBtnSalirReserva(JButton btnSalirReserva) {
+        this.btnSalirReserva = btnSalirReserva;
+    }
+
+    public JTable getTablaReserva() {
+        return tablaReserva;
+    }
+
+    public void setTablaReserva(JTable tablaReserva) {
+        this.tablaReserva = tablaReserva;
+    }
+
+    public JTextField getTxtBuscarReserva() {
+        return txtBuscarReserva;
+    }
+
+    public void setTxtBuscarReserva(JTextField txtBuscarReserva) {
+        this.txtBuscarReserva = txtBuscarReserva;
+    }
+
+    public JDialog getDlgSeleccionarServicio() {
+        return DlgSeleccionarServicio;
+    }
+
+    public void setDlgSeleccionarServicio(JDialog DlgSeleccionarServicio) {
+        this.DlgSeleccionarServicio = DlgSeleccionarServicio;
+    }
+
+    public JButton getBtnBuscarServicio() {
+        return btnBuscarServicio;
+    }
+
+    public void setBtnBuscarServicio(JButton btnBuscarServicio) {
+        this.btnBuscarServicio = btnBuscarServicio;
+    }
+
+    public JButton getBtnSalirServicio() {
+        return btnSalirServicio;
+    }
+
+    public void setBtnSalirServicio(JButton btnSalirServicio) {
+        this.btnSalirServicio = btnSalirServicio;
+    }
+
+    public JTable getTblServicios() {
+        return tblServicios;
+    }
+
+    public void setTblServicios(JTable tblServicios) {
+        this.tblServicios = tblServicios;
+    }
+
+    public JTextField getTxtBuscarServicio() {
+        return txtBuscarServicio;
+    }
+
+    public void setTxtBuscarServicio(JTextField txtBuscarServicio) {
+        this.txtBuscarServicio = txtBuscarServicio;
+    }
+
     public JDialog getDlgSeleccionarCliente() {
         return DlgSeleccionarCliente;
     }
@@ -341,6 +421,20 @@ public class VistaFactura extends javax.swing.JInternalFrame {
         txtBuscarCliente = new javax.swing.JTextField();
         btnBuscarCliente = new javax.swing.JButton();
         btnSalirCliente = new javax.swing.JButton();
+        DlgSeleccionarServicio = new javax.swing.JDialog();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        tblServicios = new javax.swing.JTable();
+        jLabel14 = new javax.swing.JLabel();
+        txtBuscarServicio = new javax.swing.JTextField();
+        btnBuscarServicio = new javax.swing.JButton();
+        btnSalirServicio = new javax.swing.JButton();
+        DlgSeleccionarReserva = new javax.swing.JDialog();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        tablaReserva = new javax.swing.JTable();
+        jLabel15 = new javax.swing.JLabel();
+        txtBuscarReserva = new javax.swing.JTextField();
+        btnBuscarReserva = new javax.swing.JButton();
+        btnSalirReserva = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
@@ -671,6 +765,136 @@ public class VistaFactura extends javax.swing.JInternalFrame {
                 .addGap(46, 46, 46))
         );
 
+        tblServicios.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "ID", "Nombre Servicio", "Descripcion", "Precio"
+            }
+        ));
+        jScrollPane4.setViewportView(tblServicios);
+
+        jLabel14.setText("Buscar:");
+
+        btnBuscarServicio.setText("BUSCAR");
+        btnBuscarServicio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarServicioActionPerformed(evt);
+            }
+        });
+
+        btnSalirServicio.setText("SALIR");
+
+        javax.swing.GroupLayout DlgSeleccionarServicioLayout = new javax.swing.GroupLayout(DlgSeleccionarServicio.getContentPane());
+        DlgSeleccionarServicio.getContentPane().setLayout(DlgSeleccionarServicioLayout);
+        DlgSeleccionarServicioLayout.setHorizontalGroup(
+            DlgSeleccionarServicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(DlgSeleccionarServicioLayout.createSequentialGroup()
+                .addGap(29, 29, 29)
+                .addComponent(jLabel14)
+                .addGap(29, 29, 29)
+                .addComponent(txtBuscarServicio, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(31, 31, 31)
+                .addComponent(btnBuscarServicio)
+                .addGap(48, 48, 48)
+                .addComponent(btnSalirServicio)
+                .addContainerGap(157, Short.MAX_VALUE))
+            .addGroup(DlgSeleccionarServicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(DlgSeleccionarServicioLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 565, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+        );
+        DlgSeleccionarServicioLayout.setVerticalGroup(
+            DlgSeleccionarServicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(DlgSeleccionarServicioLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(DlgSeleccionarServicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel14)
+                    .addComponent(txtBuscarServicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBuscarServicio)
+                    .addComponent(btnSalirServicio))
+                .addContainerGap(266, Short.MAX_VALUE))
+            .addGroup(DlgSeleccionarServicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(DlgSeleccionarServicioLayout.createSequentialGroup()
+                    .addGap(46, 46, 46)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 207, Short.MAX_VALUE)
+                    .addGap(47, 47, 47)))
+        );
+
+        tablaReserva = new javax.swing.JTable(){
+            public boolean isCellEditable(int rowIndex, int colIndex){
+                return false;
+            }
+        };
+        tablaReserva.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Id", "Nombre Cliente", "Fecha Ingreso", "Fecha Salida", "Total", "Estado"
+            }
+        ));
+        jScrollPane5.setViewportView(tablaReserva);
+
+        jLabel15.setText("Buscar:");
+
+        btnBuscarReserva.setText("BUSCAR");
+        btnBuscarReserva.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarReservaActionPerformed(evt);
+            }
+        });
+
+        btnSalirReserva.setText("SALIR");
+
+        javax.swing.GroupLayout DlgSeleccionarReservaLayout = new javax.swing.GroupLayout(DlgSeleccionarReserva.getContentPane());
+        DlgSeleccionarReserva.getContentPane().setLayout(DlgSeleccionarReservaLayout);
+        DlgSeleccionarReservaLayout.setHorizontalGroup(
+            DlgSeleccionarReservaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(DlgSeleccionarReservaLayout.createSequentialGroup()
+                .addGap(28, 28, 28)
+                .addComponent(jLabel15)
+                .addGap(29, 29, 29)
+                .addComponent(txtBuscarReserva, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(31, 31, 31)
+                .addComponent(btnBuscarReserva)
+                .addGap(48, 48, 48)
+                .addComponent(btnSalirReserva)
+                .addContainerGap(152, Short.MAX_VALUE))
+            .addGroup(DlgSeleccionarReservaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(DlgSeleccionarReservaLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 559, Short.MAX_VALUE)
+                    .addContainerGap()))
+        );
+        DlgSeleccionarReservaLayout.setVerticalGroup(
+            DlgSeleccionarReservaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(DlgSeleccionarReservaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(DlgSeleccionarReservaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel15)
+                    .addComponent(txtBuscarReserva, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBuscarReserva)
+                    .addComponent(btnSalirReserva))
+                .addContainerGap(266, Short.MAX_VALUE))
+            .addGroup(DlgSeleccionarReservaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(DlgSeleccionarReservaLayout.createSequentialGroup()
+                    .addGap(43, 43, 43)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(43, Short.MAX_VALUE)))
+        );
+
         setClosable(true);
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -810,13 +1034,25 @@ public class VistaFactura extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnModificarDActionPerformed
 
+    private void btnBuscarServicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarServicioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnBuscarServicioActionPerformed
+
+    private void btnBuscarReservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarReservaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnBuscarReservaActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDialog DlgCrudFactura;
     private javax.swing.JDialog DlgSeleccionarCliente;
+    private javax.swing.JDialog DlgSeleccionarReserva;
+    private javax.swing.JDialog DlgSeleccionarServicio;
     private javax.swing.JButton btnAceptar;
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnBuscarCliente;
+    private javax.swing.JButton btnBuscarReserva;
+    private javax.swing.JButton btnBuscarServicio;
     private javax.swing.JButton btnCancelarD;
     private javax.swing.JButton btnCancelarE;
     private javax.swing.JButton btnCrear;
@@ -830,12 +1066,16 @@ public class VistaFactura extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnModificarD;
     private javax.swing.JButton btnPrint;
     private javax.swing.JButton btnSalirCliente;
+    private javax.swing.JButton btnSalirReserva;
+    private javax.swing.JButton btnSalirServicio;
     private com.toedter.calendar.JDateChooser dcFecha;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -853,12 +1093,18 @@ public class VistaFactura extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JLabel lblidemp;
+    private javax.swing.JTable tablaReserva;
     private javax.swing.JTable tblClientes;
     private javax.swing.JTable tblDetalle;
     private javax.swing.JTable tblFactura;
+    private javax.swing.JTable tblServicios;
     private javax.swing.JTextField txtBuscar;
     private javax.swing.JTextField txtBuscarCliente;
+    private javax.swing.JTextField txtBuscarReserva;
+    private javax.swing.JTextField txtBuscarServicio;
     private javax.swing.JTextField txtCliente;
     private javax.swing.JTextField txtCodigoD;
     private javax.swing.JTextField txtCodigoE;

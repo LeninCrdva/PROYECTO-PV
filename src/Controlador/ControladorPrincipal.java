@@ -70,6 +70,8 @@ public class ControladorPrincipal {
         ModeloEncabezadoFactura modeloE=new ModeloEncabezadoFactura();
         ModeloDetalleFactura modeloD=new ModeloDetalleFactura();
         ControladorFactura control=new ControladorFactura(modeloE,modeloD,vistaF);
+        vistaF.getDlgSeleccionarServicio().setSize(890,270);
+        vistaF.getDlgSeleccionarServicio().setLocationRelativeTo(vistaPrincipal);
         vistaPrincipal.getPanelPrincipal().add(vistaF);
         
         control.iniciarControl();
