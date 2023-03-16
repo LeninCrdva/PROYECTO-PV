@@ -33,6 +33,7 @@ public class ModeloEncReserva extends Enc_reserva{
                 encReserva.setEstado_res(rs.getBoolean(6));
                 lista.add(encReserva);
             }
+            rs.close();
             return lista;
         } catch (SQLException ex) {
             Logger.getLogger(ModeloEncReserva.class.getName()).log(Level.SEVERE, null, ex);
@@ -56,6 +57,7 @@ public class ModeloEncReserva extends Enc_reserva{
                 encReserva.setEstado_res(rs.getBoolean(6));
                 lista.add(encReserva);
             }
+            rs.close();
             return lista;
         } catch (SQLException ex) {
             Logger.getLogger(ModeloEncReserva.class.getName()).log(Level.SEVERE, null, ex);
@@ -75,8 +77,14 @@ public class ModeloEncReserva extends Enc_reserva{
         try {
             ex.next();
             id = ex.getInt(1);
+            ex.close();
         } catch (SQLException ex1) {
-            Logger.getLogger(ModeloEncReserva.class.getName()).log(Level.SEVERE, null, ex1);
+            try {
+                Logger.getLogger(ModeloEncReserva.class.getName()).log(Level.SEVERE, null, ex1);
+                ex.close();
+            } catch (SQLException ex2) {
+                Logger.getLogger(ModeloEncReserva.class.getName()).log(Level.SEVERE, null, ex2);
+            }
         }
         return id;
     }
