@@ -232,7 +232,7 @@ public class ControladorServicio {
                 int id_ser = Integer.parseInt(vs.getLblIdSer().getText());
                 String nomb = vs.getTxtNombreSer().getText().trim();
                 String desc = vs.getTxtDescripcionSer().getText().trim();
-                double precio_ser = Double.parseDouble(vs.getTxtPrecioSer().getText());
+                String precio_ser = vs.getTxtPrecioSer().getText();
                 if (!nombre.isEmpty()) {
                     if (!desc.isEmpty()) {
 
@@ -243,7 +243,7 @@ public class ControladorServicio {
                                 servi.setId_ser(id_ser);
                                 servi.setNombre_ser(nomb);
                                 servi.setDescripcion_ser(desc);
-                                servi.setPrecio_ser(precio_ser);
+                                servi.setPrecio_ser(Double.parseDouble(precio_ser));
                                 if (servi.InsertarServicioBD() == null) {
                                     JOptionPane.showMessageDialog(vs, "Registro de servicio añadido correctamente");
                                     vs.getDlgCrudServicios().dispose();
@@ -274,19 +274,50 @@ public class ControladorServicio {
                 int id_ser = Integer.parseInt(vs.getLblIdSer().getText());
                 String nombr = vs.getTxtNombreSer().getText().trim();
                 String desc = vs.getTxtDescripcionSer().getText().trim();
-                double precio_ser = Double.parseDouble(vs.getTxtPrecioSer().getText());
-                ModeloServicio serv = new ModeloServicio();
+                String precio_ser = vs.getTxtPrecioSer().getText();
+                if (!nombr.isEmpty()) {
+                    if (!desc.isEmpty()) {
+                        if (!String.valueOf(precio_ser).isEmpty()) {
+                            System.out.println(nombr);
+                            System.out.println(vs.getTxtNombreSer().getText().toUpperCase().trim());
+                            if (vs.getTxtNombreSer().getText().toUpperCase().trim().equals(nombr)) {
+                                System.out.println(vs.getTxtNombreSer().getText().toUpperCase().trim().equals(nombr));
 
-                serv.setId_ser(id_ser);
-                serv.setNombre_ser(nombr);
-                serv.setDescripcion_ser(desc);
-                serv.setPrecio_ser(precio_ser);
-                if (serv.ModificarServicioBD(id_ser) == null) {
-                    JOptionPane.showMessageDialog(vs, "Registro editado correctamente ");
-                    vs.getDlgCrudServicios().dispose();
+                                ModeloServicio serv = new ModeloServicio();
 
-                } else {
-                    JOptionPane.showMessageDialog(vs, "No se pudo editar ");
+                                serv.setId_ser(id_ser);
+                                serv.setNombre_ser(nombr);
+                                serv.setDescripcion_ser(desc);
+                                serv.setPrecio_ser(Double.parseDouble(precio_ser));
+                                if (serv.ModificarServicioBD(id_ser) == null) {
+                                    JOptionPane.showMessageDialog(vs, "Registro editado correctamente ");
+                                    vs.getDlgCrudServicios().dispose();
+
+                                } else {
+                                    JOptionPane.showMessageDialog(vs, "No se pudo editar ");
+                                }
+                            } else {
+                                if (!ms.ExisteNombreServcioBD(nombr)) {
+                                    ModeloServicio serv = new ModeloServicio();
+
+                                    serv.setId_ser(id_ser);
+                                    serv.setNombre_ser(nombr);
+                                    serv.setDescripcion_ser(desc);
+                                    serv.setPrecio_ser(Double.parseDouble(precio_ser));
+                                    if (serv.ModificarServicioBD(id_ser) == null) {
+                                        JOptionPane.showMessageDialog(vs, "Registro editado correctamente ");
+                                        vs.getDlgCrudServicios().dispose();
+
+                                    }else{
+                                          JOptionPane.showMessageDialog(vs, "No se pudo editar ");
+                                    }
+                                }else{
+                                      JOptionPane.showMessageDialog(vs, "el nombre que ingresaste ya existe  ");
+                                }
+
+                            }
+                        }
+                    }
                 }
 
             } catch (NullPointerException | NumberFormatException e) {

@@ -92,7 +92,7 @@ public class ControladorCliente {
     private void AbreSubDialogoTipocliente(int ce) {
         if (ce == 1) {
             vtc.getDlgCrudTipoCliente().setName("tipocliente");
-            vtc.getDlgCrudTipoCliente().setSize(580, 280);
+            vtc.getDlgCrudTipoCliente().setSize(300, 280);
             vtc.getDlgCrudTipoCliente().setModal(true);
             vtc.getDlgCrudTipoCliente().setLocationRelativeTo(vtc);
             vtc.getDlgCrudTipoCliente().setVisible(true);
@@ -137,12 +137,6 @@ public class ControladorCliente {
 
     private void ValidarCampo() {
         vc.getDatFechanaci().setDateFormatString("yyyy-MM-dd");
-        vc.getTxtbuscar().addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                BuscaClientes();
-            }
-        });
         addTextKeyListenerNotNumber(vc.getTxtNombre(), 50);
         addTextKeyListenerNotNumber(vc.getTxtApellido(), 50);
         MaxLengthOnly(vc.getTxtApellido(), 200);
