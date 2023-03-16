@@ -82,6 +82,7 @@ public class ControladorFactura {
         });
         vista.getBtnSalirReserva().addActionListener(l->salirReserva());
         vista.getBtnBuscarReserva().addActionListener(l->BuscarReserva());
+        vista.getBtnPrint().addActionListener(l->imprimirFactura());
     }
     
     private void cargaEnc(){
