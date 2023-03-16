@@ -9,6 +9,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -111,7 +113,7 @@ public class ModeloServicio extends  Servicio{
      
     public SQLException InsertarServicioBD(){
     String sql="INSERT INTO  servicio (id_ser,nombre_ser,descripcion_ser,precio_ser)"
-            +"VALUES ("+getId_ser()+",'"+getNombre_ser()+"',"+getDescripcion_ser()+","+getPrecio_ser()+")";
+            +"VALUES ("+getId_ser()+",'"+getNombre_ser()+"','"+getDescripcion_ser()+"',"+getPrecio_ser()+")";
     ConnectionPG con =new ConnectionPG();
     SQLException e = con.Accion(sql);
     return e;
@@ -140,10 +142,28 @@ public class ModeloServicio extends  Servicio{
         }
     
     }
+    public  boolean  ExisteNombreServcioBD(String nombre_ser){
+    String sql = "SELECT COUNT (*) FROM servicio WHERE nombre_ser = '"+nombre_ser+"'";
+    ConnectionPG con =new ConnectionPG();
+    ResultSet rs =con.Consulta(sql);
+        try {
+            if (rs.next()) {
+                int count = rs.getInt(1);
+                return count > 0;
+                
+            }else {
+            return false;
+            
+            }
+        } catch (SQLException e) {
+            Logger.getLogger(ModeloServicio.class.getName()).log(Level.SEVERE,null,e);
+            return true ;
+        }
+    }
     
     public  SQLException ModificarServicioBD(int id_ser){
-    String sql ="UPDATE  servicio SET nombre_ser = '"+getNombre_ser()+"', descripcion_ser = "+getDescripcion_ser()
-            +",precio_ser = "+getPrecio_ser()+" WHERE  id_ser = "+ id_ser;
+    String sql ="UPDATE  servicio SET nombre_ser = '"+getNombre_ser()+"', descripcion_ser = '"+getDescripcion_ser()
+            +"',precio_ser = "+getPrecio_ser()+" WHERE  id_ser = "+ id_ser;
     ConnectionPG con = new ConnectionPG();
     SQLException ex =con.Accion(sql);
     return ex ;

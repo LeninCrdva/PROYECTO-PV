@@ -37,6 +37,11 @@ public class TipoCliente {
         this.nombre_tip = nombre_tip;
     }
 
+    @Override
+    public String toString() {
+        return nombre_tip ;
+    }
+
   
     
 }

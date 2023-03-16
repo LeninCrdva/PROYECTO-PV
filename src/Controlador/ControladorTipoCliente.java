@@ -65,7 +65,7 @@ public class ControladorTipoCliente {
 
     }
 
-    private void AbrirDialogo(int ce) {
+    private void AbrirDialogoTipoCliente(int ce) {
         String titulo = null;
         boolean Seleccion = true;
 
@@ -179,9 +179,9 @@ public class ControladorTipoCliente {
 
     public void IniciarControl() {
         CargarTipoCliente();
-        vtc.getBtnCrear().addActionListener(l -> AbrirDialogo(1));
-        vtc.getBtnEditar().addActionListener(l -> AbrirDialogo(2));
-        vtc.getBtnEleminar().addActionListener(l -> AbrirDialogo(3));
+        vtc.getBtnCrear().addActionListener(l -> AbrirDialogoTipoCliente(1));
+        vtc.getBtnEditar().addActionListener(l -> AbrirDialogoTipoCliente(2));
+        vtc.getBtnEleminar().addActionListener(l -> AbrirDialogoTipoCliente(3));
         vtc.getBtnAceptar().addActionListener(l -> CrearEditarEliminarTipoCliente());
         vtc.getBtnCancelar().addActionListener(l -> vtc.getDlgCrudTipoCliente().dispose());
         vtc.getLblIdTipoCliente().setText(Integer.toString(CrearID()));

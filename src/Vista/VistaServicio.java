@@ -149,6 +149,8 @@ public class VistaServicio extends javax.swing.JInternalFrame {
                 .addContainerGap())
         );
 
+        setClosable(true);
+
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -178,7 +180,7 @@ public class VistaServicio extends javax.swing.JInternalFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "ID", "Nombre Servicio", "Descripcion", "Precio"
             }
         ));
         jScrollPane1.setViewportView(tblServicios);
