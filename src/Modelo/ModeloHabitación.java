@@ -88,4 +88,36 @@ public class ModeloHabitación extends Habitacion{
         SQLException ex = con.Accion(sql);
         return ex;
     }
+    
+    public int existHab(){
+        int cant = 0;
+        String sql = "Select count(numero_hab) from habitacion where numero_hab = " + getNumero_hab();
+        ConnectionPG con = new ConnectionPG();
+        ResultSet rs = con.Consulta(sql);
+        try{
+            rs.next();
+            cant = rs.getInt(1);
+            rs.close();
+            return cant;
+        } catch (SQLException ex) {
+            Logger.getLogger(ModeloPersona.class.getName()).log(Level.SEVERE, null, ex);
+            return cant;
+        }
+    }
+    
+    public int cancelDelete(){
+        int cant = 0;
+        String sql = "Select count(idHabitacion_rha) from det_reserva where idHabitacion_rha = " + getId_hab();
+        ConnectionPG con = new ConnectionPG();
+        ResultSet rs = con.Consulta(sql);
+        try{
+            rs.next();
+            cant = rs.getInt(1);
+            rs.close();
+            return cant;
+        } catch (SQLException ex) {
+            Logger.getLogger(ModeloPersona.class.getName()).log(Level.SEVERE, null, ex);
+            return cant;
+        }
+    }
 }
