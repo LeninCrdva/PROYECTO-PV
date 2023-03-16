@@ -5,6 +5,7 @@
  */
 package Controlador;
 
+import Modelo.Cedula;
 import Modelo.Cliente;
 import Modelo.ModeloCliente;
 import Modelo.ModeloCuenta;
@@ -24,8 +25,11 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyListener;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
@@ -44,13 +48,15 @@ public class ControladorCliente {
     private final Vista.VistaClientes vc;
     private final ModeloTipoCliente mtc;
     private final ModeloTipoDocumento mtd;
+    private final VistaTipoCliente vtc;
 
-    public ControladorCliente(ModeloPersona mp, ModeloCliente mc, VistaClientes vc, ModeloTipoCliente mtc, ModeloTipoDocumento mtd) {
+    public ControladorCliente(ModeloPersona mp, ModeloCliente mc, VistaClientes vc, ModeloTipoCliente mtc, ModeloTipoDocumento mtd, VistaTipoCliente vtc) {
         this.mp = mp;
         this.mc = mc;
         this.vc = vc;
         this.mtc = mtc;
         this.mtd = mtd;
+        this.vtc = vtc;
         vc.setVisible(true);
     }
 
@@ -68,7 +74,12 @@ public class ControladorCliente {
         vc.getLblIdPer().setText(Integer.toString(IdIncremental()));
         vc.getBtnAgregarTipoCliente().addActionListener(l -> addCombo(1));
         vc.getBtnAgregarTipoDoc().addActionListener(l -> addCombo(2));
-        
+///////tipo clien
+        vc.getBtnAgregarTipoCliente().addActionListener(l -> AbreSubDialogoTipocliente(2));
+        vtc.getBtnAceptar().addActionListener(l -> UsaSubDialogo());
+//        vc.getBtnAceptar().addActionListener(l -> UsaSubDialogo());
+        vtc.getBtnCancelar().addActionListener(l -> vtc.getDlgCrudTipoCliente().dispose());
+//        vl.getBtncancelar().addActionListener(l -> vl.getDlgcrudlabor().dispose());
         vc.getTxtbuscar().addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -77,7 +88,52 @@ public class ControladorCliente {
         });
 
     }
- 
+
+    private void AbreSubDialogoTipocliente(int ce) {
+        if (ce == 1) {
+            vtc.getDlgCrudTipoCliente().setName("tipocliente");
+            vtc.getDlgCrudTipoCliente().setSize(580, 280);
+            vtc.getDlgCrudTipoCliente().setModal(true);
+            vtc.getDlgCrudTipoCliente().setLocationRelativeTo(vtc);
+            vtc.getDlgCrudTipoCliente().setVisible(true);
+        }
+    }
+
+    public void UsaSubDialogo() {
+        if (vtc.getDlgCrudTipoCliente().getName().equals("TipoCliente")) {
+
+            vtc.getLblIdTipoCliente().setText(Integer.toString(IncrementaIDtipoCliente()));
+            int id_tipoC = IncrementaIDtipoCliente();
+            String nombre_tipoCliente = vtc.getTxtNombreTipoCliente().getText();
+            if (!mtc.ExisteNombreTipoDocBD(nombre_tipoCliente)) {
+                ModeloTipoCliente mtcli = new ModeloTipoCliente();
+                mtcli.setId_tip(id_tipoC);
+                mtcli.setNombre_tip(nombre_tipoCliente);
+
+                if (mtc.InsertarTipoCliente() == null) {
+                    vtc.getDlgCrudTipoCliente().dispose();
+                    LlenarComboTipoCliente();
+                    JOptionPane.showMessageDialog(vc, "tipo de cliente añadido correctamente");
+                } else {
+                    JOptionPane.showMessageDialog(vc, "No se puedo añadir  el tipo cliente");
+                }
+            } else {
+                JOptionPane.showMessageDialog(vc, "el nombre que ingresaste ya existe ");
+            }
+
+        } else {
+            JOptionPane.showMessageDialog(vc, "El campo de nombre no puede quedar vacio ");
+        }
+    }
+
+    private int IncrementaIDtipoCliente() {
+        int id_tip = mtc.ObtenerIdTipoCliente();
+        if (id_tip >= 1) {
+            id_tip++;
+        } else {
+        }
+        return id_tip;
+    }
 
     private void ValidarCampo() {
         vc.getDatFechanaci().setDateFormatString("yyyy-MM-dd");
@@ -87,13 +143,11 @@ public class ControladorCliente {
                 BuscaClientes();
             }
         });
-        addTextKeyListenerNotNumber(vc.getTxtNombre(),50);
+        addTextKeyListenerNotNumber(vc.getTxtNombre(), 50);
         addTextKeyListenerNotNumber(vc.getTxtApellido(), 50);
-        MaxLengthOnly(vc.getTxtApellido(),200);
-        MaxLengthOnly(vc.getTxtEmail(),200);
+        MaxLengthOnly(vc.getTxtApellido(), 200);
+        MaxLengthOnly(vc.getTxtEmail(), 200);
         addTextKeyListenerNotText(vc.getTxtTelefono(), 20);
-        
-        
 
     }
 
@@ -249,7 +303,7 @@ public class ControladorCliente {
         vc.getCmbTipoCliente().removeAllItems();
         List<TipoCliente> list = mtc.LlenarCombo();
         list.stream().forEach(ti -> {
-            vc.getCmbTipoCliente().addItem(new TipoCliente(ti.getId_tip(), ti.getNombre_tip().toString()));
+            vc.getCmbTipoCliente().addItem(new TipoCliente(ti.getId_tip(), ti.getNombre_tip()));
         });
     }
 
@@ -286,12 +340,12 @@ public class ControladorCliente {
 
     private void AbrirDialogo(int pe) {
         String titulo = null;
-        boolean RowSelected = false;
+        boolean RowSelected = true;
         switch (pe) {
             case 1:
                 titulo = "Agregar un nuevo cliente";
                 vc.getDlgCrudClientes().setName("crear");
-
+//                vc.setVisible(true);
                 break;
 
             case 2:
@@ -300,6 +354,7 @@ public class ControladorCliente {
                 vc.getDlgCrudClientes().setName("editar");
                 EnableFields(InitClean());
                 RowSelected = MousePress(vc.getTblClientes());
+//                vc.setVisible(true);
                 break;
 
             case 3:
@@ -308,11 +363,12 @@ public class ControladorCliente {
                 vc.getDlgCrudClientes().setName("eliminar");
                 DisableFields(InitClean());
                 RowSelected = MousePress(vc.getTblClientes());
+//                vc.setVisible(true);
                 break;
         }
 
         if (RowSelected) {
-         
+
             vc.getDlgCrudClientes().setSize(600, 630);
             vc.getDlgCrudClientes().setLocationRelativeTo(vc);
             vc.getDlgCrudClientes().setTitle(titulo);
@@ -345,6 +401,16 @@ public class ControladorCliente {
                 }
                 SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
                 vc.getDatFechanaci().setDate(formato.parse(vc.getTblClientes().getValueAt(vc.getTblClientes().getSelectedRow(), 8).toString()));
+                
+                int id_per =Integer.parseInt(vc.getTblClientes().getValueAt(vc.getTblClientes().getSelectedRow(), 0).toString());
+                System.out.println(id_per);
+                ModeloPersona mp =new ModeloPersona();
+                int id_doc = mp .ObtieneID(id_per);
+                System.out.println(id_doc);
+                vc.getCmbTipoDoc().setSelectedIndex(id_doc - 1);
+                int id_tip = mtc. ConsularIDBDTipocliente(vc.getTblClientes().getValueAt(vc.getTblClientes().getSelectedRow(), 9).toString());
+                System.out.println(id_tip);
+                vc.getCmbTipoCliente().setSelectedIndex(id_tip - 1 );
 
             } else {
                 JOptionPane.showMessageDialog(vc, "Seleccione una fila primero");
@@ -450,15 +516,56 @@ public class ControladorCliente {
         return com;
     }
 
+    private boolean ValidarCorreo() {
+        boolean valida = false;
+        String email = vc.getTxtEmail().getText().trim();
+        try {
+            InternetAddress emailAddr = new InternetAddress();
+            emailAddr.validate();
+            valida = true;
+
+        } catch (AddressException e) {
+            JOptionPane.showMessageDialog(null, "el correo no existe ");
+        }
+        return valida;
+    }
+
+    private boolean ValidaData(String data) {
+        boolean isva = true;
+        if (data.isEmpty()) {
+            isva = false;
+
+        }
+        return isva;
+    }
+
+    private boolean validadate(Date fecha) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(fecha);
+
+        Calendar caltoday = Calendar.getInstance();
+
+        int anio = caltoday.get(Calendar.YEAR) - cal.get(Calendar.YEAR);
+        int month = caltoday.get(Calendar.MONTH) - cal.get(Calendar.MONTH);
+        int day = caltoday.get(Calendar.DAY_OF_MONTH) - cal.get(Calendar.DAY_OF_MONTH);
+
+        if (month < 0 || (month == 0 && day < 0)) {
+            anio--;
+        }
+        return anio >= 18 && anio <= 80;
+
+    }
+
     private void crearEditarEliminarCliente() {
         if (vc.getDlgCrudClientes().getName().equals("crear")) {
             try {
+
                 int id_per = Integer.parseInt(vc.getLblIdPer().getText());
                 String numerodeindentificacion = vc.getTxtNumDoc().getText();
                 String nombre = vc.getTxtNombre().getText();
                 String apellido = vc.getTxtApellido().getText();
-                Date fechanac = vc.getDatFechanaci().getDate();
-                String telefono = vc.getTxtApellido().getText();
+                java.sql.Date fechanac = new java.sql.Date(vc.getDatFechanaci().getDate().getTime());
+                String telefono = vc.getTxtTelefono().getText();
                 String sexo = null;
                 if (vc.getRdMasculino().isSelected()) {
                     sexo = "Masculino";
@@ -470,8 +577,49 @@ public class ControladorCliente {
                 String direccion = vc.getTxtDireccion().getText();
                 String email = vc.getTxtEmail().getText();
 //                TipoCliente tipoclie =(TipoCliente) vc.getCmbTipoCliente().getSelectedItem();
-//                int tipocliente = vc.com
+//                int tipocliente = mtc.ConsularIDBDTipocliente(tipoclie.toString());
                 System.out.println(id_tipo);
+
+                if (!ValidaData(numerodeindentificacion)) {
+                    JOptionPane.showMessageDialog(vc, "el numero de documento no puede quedar vacio ");
+                    return;
+                }
+                if (!ValidaData(nombre)) {
+                    JOptionPane.showMessageDialog(vc, "el campo del nombre no puede quedar vacio  ");
+                    return;
+                }
+                if (!ValidaData(apellido)) {
+                    JOptionPane.showMessageDialog(vc, "el campo del apellido no puede quedar vacio ");
+                    return;
+                }
+                if (!ValidaData(telefono)) {
+                    JOptionPane.showMessageDialog(vc, "El campo del telefono no puede  vacio ");
+                    return;
+                }
+                if (!ValidaData(sexo)) {
+                    JOptionPane.showMessageDialog(vc, "Elija el sexo ");
+                    return;
+                }
+                if (!validadate(fechanac)) {
+                    JOptionPane.showMessageDialog(vc, "Ingrese la fecha de nacimiento validad , recuerde que debe ser mayor de edad ");
+                    return;
+                }
+                if (!ValidaData(direccion)) {
+                    JOptionPane.showMessageDialog(vc, "el campo de la dirrecion esta vacio ");
+                    return;
+                }
+                if (!ValidaData(email)) {
+                    JOptionPane.showMessageDialog(vc, "el email no es valido");
+                    return;
+                }
+                if (!ValidarCorreo()) {
+                    JOptionPane.showMessageDialog(vc, "ingrese un correo valido ");
+                    return;
+
+                }
+                if (!Cedula.validarCedula(numerodeindentificacion)) {
+                    JOptionPane.showMessageDialog(vc, "ingrese un numero de cedula  ");
+                }
 
                 ModeloPersona persona = new ModeloPersona();
 
@@ -489,11 +637,9 @@ public class ControladorCliente {
                 if (persona.InsertaPersonaBD() == null) {
                     ModeloCliente cli = new ModeloCliente();
                     cli.setId_cli(IncrementoIdC());
-//                    cli.setId_per(id_per);
-//                    cli.setId_tip(1);
                     TipoCliente tipoclie = (TipoCliente) vc.getCmbTipoCliente().getSelectedItem();
 
-                    int tipocliente = mtc.ConsularIDBD(tipoclie.toString());
+                    int tipocliente = mtc.ConsularIDBDTipocliente(tipoclie.toString());
                     cli.setId_tip(tipocliente);
                     cli.setId_per(id_per);
 
@@ -513,11 +659,10 @@ public class ControladorCliente {
             if (vc.getDlgCrudClientes().getName().equals("editar")) {
                 try {
                     int id_per = Integer.parseInt(vc.getLblIdPer().getText());
-
                     String numeroidentificacion = vc.getTxtNumDoc().getText();
                     String nombre = vc.getTxtNombre().getText();
                     String apellido = vc.getTxtApellido().getText();
-                    Date fechanac = vc.getDatFechanaci().getDate();
+                    java.sql.Date fechanac = new java.sql.Date(vc.getDatFechanaci().getDate().getTime());
                     String telefono = vc.getTxtTelefono().getText();
                     String sexo = null;
                     if (vc.getRdMasculino().isSelected()) {
@@ -530,6 +675,47 @@ public class ControladorCliente {
                     String direccion = vc.getTxtDireccion().getText();
                     String email = vc.getTxtEmail().getText();
                     int tipocliente = vc.getCmbTipoCliente().getSelectedIndex();
+
+                    if (!ValidaData(numeroidentificacion)) {
+                        JOptionPane.showMessageDialog(vc, "el numero de documento no puede quedar vacio ");
+                        return;
+                    }
+                    if (!ValidaData(nombre)) {
+                        JOptionPane.showMessageDialog(vc, "el campo del nombre no puede quedar vacio  ");
+                        return;
+                    }
+                    if (!ValidaData(apellido)) {
+                        JOptionPane.showMessageDialog(vc, "el campo del apellido no puede quedar vacio ");
+                        return;
+                    }
+                    if (!ValidaData(telefono)) {
+                        JOptionPane.showMessageDialog(vc, "El campo del telefono no puede  vacio ");
+                        return;
+                    }
+                    if (!ValidaData(sexo)) {
+                        JOptionPane.showMessageDialog(vc, "Elija el sexo ");
+                        return;
+                    }
+                    if (!validadate(fechanac)) {
+                        JOptionPane.showMessageDialog(vc, "Ingrese la fecha de nacimiento validad , recuerde que debe ser mayor de edad ");
+                        return;
+                    }
+                    if (!ValidaData(direccion)) {
+                        JOptionPane.showMessageDialog(vc, "el campo de la dirrecion esta vacio ");
+                        return;
+                    }
+                    if (!ValidaData(email)) {
+                        JOptionPane.showMessageDialog(vc, "el email no es valido");
+                        return;
+                    }
+                    if (!ValidarCorreo()) {
+                        JOptionPane.showMessageDialog(vc, "ingrese un correo valido ");
+                        return;
+
+                    }
+                    if (!Cedula.validarCedula(numeroidentificacion)) {
+                        JOptionPane.showMessageDialog(vc, "ingrese un numero de cedula  ");
+                    }
 
                     ModeloPersona persona = new ModeloPersona();
 

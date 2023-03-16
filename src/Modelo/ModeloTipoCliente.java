@@ -9,11 +9,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-/**
- *
- * @author ERIKA
- */
+
+
+
+
 public class ModeloTipoCliente extends TipoCliente {
 
     public ModeloTipoCliente() {
@@ -52,7 +54,7 @@ public class ModeloTipoCliente extends TipoCliente {
    
        try {
            if (rs.next()) {
-               id_tip= rs.getInt(sql);
+               id_tip= rs.getInt(1);
                
            }
            rs.close();
@@ -62,7 +64,7 @@ public class ModeloTipoCliente extends TipoCliente {
            return id_tip;
        }
    }
-   public int  ConsularIDBD(String nombre){
+   public int  ConsularIDBDTipocliente(String nombre){
        int id_tip= 0;
        String sql ="select id_tip  from tipo_cliente where nombre_tip like '%"+nombre+"%'";
        ConnectionPG con = new ConnectionPG();
@@ -83,7 +85,7 @@ public class ModeloTipoCliente extends TipoCliente {
 
     public List<TipoCliente> LlenarCombo() {
         List<TipoCliente> lista = new ArrayList<>();
-        String sql = "SELECT id_tip, nombre_tip FROM tipo_cliente";
+        String sql = "SELECT  nombre_tip FROM tipo_cliente";
 
         ConnectionPG con = new ConnectionPG();
         ResultSet rs = con.Consulta(sql);
@@ -103,8 +105,8 @@ public class ModeloTipoCliente extends TipoCliente {
     }
 
     public SQLException InsertarTipoCliente() {
-        String sql = " INSERT INTO  tipo_cliente (id_tip,nombre_id )"
-                + "VALUES (" + getId_tip() + "," + getNombre_tip() + ")";
+        String sql = " INSERT INTO  tipo_cliente (id_tip,nombre_tip )"
+                + "VALUES (" + getId_tip() + ",'" + getNombre_tip() + "')";
         ConnectionPG con = new ConnectionPG();
         SQLException ie = con.Accion(sql);
         return ie;
@@ -147,6 +149,27 @@ public class ModeloTipoCliente extends TipoCliente {
         SQLException ex = con.Accion(sql);
         return ex;
 
+    }
+    
+    public  boolean  ExisteNombreTipoDocBD (String nombre_tipocl){
+        String sql = "SELECT COUNT(*) FROM tipo_cliente  WHERE nombre_tip  = '"+nombre_tipocl+"'";
+        ConnectionPG con = new ConnectionPG();
+        ResultSet rs = con.Consulta(sql);
+        try {
+            if (rs.next()) {
+                int count =rs.getInt(1);
+                return  count > 0;
+                
+            }else {
+            return  false;
+            
+            }
+        } catch (SQLException e) {
+            Logger.getLogger(ModeloTipoCliente.class.getName()).log(Level.SEVERE,null,e);
+            return  true ;
+        }
+    
+    
     }
 
 }
