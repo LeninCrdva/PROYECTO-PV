@@ -47,6 +47,14 @@ public class ControladorFactura {
                 buscarFactura();
             }
         });
+        vista.getBtnElegirCliente().addActionListener(l->elegirCliente());
+        vista.getTblClientes().addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseCliked(java.awt.event.MouseEvent evt){
+                clickTblCliente();
+            }
+        });
+        vista.getBtnSalirCliente().addActionListener(l->salirCliente());
+        vista.getBtnBuscarCliente().addActionListener(l->BuscaClientes());
     }
     private void cargaEnc(){
         List<EncabezadoFactura> lista=modelo.listaEncabezadoFactura();
@@ -257,6 +265,26 @@ public class ControladorFactura {
             mTabla.addRow(registro);
         });
     }
+    private void elegirCliente(){
+        vista.getDlgSeleccionarCliente().setTitle("SELECCIONAR CLIENTE");
+        vista.getDlgSeleccionarCliente().setSize(890,270);
+        vista.getDlgSeleccionarCliente().setLocationRelativeTo(vista);
+        ModeloCliente modeloC=new ModeloCliente();
+        List<Cliente> lista=modeloC.listarclientes();
+        DefaultTableModel mTabla=(DefaultTableModel) vista.getTblClientes().getModel();
+        mTabla.setNumRows(0);   
+        String[] columnas={"ID CLIENTE", "DNI", "NOMBRE", "APELLIDO", "CORREO", "TELEFONO", "DIRECCION"};
+        mTabla.setColumnIdentifiers(columnas);
+        lista.stream().forEach(pe->{
+            Object[] registro={String.valueOf(pe.getId_cli()), pe.getId_cli(), pe.getNombre_per(), pe.getApellido_per(), String.valueOf(pe.getEmail_per()), pe.getTelefono_per(), String.valueOf(pe.getDireccion_per())};
+            mTabla.addRow(registro);
+        });
+        vista.getDlgSeleccionarCliente().setVisible(true);
+    }
+    private void clickTblCliente(){
+        vista.getTxtCliente().setText(vista.getTblClientes().getValueAt(vista.getTblClientes().getSelectedRow(), 0).toString());
+        vista.getDlgSeleccionarCliente().dispose();
+    }
     private void limpiar(){
         vista.getTxtCodigoE().setText(null);
         vista.getTxtCliente().setText(null);
@@ -267,5 +295,29 @@ public class ControladorFactura {
         vista.getTxtCliente().setEnabled(true);
         vista.getTxtEmpleado().setEnabled(true);
     }
-    
+    private void salirCliente(){
+        vista.getDlgSeleccionarCliente().dispose();
+    }
+    private void BuscaClientes() {
+        ModeloPersona modeloC=new ModeloPersona();
+        List<Persona> listaclie = modeloC.BuscaPersonaDB(vista.getTxtBuscarCliente().getText());
+        DefaultTableModel df;
+        df = (DefaultTableModel) vista.getTblClientes().getModel();
+        df.setNumRows(0);
+
+        listaclie.stream().forEach(cli -> {
+            String[] Nuevo = {
+                Integer.toString(cli.getId_per()),
+                cli.getNumeroidentificacion_per(),
+                cli.getNombre_per(),
+                cli.getApellido_per(),
+                cli.getDireccion_per(),
+                cli.getTelefono_per(),
+                cli.getEmail_per(),
+                cli.getGenero_per(),
+                String.valueOf(cli.getFecha_nac())
+            };
+            df.addRow(Nuevo);
+        });
+    }
 }

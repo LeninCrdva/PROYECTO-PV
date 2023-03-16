@@ -35,7 +35,39 @@ public class ModeloTipoDocumento extends TipoDocumento {
             return null;
         }
     }
-
+    public int ObtenerIDTDBD() {
+        int id_lab = 0;
+        String sql = "SELECT MAX(id_tip) from tipo_doc";
+        ConnectionPG con = new ConnectionPG();
+        ResultSet rs = con.Consulta(sql);
+        try {
+            if (rs.next()) {
+                id_lab = rs.getInt(1);
+            }
+            rs.close();
+            return id_lab;
+        } catch (SQLException e) {
+            System.err.print(e);
+            return id_lab;
+        }
+    }
+     public int ConsultaIDBD(String name) {
+        int id_tip = 0;
+        String sql = "SELECT id_tip FROM tipo_doc WHERE nombre_doc LIKE '%" + name + "%'";
+        ConnectionPG con = new ConnectionPG();
+        ResultSet rs = con.Consulta(sql);
+        
+        try {
+            if (rs.next()) {
+                id_tip = rs.getInt(1);
+            }
+            rs.close();
+            return id_tip;
+        } catch (SQLException e) {
+            System.err.print(e);
+            return id_tip;
+        }
+    }
     public List<TipoDocumento> LlenaComboBD() {
         List<TipoDocumento> lista = new ArrayList<>();
         String sql = "SELECT nombre_doc FROM tipo_doc";
