@@ -1,17 +1,26 @@
 package Controlador;
 
+import Modelo.ConnectionPG;
 import Vista.VistaLabor;
 import Modelo.ModeloLabor;
 import Modelo.Labor;
 import java.awt.Component;
 import java.awt.event.KeyAdapter;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 import javax.swing.JSlider;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 public class ControladorLabor {
 
@@ -32,6 +41,7 @@ public class ControladorLabor {
         vl.getBtnaceptar().addActionListener(l -> CrearEditarEliminarLabor());
         vl.getBtncancelar().addActionListener(l -> vl.getDlgcrudlabor().dispose());
         vl.getLblidlab().setText(Integer.toString(CreaID()));
+        vl.getBtnimprimirlab().addActionListener(l -> Reportes());
 
         vl.getTxtbuscarlab().addKeyListener(new KeyAdapter() {
             @Override
@@ -191,6 +201,20 @@ public class ControladorLabor {
             vl.getSldhoras()
         };
         return com;
+    }
+
+    private void Reportes() {
+        ConnectionPG con = new ConnectionPG();
+        try {
+            JasperReport jr = (JasperReport) JRLoader.loadObject(getClass().getResource("/Vista/Reportes/Labor.jasper"));
+            JasperPrint jp = JasperFillManager.fillReport(jr, null, con.getCon());
+            JasperViewer jv = new JasperViewer(jp, false);
+
+            jv.setVisible(true);
+
+        } catch (JRException | NumberFormatException ex) {
+            Logger.getLogger(ControladorEmpleado.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     private void CrearEditarEliminarLabor() {
