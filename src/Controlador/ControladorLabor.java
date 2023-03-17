@@ -203,30 +203,30 @@ public class ControladorLabor {
                 int horas_laborales = vl.getSldhoras().getValue();
                 String sueldo = vl.getTxtsueldo().getText();
 
-                if (!nombre.isEmpty()) {
-                    if (!String.valueOf(sueldo).isEmpty()) {
-                        //if (true) {
-                        if (!ml.ExisteNombreLaborBD(nombre)) {
-                            ModeloLabor labor = new ModeloLabor();
-                            labor.setId_lab(id_lab);
-                            labor.setNombre_lab(nombre);
-                            labor.setHoraslaborales_lab(horas_laborales);
-                            labor.setSueldo_lab(Double.parseDouble(sueldo));
-                            if (labor.InsertarLaborBD() == null) {
-                                JOptionPane.showMessageDialog(vl, "Registro de labor añadido correctamente");
-                                vl.getDlgcrudlabor().dispose();
-                            } else {
-                                JOptionPane.showMessageDialog(vl, "No se pudo añadir el registro");
-                            }
-                        } else {
-                            JOptionPane.showMessageDialog(vl, "El nombre que intenta registrar ya existe.");
-                        }
-                        //}
-                    } else {
-                        JOptionPane.showMessageDialog(vl, "El campo de sueldo no puede estar vacío.");
-                    }
-                } else {
+                if (nombre.isEmpty()) {
                     JOptionPane.showMessageDialog(vl, "El campo de nombre no puede estar vacío.");
+                    return;
+                }
+
+                if (String.valueOf(sueldo).isEmpty()) {
+                    JOptionPane.showMessageDialog(vl, "El campo de sueldo no puede estar vacío.");
+                    return;
+                }
+                if (ml.ExisteNombreLaborBD(nombre)) {
+                    JOptionPane.showMessageDialog(vl, "El nombre que intenta registrar ya existe.");
+                    return;
+                }
+
+                ModeloLabor labor = new ModeloLabor();
+                labor.setId_lab(id_lab);
+                labor.setNombre_lab(nombre);
+                labor.setHoraslaborales_lab(horas_laborales);
+                labor.setSueldo_lab(Double.parseDouble(sueldo));
+                if (labor.InsertarLaborBD() == null) {
+                    JOptionPane.showMessageDialog(vl, "Registro de labor añadido correctamente");
+                    vl.getDlgcrudlabor().dispose();
+                } else {
+                    JOptionPane.showMessageDialog(vl, "No se pudo añadir el registro");
                 }
 
             } catch (NullPointerException | NumberFormatException e) {
@@ -240,46 +240,44 @@ public class ControladorLabor {
                 String nombre = vl.getTxtnombrelab().getText().toUpperCase().trim();
                 int horas_laborales = vl.getSldhoras().getValue();
                 String sueldo = vl.getTxtsueldo().getText();
-                if (!nombre.isEmpty()) {
-                    if (!String.valueOf(sueldo).isEmpty()) {
-                        System.out.println(nombre);
-                        System.out.println(vl.getTxtnombrelab().getText().toUpperCase().trim());
-                        if (vl.getTxtnombrelab().getText().toUpperCase().trim().equals(nombre)) {
-                            System.out.println(vl.getTxtnombrelab().getText().toUpperCase().trim().equals(nombre));
-                            ModeloLabor labor = new ModeloLabor();
-                            labor.setId_lab(id_lab);
-                            labor.setNombre_lab(nombre);
-                            labor.setHoraslaborales_lab(horas_laborales);
-                            labor.setSueldo_lab(Double.parseDouble(sueldo));
-                            if (labor.ModificaLaborBD(id_lab) == null) {
-                                JOptionPane.showMessageDialog(vl, "Registro de labor editado correctamente");
-                                vl.getDlgcrudlabor().dispose();
-                            } else {
-                                JOptionPane.showMessageDialog(vl, "No se pudo editar el registro");
-                            }
-                        } else {
-                            if (!ml.ExisteNombreLaborBD(nombre)) {
-                                ModeloLabor labor = new ModeloLabor();
-                                labor.setId_lab(id_lab);
-                                labor.setNombre_lab(nombre);
-                                labor.setHoraslaborales_lab(horas_laborales);
-                                labor.setSueldo_lab(Double.parseDouble(sueldo));
-                                if (labor.ModificaLaborBD(id_lab) == null) {
-                                    JOptionPane.showMessageDialog(vl, "Registro de labor editado correctamente");
-                                    vl.getDlgcrudlabor().dispose();
-                                } else {
-                                    JOptionPane.showMessageDialog(vl, "No se pudo editar el registro");
-                                }
-                            } else {
-                                JOptionPane.showMessageDialog(vl, "El nombre que intenta registrar ya existe.");
-                            }
-                        }
-                    }
+                if (nombre.isEmpty()) {
+                    JOptionPane.showMessageDialog(vl, "El campo de nombre no puede estar vacío.");
+                    return;
                 }
+                if (String.valueOf(sueldo).isEmpty()) {
+                    JOptionPane.showMessageDialog(vl, "El campo de sueldo no puede estar vacío.");
+                    return;
+                }
+
+                ModeloLabor labor = new ModeloLabor();
+                labor.setId_lab(id_lab);
+                labor.setNombre_lab(nombre);
+                labor.setHoraslaborales_lab(horas_laborales);
+                labor.setSueldo_lab(Double.parseDouble(sueldo));
+
+                if (ml.GetNombreBD(id_lab).equals(nombre)) {
+                    if (labor.ModificaLaborBD(id_lab) == null) {
+                        JOptionPane.showMessageDialog(vl, "Registro de labor editado correctamente");
+                        vl.getDlgcrudlabor().dispose();
+                    } else {
+                        JOptionPane.showMessageDialog(vl, "No se pudo editar el registro");
+                    }
+                } else if (!ml.ExisteNombreLaborBD(nombre)) {
+                    if (labor.ModificaLaborBD(id_lab) == null) {
+                        JOptionPane.showMessageDialog(vl, "Registro de labor editado correctamente");
+                        vl.getDlgcrudlabor().dispose();
+                    } else {
+                        JOptionPane.showMessageDialog(vl, "No se pudo editar el registro");
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(vl, "No puede ingresar un nombre que ya existe");
+                }
+
             } catch (NumberFormatException | NullPointerException e) {
                 System.out.println(e);
             }
             break;
+
             case "eliminar":
                 try {
                 int id_lab = Integer.parseInt(vl.getLblidlab().getText());
