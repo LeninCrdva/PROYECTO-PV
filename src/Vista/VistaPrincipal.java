@@ -104,6 +104,24 @@ public class VistaPrincipal extends javax.swing.JFrame {
     public void setPanelPrincipal(JDesktopPane panelPrincipal) {
         this.panelPrincipal = panelPrincipal;
     }
+
+    public JButton getBtnLabor() {
+        return btnLabor;
+    }
+
+    public void setBtnLabor(JButton btnLabor) {
+        this.btnLabor = btnLabor;
+    }
+
+    public JButton getBtnCuenta() {
+        return btnCuenta;
+    }
+
+    public void setBtnCuenta(JButton btnCuenta) {
+        this.btnCuenta = btnCuenta;
+    }
+    
+    
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -119,12 +137,14 @@ public class VistaPrincipal extends javax.swing.JFrame {
         btnReserva = new javax.swing.JButton();
         btnFactura = new javax.swing.JButton();
         btnServicio = new javax.swing.JButton();
+        btnLabor = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         lblfechaDiaria = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         lblNameUser = new javax.swing.JLabel();
+        btnCuenta = new javax.swing.JButton();
         panelPrincipal = new javax.swing.JDesktopPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -163,6 +183,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
         btnHome.setFont(new java.awt.Font("Palatino Linotype", 0, 14)); // NOI18N
         btnHome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icono/HomePV.png"))); // NOI18N
         btnHome.setText("Inicio");
+        btnHome.setBorderPainted(false);
         btnHome.setFocusable(false);
         btnHome.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         btnHome.setIconTextGap(40);
@@ -174,6 +195,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
         btnEmpleado.setFont(new java.awt.Font("Palatino Linotype", 0, 14)); // NOI18N
         btnEmpleado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icono/empleados.png"))); // NOI18N
         btnEmpleado.setText("Empleado");
+        btnEmpleado.setBorderPainted(false);
         btnEmpleado.setFocusable(false);
         btnEmpleado.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         btnEmpleado.setIconTextGap(40);
@@ -185,6 +207,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
         btnCliente.setFont(new java.awt.Font("Palatino Linotype", 0, 14)); // NOI18N
         btnCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icono/Clientes.png"))); // NOI18N
         btnCliente.setText("Cliente");
+        btnCliente.setBorderPainted(false);
         btnCliente.setFocusable(false);
         btnCliente.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         btnCliente.setIconTextGap(40);
@@ -197,6 +220,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
         btnHabitacion.setFont(new java.awt.Font("Palatino Linotype", 0, 14)); // NOI18N
         btnHabitacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icono/Habitaciones.png"))); // NOI18N
         btnHabitacion.setText("Habitación");
+        btnHabitacion.setBorderPainted(false);
         btnHabitacion.setFocusable(false);
         btnHabitacion.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         btnHabitacion.setIconTextGap(40);
@@ -208,6 +232,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
         btnReserva.setFont(new java.awt.Font("Palatino Linotype", 0, 14)); // NOI18N
         btnReserva.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icono/Reservas.png"))); // NOI18N
         btnReserva.setText("Reserva");
+        btnReserva.setBorderPainted(false);
         btnReserva.setFocusable(false);
         btnReserva.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         btnReserva.setIconTextGap(40);
@@ -219,6 +244,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
         btnFactura.setFont(new java.awt.Font("Palatino Linotype", 0, 14)); // NOI18N
         btnFactura.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icono/Facturas.png"))); // NOI18N
         btnFactura.setText("Factura");
+        btnFactura.setBorderPainted(false);
         btnFactura.setFocusable(false);
         btnFactura.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         btnFactura.setIconTextGap(40);
@@ -230,6 +256,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
         btnServicio.setFont(new java.awt.Font("Palatino Linotype", 0, 14)); // NOI18N
         btnServicio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icono/Servicios.png"))); // NOI18N
         btnServicio.setText("Servicio");
+        btnServicio.setBorderPainted(false);
         btnServicio.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnServicio.setFocusable(false);
         btnServicio.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
@@ -237,6 +264,19 @@ public class VistaPrincipal extends javax.swing.JFrame {
         btnServicio.setMargin(new java.awt.Insets(5, 5, 5, 30));
         btnServicio.setMaximumSize(new java.awt.Dimension(185, 35));
         jToolBar1.add(btnServicio);
+
+        btnLabor.setBackground(new java.awt.Color(255, 255, 255));
+        btnLabor.setFont(new java.awt.Font("Palatino Linotype", 0, 14)); // NOI18N
+        btnLabor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icono/Labor.png"))); // NOI18N
+        btnLabor.setText("Labor");
+        btnLabor.setBorderPainted(false);
+        btnLabor.setFocusable(false);
+        btnLabor.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        btnLabor.setIconTextGap(40);
+        btnLabor.setMargin(new java.awt.Insets(5, 5, 5, 45));
+        btnLabor.setMaximumSize(new java.awt.Dimension(185, 35));
+        btnLabor.setMinimumSize(new java.awt.Dimension(153, 39));
+        jToolBar1.add(btnLabor);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -255,7 +295,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
         jPanel4.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icono/HotelLogo.png"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icono/LogoHotel.png"))); // NOI18N
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icono/Calendario.png"))); // NOI18N
         jLabel2.setToolTipText("Fecha de hoy");
@@ -264,38 +304,49 @@ public class VistaPrincipal extends javax.swing.JFrame {
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icono/Usuario.png"))); // NOI18N
 
+        btnCuenta.setBackground(new java.awt.Color(255, 255, 255));
+        btnCuenta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icono/configuracion.png"))); // NOI18N
+        btnCuenta.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        btnCuenta.setBorderPainted(false);
+        btnCuenta.setFocusPainted(false);
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(31, 31, 31)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 451, Short.MAX_VALUE)
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblfechaDiaria, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblfechaDiaria, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(52, 52, 52)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lblNameUser, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(lblNameUser, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(69, 69, 69))
+                    .addComponent(btnCuenta, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1)
+            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(19, 19, 19)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(lblfechaDiaria, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(lblNameUser, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(19, 19, 19)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblfechaDiaria, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(lblNameUser, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addComponent(btnCuenta))
+                .addContainerGap())
         );
-
-        lblfechaDiaria.getAccessibleContext().setAccessibleName("");
 
         panelPrincipal = new javax.swing.JDesktopPane(){
             protected void paintComponent(Graphics g) {
@@ -322,11 +373,11 @@ public class VistaPrincipal extends javax.swing.JFrame {
         panelPrincipal.setLayout(panelPrincipalLayout);
         panelPrincipalLayout.setHorizontalGroup(
             panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 650, Short.MAX_VALUE)
+            .addGap(0, 865, Short.MAX_VALUE)
         );
         panelPrincipalLayout.setVerticalGroup(
             panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 422, Short.MAX_VALUE)
+            .addGap(0, 472, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -364,10 +415,12 @@ public class VistaPrincipal extends javax.swing.JFrame {
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCliente;
+    private javax.swing.JButton btnCuenta;
     private javax.swing.JButton btnEmpleado;
     private javax.swing.JButton btnFactura;
     private javax.swing.JButton btnHabitacion;
     private javax.swing.JButton btnHome;
+    private javax.swing.JButton btnLabor;
     private javax.swing.JButton btnReserva;
     private javax.swing.JButton btnServicio;
     private javax.swing.JLabel jLabel1;

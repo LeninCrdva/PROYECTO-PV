@@ -1,10 +1,15 @@
 package MVC;
 
+import Controlador.ControladorLogin;
+import Modelo.ModeloCuenta;
+import Vista.VistaLogin;
 import Vista.VistaPrincipal;
 
 public class MVCMain {
     public static void main(String[] args) {
-        VistaPrincipal vista = new VistaPrincipal();
-        vista.setVisible(true);
+        VistaLogin vs = new VistaLogin();
+        ModeloCuenta mc = new ModeloCuenta();
+        ControladorLogin ctr = new ControladorLogin(vs, mc);
+        ctr.InciarControl();
     }
 }
