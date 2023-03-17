@@ -158,6 +158,22 @@ public class ModeloServicio extends Servicio {
             return true;
         }
     }
+    public String GetNombreBD(int id_ser) {
+        String sql = "SELECT nombre_ser FROM servicio WHERE id_ser  = " + id_ser;
+        ConnectionPG con = new ConnectionPG();
+        ResultSet rs = con.Consulta(sql);
+        String nombre_ser = null;
+        try {
+            if (rs.next()) {
+                nombre_ser = rs.getString(1);
+            }
+            rs.close();
+            return nombre_ser;
+        } catch (SQLException ex) {
+            Logger.getLogger(ModeloServicio.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
 
     public SQLException ModificarServicioBD(int id_ser) {
         String sql = "UPDATE  servicio SET nombre_ser = '" + getNombre_ser() + "', descripcion_ser = '" + getDescripcion_ser()
