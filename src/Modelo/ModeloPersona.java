@@ -119,20 +119,147 @@ public class ModeloPersona extends Persona {
         }
         return id_per;
     }
-    
-    public int ObtieneID(int id_per) {
-        String sql = "SELECT tipo_doc FROM persona WHERE id_per = " + id_per;
+
+    public String ObtieneID(int id_per) {
+        String sql = "SELECT d.nombre_doc FROM persona p "
+                + "INNER JOIN tipo_doc d ON p.tipo_doc = d.id_tip WHERE p.id_per = " + id_per;
         ConnectionPG con = new ConnectionPG();
         ResultSet rs = con.Consulta(sql);
-        int id_doc = 0;
+        String nombre_doc = null;
         try {
             if (rs.next()) {
-                id_doc = rs.getInt(1);
+                nombre_doc = rs.getString(1);
             }
             rs.close();
-            return id_doc;
+            return nombre_doc;
         } catch (SQLException e) {
-            return id_doc;
+            return nombre_doc;
         }
+    }
+
+    public String GetNumeroIdentificacionBD(int id_per) {
+        try {
+            String num = null;
+            String sql = "SELECT numeroidentificacion_per FROM persona "
+                    + "WHERE id_per = " + id_per;
+            ConnectionPG con = new ConnectionPG();
+            try (ResultSet rs = con.Consulta(sql)) {
+                if (rs.next()) {
+
+                    num = rs.getString(1);
+                }
+            }
+            return num;
+        } catch (SQLException ex) {
+            Logger.getLogger(ModeloPersona.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+
+    public String GetPhoneBD(int id_per) {
+        try {
+            String num = null;
+            String sql = "SELECT telefono_per FROM persona "
+                    + "WHERE id_per = " + id_per;
+            ConnectionPG con = new ConnectionPG();
+            try (ResultSet rs = con.Consulta(sql)) {
+                if (rs.next()) {
+
+                    num = rs.getString(1);
+                }
+            }
+            return num;
+        } catch (SQLException ex) {
+            Logger.getLogger(ModeloPersona.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+
+    public String GetEmailBD(int id_per) {
+        try {
+            String num = null;
+            String sql = "SELECT email_per FROM persona "
+                    + "WHERE id_per = " + id_per;
+            ConnectionPG con = new ConnectionPG();
+            try (ResultSet rs = con.Consulta(sql)) {
+                if (rs.next()) {
+
+                    num = rs.getString(1);
+                }
+            }
+            return num;
+        } catch (SQLException ex) {
+            Logger.getLogger(ModeloPersona.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+
+    public boolean ExisteNumeroIdentificacionBD(String numero_identifiacion) {
+        String sql = "SELECT COUNT(*) FROM persona WHERE numeroidentificacion_per = '" + numero_identifiacion + "'";
+        ConnectionPG con = new ConnectionPG();
+        ResultSet rs = con.Consulta(sql);
+        try {
+            if (rs.next()) {
+                int count = rs.getInt(1);
+                return count > 0;
+            } else {
+                return false;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ModeloLabor.class.getName()).log(Level.SEVERE, null, ex);
+            return true;
+        }
+    }
+
+    public boolean ExisteTelefonoBD(String telefono) {
+        String sql = "SELECT COUNT(*) FROM persona WHERE telefono_per = '" + telefono + "'";
+        ConnectionPG con = new ConnectionPG();
+        ResultSet rs = con.Consulta(sql);
+        try {
+            if (rs.next()) {
+                int count = rs.getInt(1);
+                return count > 0;
+            } else {
+                return false;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ModeloLabor.class.getName()).log(Level.SEVERE, null, ex);
+            return true;
+        }
+    }
+
+    public boolean ExisteEmailBD(String email) {
+        String sql = "SELECT COUNT(*) FROM persona WHERE email_per = '" + email + "'";
+        ConnectionPG con = new ConnectionPG();
+        ResultSet rs = con.Consulta(sql);
+        try {
+            if (rs.next()) {
+                int count = rs.getInt(1);
+                return count > 0;
+            } else {
+                return false;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ModeloLabor.class.getName()).log(Level.SEVERE, null, ex);
+            return true;
+        }
+    }
+
+    public boolean ExistenDatosBD(String email, String numide, String telefono) {
+        boolean exist = false;
+        String sql = "SELECT * FROM persona WHERE email_per = '" + email + "' "
+                + "OR telefono_per = '" + telefono + "' OR numeroidentificacion_per = '" + numide + "'";
+        ConnectionPG con = new ConnectionPG();
+        ResultSet rs = con.Consulta(sql);
+        try {
+            if (rs.next()) {
+                exist = true;
+            } else {
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ModeloLabor.class.getName()).log(Level.SEVERE, null, ex);
+            return exist;
+        }
+        return exist;
     }
 }

@@ -38,13 +38,14 @@ public class ModeloTipoDocumento extends TipoDocumento {
 
     public List<TipoDocumento> LlenaComboBD() {
         List<TipoDocumento> lista = new ArrayList<>();
-        String sql = "SELECT nombre_doc FROM tipo_doc";
+        String sql = "SELECT id_tip, nombre_doc FROM tipo_doc";
         ConnectionPG con = new ConnectionPG();
         ResultSet rs = con.Consulta(sql);
         try {
             while (rs.next()) {
                 TipoDocumento tip = new TipoDocumento();
-                tip.setNombre_doc(rs.getString(1));
+                tip.setId_tip(rs.getInt(1));
+                tip.setNombre_doc(rs.getString(2));
                 lista.add(tip);
             }
             rs.close();

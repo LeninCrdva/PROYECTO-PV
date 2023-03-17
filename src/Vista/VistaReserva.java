@@ -4,7 +4,6 @@
  */
 package Vista;
 
-import Modelo.Cliente;
 import Modelo.Habitacion;
 import com.toedter.calendar.JDateChooser;
 import javax.swing.JButton;
@@ -188,14 +187,6 @@ public class VistaReserva extends javax.swing.JInternalFrame {
         this.btnCancelar = btnCancelar;
     }
 
-    public JComboBox<Cliente> getComboClientes() {
-        return comboClientes;
-    }
-
-    public void setComboClientes(JComboBox<Cliente> comboClientes) {
-        this.comboClientes = comboClientes;
-    }
-
     public JDialog getDialogReserva() {
         return dialogReserva;
     }
@@ -260,11 +251,11 @@ public class VistaReserva extends javax.swing.JInternalFrame {
         this.btnRemoveRow = btnRemoveRow;
     }
 
-    public JComboBox<Habitacion> getComboHabitacion() {
+    public JComboBox getComboHabitacion() {
         return comboHabitacion;
     }
 
-    public void setComboHabitacion(JComboBox<Habitacion> comboHabitacion) {
+    public void setComboHabitacion(JComboBox comboHabitacion) {
         this.comboHabitacion = comboHabitacion;
     }
 
@@ -282,6 +273,14 @@ public class VistaReserva extends javax.swing.JInternalFrame {
 
     public void setTblClientes(JTable tblClientes) {
         this.tblClientes = tblClientes;
+    }
+
+    public JComboBox getComboClientes() {
+        return comboClientes;
+    }
+
+    public void setComboClientes(JComboBox comboClientes) {
+        this.comboClientes = comboClientes;
     }
 
     
@@ -333,11 +332,11 @@ public class VistaReserva extends javax.swing.JInternalFrame {
         btnCancelar = new javax.swing.JButton();
         txtTotalRes = new javax.swing.JTextField();
         dtchoEntrada = new com.toedter.calendar.JDateChooser();
-        comboClientes = new javax.swing.JComboBox<>();
+        comboClientes = new javax.swing.JComboBox();
         labelId = new javax.swing.JLabel();
         btnRemoveRow = new javax.swing.JButton();
         btnAddClient = new javax.swing.JButton();
-        comboHabitacion = new javax.swing.JComboBox<>();
+        comboHabitacion = new javax.swing.JComboBox();
         jLabel18 = new javax.swing.JLabel();
         dialogClientes = new javax.swing.JDialog();
         jPanel4 = new javax.swing.JPanel();
@@ -645,7 +644,7 @@ public class VistaReserva extends javax.swing.JInternalFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(comboHabitacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel18))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnRemoveRow)
                     .addComponent(btnAddClient))
@@ -748,7 +747,12 @@ public class VistaReserva extends javax.swing.JInternalFrame {
                 "Id", "Nombre Cliente", "Fecha Ingreso", "Fecha Salida", "Total", "Estado"
             }
         ));
+        tablaReserva.setFocusable(false);
+        tablaReserva.setIntercellSpacing(new java.awt.Dimension(0, 0));
         tablaReserva.setName("listEncRes"); // NOI18N
+        tablaReserva.setRowHeight(25);
+        tablaReserva.setSelectionBackground(new java.awt.Color(232, 57, 95));
+        tablaReserva.setShowVerticalLines(false);
         tablaReserva.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(tablaReserva);
         if (tablaReserva.getColumnModel().getColumnCount() > 0) {
@@ -828,8 +832,8 @@ public class VistaReserva extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnRemoveRow;
     private javax.swing.JButton btnSave;
     private javax.swing.JCheckBox checkEdit;
-    private javax.swing.JComboBox<Cliente> comboClientes;
-    private javax.swing.JComboBox<Habitacion> comboHabitacion;
+    private javax.swing.JComboBox comboClientes;
+    private javax.swing.JComboBox comboHabitacion;
     private javax.swing.JDialog dialogClientes;
     private javax.swing.JDialog dialogDetalles;
     private javax.swing.JDialog dialogReserva;

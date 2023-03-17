@@ -14,6 +14,10 @@ import Modelo.ModeloTipo_Habitacion;
 import Modelo.Persona;
 import Modelo.Tipo_Habitacion;
 import Vista.VistaReserva;
+import com.toedter.calendar.JDateChooser;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -24,9 +28,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -62,29 +69,33 @@ public class ControladorReserva {
         cargarClientes();
         cargarHabitacion();
         activarCombo();
-        disableDates();
-        vista.getComboHabitacion().addActionListener(l -> calcularTotal());
+        precioRes();
         showDetails(vista.getTblClientes());
         showDetails(vista.getTablaClientes());
         showDetails(vista.getTablaReserva());
         vista.getBtnCrear().addActionListener(l -> abrirCrearHab(1));
+        vista.getBtnCrear().addActionListener(l -> InitClean());
         vista.getBtnEditar().addActionListener(l -> abrirCrearHab(2));
         vista.getBtnAceptar().addActionListener(l -> crearEditarHab());
         vista.getBtnCancelar().addActionListener(l -> cancelDialog());
         vista.getBtnAddClient().addActionListener(l -> showListHues());
+        vista.getBtnRemoveRow().addActionListener(l -> deleteRow());
         vista.getBtnPrint().addActionListener(l -> imprimirReserva());
         vista.getBtnConfirm().addActionListener(l -> vista.getDialogDetalles().dispose());
     }
 
     private void cargarEncabezado() {
         List<Enc_reserva> lista = mdEnc.ListEnc();
-        
-        DefaultComboBoxModel<Cliente> modelo = new DefaultComboBoxModel<>();
-        vista.getComboClientes().setModel(modelo);
 
         DefaultTableModel mTabla;
         mTabla = (DefaultTableModel) vista.getTablaReserva().getModel();
         mTabla.setNumRows(0); //Limpio la tabla
+        vista.getTablaReserva().getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 12));
+        vista.getTablaReserva().getTableHeader().setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        vista.getTablaReserva().getTableHeader().setOpaque(false);
+        vista.getTablaReserva().getTableHeader().setBackground(new Color(32, 136, 203));
+        vista.getTablaReserva().getTableHeader().setForeground(new Color(255, 255, 255));
+        vista.getTablaReserva().setRowHeight(25);
 
         lista.stream().forEach(ec -> {
             String[] fila = {String.valueOf(ec.getId_res()), String.valueOf(ec.getIdCliente_res()), String.valueOf(ec.getFechaIngreso_res()), String.valueOf(ec.getFechaSalida_res()), String.valueOf(ec.getTotal_res()), String.valueOf(ec.isEstado_res())};
@@ -95,12 +106,15 @@ public class ControladorReserva {
     private void abrirCrearHab(int ce) {
         String title;
         boolean openwindow = false;
+
         if (ce == 1) {
             title = "Crear Reserva";
+            EnableFields(InitClean());
             vista.getDialogReserva().setName("crear");
             openwindow = true;
         } else {
             title = "Editar Reserva";
+            EnableFields(InitClean());
             vista.getDialogReserva().setName("editar");
             try {
                 openwindow = uploadDates(vista.getTablaReserva());
@@ -202,6 +216,10 @@ public class ControladorReserva {
 
     private void cargarClientes() {
         vista.getComboClientes().removeAllItems();
+
+        DefaultComboBoxModel<Cliente> modelo = new DefaultComboBoxModel<>();
+        vista.getComboClientes().setModel(modelo);
+
         ModeloCliente modeloc = new ModeloCliente();
         ModeloPersona modelop = new ModeloPersona();
 
@@ -225,6 +243,10 @@ public class ControladorReserva {
 
     private void cargarHabitacion() {
         vista.getComboHabitacion().removeAllItems();
+
+        DefaultComboBoxModel<Habitacion> modelo = new DefaultComboBoxModel<>();
+        vista.getComboHabitacion().setModel(modelo);
+
         ModeloHabitación mha = new ModeloHabitación();
 
         List<Habitacion> listah = mha.ListHabitacion();
@@ -238,13 +260,15 @@ public class ControladorReserva {
         boolean a = false;
         if (table.getSelectedRowCount() == 1) {
             a = true;
+            Habitacion hb = mdDet.getHab(Integer.parseInt(table.getValueAt(table.getSelectedRow(), 0).toString()));
             SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
 
-            vista.getLabelId().setText(vista.getTablaReserva().getValueAt(vista.getTablaReserva().getSelectedRow(), 0).toString());
-            vista.getComboClientes().setSelectedIndex(Integer.parseInt(vista.getTablaReserva().getValueAt(vista.getTablaReserva().getSelectedRow(), 1).toString()) - 1);
-            vista.getDtchoEntrada().setDate(formato.parse(vista.getTablaReserva().getValueAt(vista.getTablaReserva().getSelectedRow(), 2).toString()));
-            vista.getDtchSalida().setDate(formato.parse(vista.getTablaReserva().getValueAt(vista.getTablaReserva().getSelectedRow(), 3).toString()));
-            vista.getTxtTotalRes().setText(vista.getTablaReserva().getValueAt(vista.getTablaReserva().getSelectedRow(), 4).toString());
+            vista.getLabelId().setText(table.getValueAt(table.getSelectedRow(), 0).toString());
+            vista.getComboClientes().setSelectedIndex(Integer.parseInt(table.getValueAt(table.getSelectedRow(), 1).toString()) - 1);
+            vista.getDtchoEntrada().setDate(formato.parse(table.getValueAt(table.getSelectedRow(), 2).toString()));
+            vista.getDtchSalida().setDate(formato.parse(table.getValueAt(table.getSelectedRow(), 3).toString()));
+            vista.getTxtTotalRes().setText(table.getValueAt(table.getSelectedRow(), 4).toString());
+            vista.getComboHabitacion().getModel().setSelectedItem(hb);
         } else {
             JOptionPane.showMessageDialog(null, "SELECCIONE UNA FILA DE LA TABLA");
         }
@@ -366,15 +390,24 @@ public class ControladorReserva {
         ModeloTipo_Habitacion tp = new ModeloTipo_Habitacion();
         Habitacion ha = (Habitacion) vista.getComboHabitacion().getSelectedItem();
 
-        List<Tipo_Habitacion> listath = tp.ListTipHabSearch("id_tha", String.valueOf(ha.getIdTipo_hab()));
+        if (vista.getDtchSalida().getDate() != null && vista.getDtchoEntrada().getDate() != null && vista.getComboHabitacion().getSelectedIndex() != -1) {
+            List<Tipo_Habitacion> listath = tp.ListTipHabSearch("id_tha", String.valueOf(ha.getIdTipo_hab()));
 
-        listath.stream().forEach(tha -> {
-            if (tha.getId_tha() == ha.getIdTipo_hab()) {
-                Double valor = tha.getPrecio_tha();
-                int dif = vista.getDtchSalida().getDate().getDay() - vista.getDtchoEntrada().getDate().getDay();
-                vista.getTxtTotalRes().setText(String.valueOf(valor * dif));
-            }
-        });
+            listath.stream().forEach(tha -> {
+                if (tha.getId_tha() == ha.getIdTipo_hab()) {
+                    Double valor = tha.getPrecio_tha();
+                    int dif = vista.getDtchSalida().getDate().getDay() - vista.getDtchoEntrada().getDate().getDay();
+                    System.out.println(dif);
+                    vista.getTxtTotalRes().setText(String.valueOf(valor * dif));
+                }
+            });
+        }
+    }
+
+    private void precioRes() {
+        vista.getComboHabitacion().addActionListener(l -> calcularTotal());
+        vista.getDtchSalida().getCalendarButton().addActionListener(l -> calcularTotal());
+        vista.getDtchoEntrada().getCalendarButton().addActionListener(l -> calcularTotal());
     }
 
     private void imprimirReserva() {
@@ -397,11 +430,6 @@ public class ControladorReserva {
         }
     }
 
-    private void disableDates() {
-        vista.getDtchSalida().getDateEditor().setEnabled(false);
-        vista.getDtchoEntrada().getDateEditor().setEnabled(false);
-    }
-
     private boolean success() {
         boolean clienteValido = vista.getComboClientes().getSelectedItem() != null;
         boolean habitacionValida = vista.getComboHabitacion().getSelectedItem() != null;
@@ -412,7 +440,72 @@ public class ControladorReserva {
         return clienteValido && habitacionValida && fechaEntradaValida && fechaSalidaValida && total;
     }
 
+    private void deleteRow() {
+        JTable tabla = vista.getTablaClientes();
+        if (tabla.getSelectedRows().length >= 1) {
+            DefaultTableModel mTabla = (DefaultTableModel) tabla.getModel();
+            mTabla.removeRow(tabla.getSelectedRow());
+        } else {
+            JOptionPane.showMessageDialog(null, "Seleccione al menos una fila");
+        }
+    }
+
     private boolean fechaValidator() {
-        return vista.getDtchoEntrada().getDate().before(vista.getDtchSalida().getDate());
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date fechaEntrada = vista.getDtchoEntrada().getDate();
+        Date fechaSalida = vista.getDtchSalida().getDate();
+        if (fechaEntrada != null && fechaSalida != null) {
+            String strFechaEntrada = sdf.format(fechaEntrada);
+            String strFechaSalida = sdf.format(fechaSalida);
+            return strFechaEntrada.compareTo(strFechaSalida) <= 0;
+        }
+        return false;
+    }
+
+    private void CleanFields(Component[] components) {
+        for (Component component : components) {
+            if (component instanceof JTextField) {
+                ((JTextField) component).setText(null);
+            } else if (component instanceof JDateChooser) {
+                ((JDateChooser) component).setCalendar(null);
+            } else if (component instanceof JComboBox) {
+                ((JComboBox) component).setSelectedIndex(-1);
+            }
+        }
+    }
+
+    private Component[] InitClean() {
+        Component[] com = {
+            vista.getTxtBuscar(),
+            vista.getTxtCantNoc(),
+            vista.getTxtCantP(),
+            vista.getTxtCliente(),
+            vista.getTxtDiaLleg(),
+            vista.getTxtDiaSal(),
+            vista.getTxtNoHab(),
+            vista.getTxtPrecio(),
+            vista.getTxtPrecio(),
+            vista.getTxtTotal(),
+            vista.getTxtTotalRes(),
+            vista.getDtchoEntrada(),
+            vista.getDtchSalida(),
+            vista.getComboClientes(),
+            vista.getComboHabitacion()
+        };
+        CleanFields(com);
+        return com;
+    }
+
+    private void EnableFields(Component[] components) {
+        for (Component component : components) {
+            if (component instanceof JTextField) {
+                ((JTextField) component).setEnabled(true);
+            } else if (component instanceof JDateChooser) {
+                ((JDateChooser) component).setEnabled(false);
+                ((JDateChooser) component).getCalendarButton().setEnabled(true);
+            } else if (component instanceof JComboBox) {
+                ((JComboBox) component).setEnabled(true);
+            }
+        }
     }
 }
