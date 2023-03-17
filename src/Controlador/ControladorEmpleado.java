@@ -65,10 +65,12 @@ public class ControladorEmpleado {
         ve.getBtncrear().addActionListener(l -> InitClean());
         ve.getBtneditar().addActionListener(l -> AbreDialogo(2));
         ve.getBtneliminar().addActionListener(l -> AbreDialogo(3));
+        ve.getBtnprint().addActionListener(l -> AbreDialogo(4));
+        ve.getBtnacceptreport().addActionListener(l -> Reportes());
+        ve.getBtnacceptreport().addActionListener(l -> ve.getDlgreporteemp().dispose());
         ve.getBtnaceptar().addActionListener(l -> crearEditarEliminarEmpleado());
         ve.getBtncancelar().addActionListener(l -> ve.getDlgcrudempleado().dispose());
         ve.getLblidper().setText(Integer.toString(IncrementaID()));
-        ve.getBtnprint().addActionListener(l -> Reportes());
         /*Actions subviews*/
         ve.getBtnaddtipodoc().addActionListener(l -> AbreSubDialogo(1));
         ve.getBtnaddlab().addActionListener(l -> AbreSubDialogo(2));
@@ -396,6 +398,7 @@ public class ControladorEmpleado {
     private void AbreDialogo(int ce) {
         String title = null;
         boolean RowSelected = true;
+        boolean report = false;
         switch (ce) {
             case 1:
                 title = "Añadir un nuevo empleado";
@@ -420,15 +423,25 @@ public class ControladorEmpleado {
                 DisableFields(InitClean());
                 RowSelected = MousePressed(ve.getTblempleados());
                 break;
+            case 4:
+                title = "Generar reporte";
+                ve.getDlgreporteemp().setName("reporte");
+                report = true;
+                break;
         }
 
-        if (RowSelected) {
+        if (RowSelected && !report) {
             ve.getDlgcrudempleado().setLocationRelativeTo(ve);
             ve.getDlgcrudempleado().setSize(420, 575);
             ve.getDlgcrudempleado().setTitle(title);
             ve.getDlgcrudempleado().setVisible(true);
+        } else {
+            ve.getDlgreporteemp().setLocationRelativeTo(ve);
+            ve.getDlgreporteemp().setVisible(true);
+            ve.getDlgreporteemp().setSize(300, 420);
+            ve.getDlgreporteemp().setTitle(title);
         }
-    }
+    } 
 
     private boolean MousePressed(JTable table) {
         boolean press = false;
@@ -458,13 +471,13 @@ public class ControladorEmpleado {
                 int id_per = Integer.parseInt(ve.getTblempleados().getValueAt(ve.getTblempleados().getSelectedRow(), 0).toString());
 
                 ModeloPersona mp = new ModeloPersona();
-                TipoDocumento tp = new TipoDocumento();
+                TipoDocumento tp;
 
-                tp.setNombre_doc(mp.ObtieneID(id_per));
+                tp = mp.ObtieneDocBD(id_per);
                 ve.getCbtipodoc().getModel().setSelectedItem(tp);
 
-                Labor lab = new Labor();
-                lab.setNombre_lab(ve.getTblempleados().getValueAt(ve.getTblempleados().getSelectedRow(), 9).toString());
+                Labor lab;
+                lab = ml.ObtieneLaborBD(ve.getTblempleados().getValueAt(ve.getTblempleados().getSelectedRow(), 9).toString());
                 ve.getCblabor().getModel().setSelectedItem(lab);
 
                 ve.getDtefechaingreso().setDate((formatter.parse(ve.getTblempleados().getValueAt(ve.getTblempleados().getSelectedRow(), 10).toString())));
@@ -615,9 +628,17 @@ public class ControladorEmpleado {
         try {
             String titulo = ve.getTxttitle().getText().trim();
             String descripcion = ve.getTxtdescripción().getText().trim();
+            ve.getTxtsueldo().setText("0");
             double sueldo = Double.parseDouble(ve.getTxtsueldo().getText().trim());
-            //int order = ve.getCborder().getSelectedIndex() + 1;
-
+            if (titulo.isEmpty()) {
+                titulo = "Reporte de empleados";
+            }
+            if (descripcion.isEmpty()) {
+                descripcion = "Reporte general y estadístico de empleados";
+            }
+            if (String.valueOf(sueldo).isEmpty()) {
+                sueldo = 0;
+            }
             datos.put("Titulo", titulo);
             datos.put("Descripción", descripcion);
             datos.put("Sueldo", sueldo);
@@ -630,34 +651,14 @@ public class ControladorEmpleado {
 
     private void Reportes() {
         ConnectionPG con = new ConnectionPG();
-        int option = JOptionPane.showConfirmDialog(ve, "¿Desea generar un reporte con datos personalizados?",
-                "Reportes", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
         try {
-            if (option == JOptionPane.YES_OPTION) {
+            JasperReport jr = (JasperReport) JRLoader.loadObject(getClass().getResource("/Vista/Reportes/Empleados.jasper"));
+            Map<String, Object> parametros = Parametros();
+            JasperPrint jp = JasperFillManager.fillReport(jr, parametros, con.getCon());
+            JasperViewer jv = new JasperViewer(jp, false);
 
-                ve.getDlgreporteemp().setVisible(true);
-                ve.getDlgreporteemp().setSize(280, 420);
-                String titulo = ve.getTxttitle().getText().trim();
-                String descripcion = ve.getTxtdescripción().getText().trim();
-                double sueldo = Double.parseDouble(ve.getTxtsueldo().getText().trim());
-                //int order = ve.getCborder().getSelectedIndex() + 1;
-                Map<String, Object> datos = new HashMap<>();
-                datos.put("Titulo", titulo);
-                datos.put("Descripción", descripcion);
-                datos.put("Sueldo", sueldo);
-                ve.getBtnacceptreport().addActionListener(l -> ReportePersonalizado(datos));
-                ve.getBtncancelreport().addActionListener(l -> ve.getDlgreporteemp().dispose());
+            jv.setVisible(true);
 
-            } else {
-
-                JasperReport jr = (JasperReport) JRLoader.loadObject(getClass().getResource("/Vista/Reportes/Empleados.jasper"));
-                //Map<String, Object> parametros = Parametros();
-                JasperPrint jp = JasperFillManager.fillReport(jr, null, con.getCon());
-                JasperViewer jv = new JasperViewer(jp, false);
-
-                jv.setVisible(true);
-
-            }
         } catch (JRException | NumberFormatException ex) {
             Logger.getLogger(ControladorEmpleado.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -830,7 +831,8 @@ public class ControladorEmpleado {
                     }
                     TipoDocumento tipodoc = (TipoDocumento) ve.getCbtipodoc().getSelectedItem();
                     int id_tipo = tipodoc.getId_tip();
-
+                    System.out.println(id_tipo);
+                    System.out.println(tipodoc);
                     String direccion = ve.getTxtdireccion().getText();
                     String email = ve.getTxtemail().getText();
 
@@ -916,21 +918,24 @@ public class ControladorEmpleado {
                 if (ve.getDlgcrudempleado().getName().equals("eliminar")) {
                     try {
                         int id_per = Integer.parseInt(ve.getLblidper().getText());
-
-                        ModeloPersona persona = new ModeloPersona();
-                        persona.setId_per(id_per);
-                        int op = JOptionPane.showConfirmDialog(ve, "¿Está seguro que desea eliminar el registro?\n"
-                                + "-Esta acción también borrará la cuenta asociada a este empleado \n-Esta acción no es reversible",
-                                "Confirmación", JOptionPane.YES_NO_OPTION);
-                        if (op == JOptionPane.YES_OPTION) {
-                            if (persona.EliminarPersonaDB(id_per) == null) {
-                                ve.getDlgcrudempleado().setVisible(false);
-                                JOptionPane.showMessageDialog(ve, "Empleado eliminado con éxito");
-                            } else {
-                                JOptionPane.showMessageDialog(ve, "No se pudo eliminar al empleado");
+                        if (!me.EmpleadoRegistradoBD(id_per)) {
+                            ModeloPersona persona = new ModeloPersona();
+                            persona.setId_per(id_per);
+                            int op = JOptionPane.showConfirmDialog(ve, "¿Está seguro que desea eliminar el registro?\n"
+                                    + "-Esta acción también borrará la cuenta asociada a este empleado \n-Esta acción no es reversible",
+                                    "Confirmación", JOptionPane.YES_NO_OPTION);
+                            if (op == JOptionPane.YES_OPTION) {
+                                if (persona.EliminarPersonaDB(id_per) == null) {
+                                    ve.getDlgcrudempleado().setVisible(false);
+                                    JOptionPane.showMessageDialog(ve, "Empleado eliminado con éxito");
+                                } else {
+                                    JOptionPane.showMessageDialog(ve, "No se pudo eliminar al empleado");
+                                }
                             }
+                        } else {
+                            JOptionPane.showMessageDialog(ve, "El registro no se pudo eliminar\n"
+                                    + "porque el empleado está asociado a una o varias facturas");
                         }
-
                     } catch (NumberFormatException | NullPointerException e) {
                         System.out.print(e);
                     }

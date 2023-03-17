@@ -193,6 +193,21 @@ public class ModeloEmpleado extends Empleado {
         }
     }
 
+    public boolean EmpleadoRegistradoBD(int id_emp) {
+        String sql = "SELECT COUNT(idEmpl_enc) FROM enc_factura  WHERE idEmpl_enc = " + id_emp;
+        ConnectionPG con = new ConnectionPG();
+        ResultSet rs = con.Consulta(sql);
+        boolean isrelated = false;
+        try {
+            if (rs.next()) {
+                isrelated = true;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ModeloTipoCliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return isrelated;
+    }
+
     public int ObtenerIDEMBD(String user) {
         int id_emp = 0;
         String sql = "SELECT e.id_emp from empleado e INNER JOIN persona p USING(id_per) "
@@ -208,6 +223,6 @@ public class ModeloEmpleado extends Empleado {
         } catch (SQLException e) {
             return id_emp;
         }
-
     }
+
 }

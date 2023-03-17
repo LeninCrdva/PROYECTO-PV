@@ -43,7 +43,7 @@ public class ModeloTipoCliente extends TipoCliente {
 
     }
 
-        public List<TipoCliente> ListaTipoCliBD() {
+    public List<TipoCliente> ListaTipoCliBD() {
         List<TipoCliente> lista = new ArrayList<>();
         String sql = "SELECT id_tip, nombre_tip FROM tipo_cliente";
         ConnectionPG con = new ConnectionPG();
@@ -60,7 +60,7 @@ public class ModeloTipoCliente extends TipoCliente {
         }
         return lista;
     }
-    
+
     public int ObtenerIdTipoCliente() {
         int id_tip = 0;
         String sql = "select max(id_tip) from tipo_cliente";
@@ -77,6 +77,23 @@ public class ModeloTipoCliente extends TipoCliente {
         } catch (SQLException e) {
             System.err.println(e);
             return id_tip;
+        }
+    }
+
+    public TipoCliente ObtieneTipoClienteBD(String nombre_tip) {
+        TipoCliente tc = new TipoCliente();
+        String sql = "SELECT id_tip, nombre_tip FROM tipo_cliente WHERE nombre_tip = '" + nombre_tip + "'";
+        ConnectionPG con = new ConnectionPG();
+        ResultSet rs = con.Consulta(sql);
+        try {
+            while (rs.next()) {
+                tc.setId_tip(rs.getInt(1));
+                tc.setNombre_tip(rs.getString(2));
+            }
+            rs.close();
+            return tc;
+        } catch (SQLException e) {
+            return tc;
         }
     }
 
@@ -164,7 +181,7 @@ public class ModeloTipoCliente extends TipoCliente {
         SQLException ex = con.Accion(sql);
         return ex;
     }
-    
+
     public boolean ExisteNombreTipoDocBD(String nombre_tipocl) {
         String sql = "SELECT COUNT(*) FROM tipo_cliente  WHERE nombre_tip  = '" + nombre_tipocl + "'";
         ConnectionPG con = new ConnectionPG();
