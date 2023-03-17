@@ -183,6 +183,16 @@ public class ControladorCliente {
         return id_tip;
     }
 
+    private void ValidarCampo() {
+        vc.getDatFechanaci().setDateFormatString("yyyy-MM-dd");
+        addTextKeyListenerNotNumber(vc.getTxtNombre(), 50);
+        addTextKeyListenerNotNumber(vc.getTxtApellido(), 50);
+        MaxLengthOnly(vc.getTxtApellido(), 200);
+        MaxLengthOnly(vc.getTxtEmail(), 200);
+        addTextKeyListenerNotText(vc.getTxtTelefono(), 20);
+
+    }
+
     private void addTextKeyListenerNotNumber(JTextField text, int maxLength) {
         text.addKeyListener(new KeyAdapter() {
             @Override
