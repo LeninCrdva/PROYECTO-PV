@@ -5,6 +5,7 @@
  */
 package Controlador;
 
+import Modelo.ConnectionPG;
 import Modelo.ModeloServicio;
 import Modelo.Servicio;
 import Vista.VistaServicio;
@@ -12,12 +13,20 @@ import java.awt.Component;
 import java.awt.event.KeyAdapter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 import javax.swing.JSlider;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -42,10 +51,12 @@ public class ControladorServicio {
         vs.getBtnAceptarSer().addActionListener(l -> CrearEditarEliminarServicio());
         vs.getBtnCancelarSer().addActionListener(l -> vs.getDlgCrudServicios().dispose());
         vs.getLblIdSer().setText(Integer.toString(CrearID()));
+        vs.getBtnImprimirServi().addActionListener(l -> Reporte());
+        
 
         vs.getTxtBuscarServicio().addKeyListener(new KeyAdapter() {
-
-            public void KeyTyped(java.awt.event.KeyEvent evt) {
+            @Override
+            public void keyTyped(java.awt.event.KeyEvent evt) {
                 BuscarServicio();
             }
         });
@@ -137,7 +148,7 @@ public class ControladorServicio {
         boolean seleccion = true;
         switch (ce) {
             case 1:
-                titulo = "anadir un nuevo servicio ";
+                titulo = "  Añadir un nuevo servicio ";
                 vs.getDlgCrudServicios().setName("crear");
                 CleanFields(GiveComponent());
                 EnableFields(GiveComponent());
@@ -233,11 +244,11 @@ public class ControladorServicio {
                 String nomb = vs.getTxtNombreSer().getText().trim();
                 String desc = vs.getTxtDescripcionSer().getText().trim();
                 String precio_ser = vs.getTxtPrecioSer().getText();
-                if (!nombre.isEmpty()) {
+                if (!nomb.isEmpty()) {
                     if (!desc.isEmpty()) {
 
                         if (!String.valueOf(precio_ser).isEmpty()) {
-                            if (!ms.ExisteNombreServcioBD(nombre)) {
+                            if (!ms.ExisteNombreServcioBD(nomb)) {
                                 ModeloServicio servi = new ModeloServicio();
 
                                 servi.setId_ser(id_ser);
@@ -342,6 +353,18 @@ public class ControladorServicio {
 
         }
         CargarServicio();
+    }
+    
+    private void Reporte (){
+    ConnectionPG con =new ConnectionPG();
+        try {
+            JasperReport jr = (JasperReport) JRLoader.loadObject(getClass().getResource("/Vista/Reportes/Servicio.jasper"));
+            JasperPrint  jp = JasperFillManager.fillReport(jr, null,con.getCon());
+            JasperViewer jv = new JasperViewer(jp,false);
+            jv.setVisible(true);
+        } catch (JRException e) {
+            Logger.getLogger(ControladorServicio.class.getName()).log(Level.SEVERE,null,e);
+        }
     }
 
 }
