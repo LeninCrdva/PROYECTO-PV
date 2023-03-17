@@ -168,7 +168,7 @@ public class ControladorPrincipal {
         ModeloServicio modeloS = new ModeloServicio();
 
         ControladorServicio control = new ControladorServicio(vistaS, modeloS);
-
+        
         vistaPrincipal.getPnlBody().removeAll();
         vistaPrincipal.getPnlBody().repaint();
         vistaPrincipal.getPnlBody().revalidate();
