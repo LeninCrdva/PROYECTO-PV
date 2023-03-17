@@ -254,6 +254,12 @@ public class ControladorReserva {
         DefaultTableModel mTabla;
         mTabla = (DefaultTableModel) vista.getTblClientes().getModel();
         mTabla.setNumRows(0); //Limpio la tabla
+        vista.getTblClientes().getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 12));
+        vista.getTblClientes().getTableHeader().setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        vista.getTblClientes().getTableHeader().setOpaque(false);
+        vista.getTblClientes().getTableHeader().setBackground(new Color(32, 136, 203));
+        vista.getTblClientes().getTableHeader().setForeground(new Color(255, 255, 255));
+        vista.getTblClientes().setRowHeight(25);
 
         listap.stream().forEach(pe -> {
             listac.stream().forEach(cl -> {
@@ -336,6 +342,12 @@ public class ControladorReserva {
                                     }
                                     DefaultTableModel mTabla = (DefaultTableModel) vista.getTablaClientes().getModel();
                                     mTabla.setNumRows(0);
+                                    vista.getTablaClientes().getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 12));
+                                    vista.getTablaClientes().getTableHeader().setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+                                    vista.getTablaClientes().getTableHeader().setOpaque(false);
+                                    vista.getTablaClientes().getTableHeader().setBackground(new Color(32, 136, 203));
+                                    vista.getTablaClientes().getTableHeader().setForeground(new Color(255, 255, 255));
+                                    vista.getTablaClientes().setRowHeight(25);
 
                                     listacliente.stream().forEach(cli -> {
                                         String[] fila = {String.valueOf(cli.getId_cli()), cli.getNumeroidentificacion_per(), cli.getNombre_per(), cli.getApellido_per()};
@@ -344,6 +356,12 @@ public class ControladorReserva {
                                 } else {
                                     DefaultTableModel mTabla = (DefaultTableModel) vista.getTablaClientes().getModel();
                                     mTabla.setNumRows(0);
+                                    vista.getTablaClientes().getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 12));
+                                    vista.getTablaClientes().getTableHeader().setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+                                    vista.getTablaClientes().getTableHeader().setOpaque(false);
+                                    vista.getTablaClientes().getTableHeader().setBackground(new Color(32, 136, 203));
+                                    vista.getTablaClientes().getTableHeader().setForeground(new Color(255, 255, 255));
+                                    vista.getTablaClientes().setRowHeight(25);
 
                                     listacliente.add(cl);
                                     String[] fila = {String.valueOf(cl.getId_cli()), cl.getNumeroidentificacion_per(), cl.getNombre_per(), cl.getApellido_per()};

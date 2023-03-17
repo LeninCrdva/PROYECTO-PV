@@ -8,8 +8,11 @@ package Controlador;
 import Modelo.ModeloTipoCliente;
 import Modelo.TipoCliente;
 import Vista.VistaTipoCliente;
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.KeyAdapter;
 import java.util.List;
+import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -35,6 +38,12 @@ public class ControladorTipoCliente {
         DefaultTableModel mol;
         mol = (DefaultTableModel) vtc.getTblTipoCliente().getModel();
         mol.setNumRows(0);
+        vtc.getTblTipoCliente().getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 12));
+        vtc.getTblTipoCliente().getTableHeader().setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        vtc.getTblTipoCliente().getTableHeader().setOpaque(false);
+        vtc.getTblTipoCliente().getTableHeader().setBackground(new Color(32, 136, 203));
+        vtc.getTblTipoCliente().getTableHeader().setForeground(new Color(255, 255, 255));
+        vtc.getTblTipoCliente().setRowHeight(25);
 
         listatipoclie.stream().forEach(tip -> {
             String[] tipo = {
@@ -167,6 +176,12 @@ public class ControladorTipoCliente {
         List<TipoCliente> listatipo = mtc.BuscarTipoClienteBD(bus);
         DefaultTableModel mol = (DefaultTableModel) vtc.getTblTipoCliente().getModel();
         mol.setNumRows(0);
+        vtc.getTblTipoCliente().getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 12));
+        vtc.getTblTipoCliente().getTableHeader().setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        vtc.getTblTipoCliente().getTableHeader().setOpaque(false);
+        vtc.getTblTipoCliente().getTableHeader().setBackground(new Color(32, 136, 203));
+        vtc.getTblTipoCliente().getTableHeader().setForeground(new Color(255, 255, 255));
+        vtc.getTblTipoCliente().setRowHeight(25);
         listatipo.stream().forEach(tipo -> {
 
             String[] fila = {

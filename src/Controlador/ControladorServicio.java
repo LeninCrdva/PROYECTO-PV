@@ -9,12 +9,14 @@ import Modelo.ConnectionPG;
 import Modelo.ModeloServicio;
 import Modelo.Servicio;
 import Vista.VistaServicio;
+import java.awt.Color;
 import java.awt.Component;
+import java.awt.Font;
 import java.awt.event.KeyAdapter;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.BorderFactory;
 import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 import javax.swing.JSlider;
@@ -91,6 +93,12 @@ public class ControladorServicio {
         DefaultTableModel df;
         df = (DefaultTableModel) vs.getTblServicios().getModel();
         df.setNumRows(0);
+        vs.getTblServicios().getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 12));
+        vs.getTblServicios().getTableHeader().setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        vs.getTblServicios().getTableHeader().setOpaque(false);
+        vs.getTblServicios().getTableHeader().setBackground(new Color(32, 136, 203));
+        vs.getTblServicios().getTableHeader().setForeground(new Color(255, 255, 255));
+        vs.getTblServicios().setRowHeight(25);
         listaser.stream().forEach(ser -> {
             String[] fila = {
                 String.valueOf(ser.getId_ser()),
@@ -108,6 +116,12 @@ public class ControladorServicio {
         List<Servicio> listaser = ms.BuscarServicioBD(bus);
         DefaultTableModel df = (DefaultTableModel) vs.getTblServicios().getModel();
         df.setNumRows(0);
+        vs.getTblServicios().getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 12));
+        vs.getTblServicios().getTableHeader().setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        vs.getTblServicios().getTableHeader().setOpaque(false);
+        vs.getTblServicios().getTableHeader().setBackground(new Color(32, 136, 203));
+        vs.getTblServicios().getTableHeader().setForeground(new Color(255, 255, 255));
+        vs.getTblServicios().setRowHeight(25);
 
         listaser.stream().forEach(ser -> {
             String[] fila = {

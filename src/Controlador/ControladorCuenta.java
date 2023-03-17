@@ -2,9 +2,12 @@ package Controlador;
 
 import Modelo.*;
 import Vista.VistaCuenta;
+import java.awt.Color;
 import java.awt.Component;
+import java.awt.Font;
 import java.awt.event.KeyAdapter;
 import java.util.List;
+import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
@@ -53,6 +56,12 @@ public class ControladorCuenta {
         List<Empleado> listaemp = me.ListarEmpleadosBD();
         DefaultTableModel df = (DefaultTableModel) vc.getTblcuenta().getModel();
         df.setRowCount(0);
+        vc.getTblcuenta().getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 12));
+        vc.getTblcuenta().getTableHeader().setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        vc.getTblcuenta().getTableHeader().setOpaque(false);
+        vc.getTblcuenta().getTableHeader().setBackground(new Color(32, 136, 203));
+        vc.getTblcuenta().getTableHeader().setForeground(new Color(255, 255, 255));
+        vc.getTblcuenta().setRowHeight(25);
 
         listaper.stream().forEach(per -> {
             listaemp.stream().forEach(em -> {
@@ -92,6 +101,12 @@ public class ControladorCuenta {
         List<Empleado> listaemp = me.ListarEmpleadosBD();
         DefaultTableModel df = (DefaultTableModel) vc.getTblcuenta().getModel();
         df.setRowCount(0);
+        vc.getTblcuenta().getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 12));
+        vc.getTblcuenta().getTableHeader().setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        vc.getTblcuenta().getTableHeader().setOpaque(false);
+        vc.getTblcuenta().getTableHeader().setBackground(new Color(32, 136, 203));
+        vc.getTblcuenta().getTableHeader().setForeground(new Color(255, 255, 255));
+        vc.getTblcuenta().setRowHeight(25);
 
         listaper.stream().forEach(per -> {
             listaemp.stream().forEach(em -> {

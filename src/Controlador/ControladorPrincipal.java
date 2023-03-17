@@ -34,11 +34,17 @@ public class ControladorPrincipal {
         VistaTipoDocumento vd = new VistaTipoDocumento();
         VistaLabor vl = new VistaLabor();
         VistaCuenta vcc = new VistaCuenta();
-        vistaPrincipal.getPanelPrincipal().add(vista);
+
+        vistaPrincipal.getPnlBody().removeAll();
+        vistaPrincipal.getPnlBody().repaint();
+        vistaPrincipal.getPnlBody().revalidate();
+        vistaPrincipal.getPnlBody().add(vcc);
+        vistaPrincipal.getPnlBody().repaint();
+        vistaPrincipal.getPnlBody().revalidate();
 
         //ControladorEmpleado control = new ControladorEmpleado(modelop, modelo, vista, modelol, modelot);
         ControladorEmpleado control = new ControladorEmpleado(modelo, vista, vd, vcc, vl, modelol, modelot);
-        
+
         control.IniciarControl();
     }
 
@@ -46,7 +52,12 @@ public class ControladorPrincipal {
         ModeloLabor modelo = new ModeloLabor();
         VistaLabor vista = new VistaLabor();
 
-        vistaPrincipal.getPanelPrincipal().add(vista);
+        vistaPrincipal.getPnlBody().removeAll();
+        vistaPrincipal.getPnlBody().repaint();
+        vistaPrincipal.getPnlBody().revalidate();
+        vistaPrincipal.getPnlBody().add(vista);
+        vistaPrincipal.getPnlBody().repaint();
+        vistaPrincipal.getPnlBody().revalidate();
 
         ControladorLabor control = new ControladorLabor(vista, modelo);
         control.IniciarControl();
@@ -62,7 +73,12 @@ public class ControladorPrincipal {
         VistaTipoDocumento vt = new VistaTipoDocumento();
         ModeloTipoDocumento modelotipodoc = new ModeloTipoDocumento();
 
-        vistaPrincipal.getPanelPrincipal().add(vista);
+        vistaPrincipal.getPnlBody().removeAll();
+        vistaPrincipal.getPnlBody().repaint();
+        vistaPrincipal.getPnlBody().revalidate();
+        vistaPrincipal.getPnlBody().add(vista);
+        vistaPrincipal.getPnlBody().repaint();
+        vistaPrincipal.getPnlBody().revalidate();
 
         ControladorCliente contro = new ControladorCliente(modelop, modelo, vista, modelol, vt, modelotipodoc, vc);
 //        ControladorCliente control =new ControladorCliente(modelop, modelo, vista, modelol);
@@ -73,7 +89,12 @@ public class ControladorPrincipal {
         ModeloTipoCliente mtc = new ModeloTipoCliente();
         VistaTipoCliente vtc = new VistaTipoCliente();
 
-        vistaPrincipal.getPanelPrincipal().add(vtc);
+        vistaPrincipal.getPnlBody().removeAll();
+        vistaPrincipal.getPnlBody().repaint();
+        vistaPrincipal.getPnlBody().revalidate();
+        vistaPrincipal.getPnlBody().add(vtc);
+        vistaPrincipal.getPnlBody().repaint();
+        vistaPrincipal.getPnlBody().revalidate();
 
     }
 
@@ -82,7 +103,12 @@ public class ControladorPrincipal {
         ModeloTipo_Habitacion modelotip = new ModeloTipo_Habitacion();
         VistaHabitacion vista = new VistaHabitacion();
 
-        vistaPrincipal.getPanelPrincipal().add(vista);
+        vistaPrincipal.getPnlBody().removeAll();
+        vistaPrincipal.getPnlBody().repaint();
+        vistaPrincipal.getPnlBody().revalidate();
+        vistaPrincipal.getPnlBody().add(vista);
+        vistaPrincipal.getPnlBody().repaint();
+        vistaPrincipal.getPnlBody().revalidate();
 
         ControladorHabitacion control = new ControladorHabitacion(modelohab, modelotip, vista);
         control.iniciarControl();
@@ -92,8 +118,13 @@ public class ControladorPrincipal {
         ModeloEncReserva modeloenc = new ModeloEncReserva();
         ModeloDetReserva modelodet = new ModeloDetReserva();
         VistaReserva vista = new VistaReserva();
-        vista.setTitle(null);
-        vistaPrincipal.getPanelPrincipal().add(vista);
+        
+        vistaPrincipal.getPnlBody().removeAll();
+        vistaPrincipal.getPnlBody().repaint();
+        vistaPrincipal.getPnlBody().revalidate();
+        vistaPrincipal.getPnlBody().add(vista);
+        vistaPrincipal.getPnlBody().repaint();
+        vistaPrincipal.getPnlBody().revalidate();
 
         ControladorReserva control = new ControladorReserva(modeloenc, modelodet, vista);
         control.iniciarControl();
@@ -104,9 +135,14 @@ public class ControladorPrincipal {
         ModeloEncabezadoFactura modeloE = new ModeloEncabezadoFactura();
         ModeloDetalleFactura modeloD = new ModeloDetalleFactura();
 
-        ControladorFactura control = new ControladorFactura(modeloE, modeloD, vistaF,vistaPrincipal);
+        ControladorFactura control = new ControladorFactura(modeloE, modeloD, vistaF, vistaPrincipal);
 
-        vistaPrincipal.getPanelPrincipal().add(vistaF);
+        vistaPrincipal.getPnlBody().removeAll();
+        vistaPrincipal.getPnlBody().repaint();
+        vistaPrincipal.getPnlBody().revalidate();
+        vistaPrincipal.getPnlBody().add(vistaF);
+        vistaPrincipal.getPnlBody().repaint();
+        vistaPrincipal.getPnlBody().revalidate();
 
         control.iniciarControl();
     }
@@ -117,7 +153,12 @@ public class ControladorPrincipal {
 
         ControladorCuenta control = new ControladorCuenta(modeloCuenta, vista);
 
-        vistaPrincipal.getPanelPrincipal().add(vista);
+        vistaPrincipal.getPnlBody().removeAll();
+        vistaPrincipal.getPnlBody().repaint();
+        vistaPrincipal.getPnlBody().revalidate();
+        vistaPrincipal.getPnlBody().add(vista);
+        vistaPrincipal.getPnlBody().repaint();
+        vistaPrincipal.getPnlBody().revalidate();
 
         control.IniciarControl();
     }
@@ -125,10 +166,15 @@ public class ControladorPrincipal {
     private void CrudServicios() {
         VistaServicio vistaS = new VistaServicio();
         ModeloServicio modeloS = new ModeloServicio();
-        
+
         ControladorServicio control = new ControladorServicio(vistaS, modeloS);
-        
-        vistaPrincipal.getPanelPrincipal().add(vistaS);
+
+        vistaPrincipal.getPnlBody().removeAll();
+        vistaPrincipal.getPnlBody().repaint();
+        vistaPrincipal.getPnlBody().revalidate();
+        vistaPrincipal.getPnlBody().add(vistaS);
+        vistaPrincipal.getPnlBody().repaint();
+        vistaPrincipal.getPnlBody().revalidate();
 
         control.IniciarControl();
     }

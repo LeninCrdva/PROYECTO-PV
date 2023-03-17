@@ -1,6 +1,6 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package Vista;
 
@@ -17,15 +17,15 @@ import javax.swing.JTextField;
  *
  * @author Lenin
  */
-public class VistaReserva extends javax.swing.JInternalFrame {
+public class VistaReserva extends javax.swing.JPanel {
 
     /**
-     * Creates new form VistaReserva
+     * Creates new form VistaReserva1
      */
     public VistaReserva() {
         initComponents();
     }
-
+    
     public JButton getBtnConfirm() {
         return btnConfirm;
     }
@@ -281,8 +281,6 @@ public class VistaReserva extends javax.swing.JInternalFrame {
     public void setComboClientes(JComboBox comboClientes) {
         this.comboClientes = comboClientes;
     }
-
-    
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -535,7 +533,6 @@ public class VistaReserva extends javax.swing.JInternalFrame {
         tablaClientes.setIntercellSpacing(new java.awt.Dimension(0, 0));
         tablaClientes.setName("listSelectClientes"); // NOI18N
         tablaClientes.setRowHeight(25);
-        tablaClientes.setRowMargin(0);
         tablaClientes.setSelectionBackground(new java.awt.Color(232, 57, 95));
         tablaClientes.setShowVerticalLines(false);
         tablaClientes.getTableHeader().setReorderingAllowed(false);
@@ -701,7 +698,6 @@ public class VistaReserva extends javax.swing.JInternalFrame {
         tblClientes.setIntercellSpacing(new java.awt.Dimension(0, 0));
         tblClientes.setName("listClientes"); // NOI18N
         tblClientes.setRowHeight(25);
-        tblClientes.setRowMargin(0);
         tblClientes.setSelectionBackground(new java.awt.Color(232, 57, 95));
         tblClientes.setShowVerticalLines(false);
         tblClientes.getTableHeader().setReorderingAllowed(false);
@@ -741,8 +737,6 @@ public class VistaReserva extends javax.swing.JInternalFrame {
             .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        setClosable(true);
-
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
         tablaReserva = new javax.swing.JTable(){
@@ -766,11 +760,6 @@ public class VistaReserva extends javax.swing.JInternalFrame {
         tablaReserva.setShowVerticalLines(false);
         tablaReserva.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(tablaReserva);
-        if (tablaReserva.getColumnModel().getColumnCount() > 0) {
-            tablaReserva.getColumnModel().getColumn(0).setMinWidth(15);
-            tablaReserva.getColumnModel().getColumn(0).setPreferredWidth(25);
-            tablaReserva.getColumnModel().getColumn(0).setMaxWidth(35);
-        }
 
         btnCrear.setText("Crear");
 
@@ -785,7 +774,7 @@ public class VistaReserva extends javax.swing.JInternalFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(24, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jScrollPane1)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -810,13 +799,13 @@ public class VistaReserva extends javax.swing.JInternalFrame {
                     .addComponent(btnPrint)
                     .addComponent(jLabel1)
                     .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 88, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -827,8 +816,6 @@ public class VistaReserva extends javax.swing.JInternalFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
-
-        pack();
     }// </editor-fold>//GEN-END:initComponents
 
 

@@ -19,7 +19,9 @@ import Vista.VistaClientes;
 import Vista.VistaTipoCliente;
 import Vista.VistaTipoDocumento;
 import com.toedter.calendar.JDateChooser;
+import java.awt.Color;
 import java.awt.Component;
+import java.awt.Font;
 import java.awt.event.KeyAdapter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -30,6 +32,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
+import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -340,6 +343,12 @@ public class ControladorCliente {
         DefaultTableModel dt;
         dt = (DefaultTableModel) vc.getTblClientes().getModel();
         dt.setNumRows(0);
+        vc.getTblClientes().getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 12));
+        vc.getTblClientes().getTableHeader().setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        vc.getTblClientes().getTableHeader().setOpaque(false);
+        vc.getTblClientes().getTableHeader().setBackground(new Color(32, 136, 203));
+        vc.getTblClientes().getTableHeader().setForeground(new Color(255, 255, 255));
+        vc.getTblClientes().setRowHeight(25);
         listacli.stream().forEach(cli -> {
             listatipc.stream().forEach(tpc -> {
                 if (cli.getId_tip() == tpc.getId_tip()) {
@@ -383,6 +392,12 @@ public class ControladorCliente {
         DefaultTableModel df;
         df = (DefaultTableModel) vc.getTblClientes().getModel();
         df.setNumRows(0);
+        vc.getTblClientes().getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 12));
+        vc.getTblClientes().getTableHeader().setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        vc.getTblClientes().getTableHeader().setOpaque(false);
+        vc.getTblClientes().getTableHeader().setBackground(new Color(32, 136, 203));
+        vc.getTblClientes().getTableHeader().setForeground(new Color(255, 255, 255));
+        vc.getTblClientes().setRowHeight(25);
         
         listaclie.stream().forEach(cli -> {
             String[] Nuevo = {

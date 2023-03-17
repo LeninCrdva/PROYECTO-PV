@@ -3,8 +3,11 @@ package Controlador;
 import Modelo.ModeloTipoDocumento;
 import Modelo.TipoDocumento;
 import Vista.VistaTipoDocumento;
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.KeyAdapter;
 import java.util.List;
+import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -38,6 +41,12 @@ public class ControladorTIpoDocumento {
         DefaultTableModel df;
         df = (DefaultTableModel) vtd.getTbldocument().getModel();
         df.setNumRows(0);
+        vtd.getTbldocument().getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 12));
+        vtd.getTbldocument().getTableHeader().setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        vtd.getTbldocument().getTableHeader().setOpaque(false);
+        vtd.getTbldocument().getTableHeader().setBackground(new Color(32, 136, 203));
+        vtd.getTbldocument().getTableHeader().setForeground(new Color(255, 255, 255));
+        vtd.getTbldocument().setRowHeight(25);
         listaLab.stream().forEach(doc -> {
             String[] fila = {
                 String.valueOf(doc.getId_tip()),
@@ -52,6 +61,12 @@ public class ControladorTIpoDocumento {
         List<TipoDocumento> listaLab = mtd.BuscaTipoDocDB(search);
         DefaultTableModel df = (DefaultTableModel) vtd.getTbldocument().getModel();
         df.setNumRows(0);
+        vtd.getTbldocument().getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 12));
+        vtd.getTbldocument().getTableHeader().setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        vtd.getTbldocument().getTableHeader().setOpaque(false);
+        vtd.getTbldocument().getTableHeader().setBackground(new Color(32, 136, 203));
+        vtd.getTbldocument().getTableHeader().setForeground(new Color(255, 255, 255));
+        vtd.getTbldocument().setRowHeight(25);
         listaLab.stream().forEach(doc -> {
 
             String[] fila = {

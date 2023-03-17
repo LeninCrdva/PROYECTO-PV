@@ -4,11 +4,14 @@ import Modelo.ConnectionPG;
 import Vista.VistaLabor;
 import Modelo.ModeloLabor;
 import Modelo.Labor;
+import java.awt.Color;
 import java.awt.Component;
+import java.awt.Font;
 import java.awt.event.KeyAdapter;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.BorderFactory;
 import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 import javax.swing.JSlider;
@@ -71,6 +74,12 @@ public class ControladorLabor {
         DefaultTableModel df;
         df = (DefaultTableModel) vl.getTbllabor().getModel();
         df.setNumRows(0);
+        vl.getTbllabor().getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 12));
+        vl.getTbllabor().getTableHeader().setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        vl.getTbllabor().getTableHeader().setOpaque(false);
+        vl.getTbllabor().getTableHeader().setBackground(new Color(32, 136, 203));
+        vl.getTbllabor().getTableHeader().setForeground(new Color(255, 255, 255));
+        vl.getTbllabor().setRowHeight(25);
         listaLab.stream().forEach(lab -> {
             String[] fila = {
                 String.valueOf(lab.getId_lab()),
@@ -87,6 +96,12 @@ public class ControladorLabor {
         List<Labor> listaLab = ml.BuscaLaborBD(search);
         DefaultTableModel df = (DefaultTableModel) vl.getTbllabor().getModel();
         df.setNumRows(0);
+        vl.getTbllabor().getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 12));
+        vl.getTbllabor().getTableHeader().setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        vl.getTbllabor().getTableHeader().setOpaque(false);
+        vl.getTbllabor().getTableHeader().setBackground(new Color(32, 136, 203));
+        vl.getTbllabor().getTableHeader().setForeground(new Color(255, 255, 255));
+        vl.getTbllabor().setRowHeight(25);
         listaLab.stream().forEach(lab -> {
 
             String[] fila = {

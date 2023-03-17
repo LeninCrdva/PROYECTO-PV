@@ -175,7 +175,7 @@ public class ControladorHabitacion {
                 hb.setId_hab(idhab);
                 hb.setNumero_hab(numhab);
                 hb.setEstado_hab(estado);
-                
+
                 System.out.println(idtip);
 
                 if (hb.existHab() == 0) {
@@ -235,6 +235,12 @@ public class ControladorHabitacion {
             DefaultTableModel mTabla;
             mTabla = (DefaultTableModel) vista.getTableHabitacion().getModel();
             mTabla.setNumRows(0); //Limpio la tabla
+            vista.getTableHabitacion().getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 12));
+            vista.getTableHabitacion().getTableHeader().setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+            vista.getTableHabitacion().getTableHeader().setOpaque(false);
+            vista.getTableHabitacion().getTableHeader().setBackground(new Color(32, 136, 203));
+            vista.getTableHabitacion().getTableHeader().setForeground(new Color(255, 255, 255));
+            vista.getTableHabitacion().setRowHeight(25);
 
             listah.stream().forEach(hb -> {
                 listat.stream().forEach(tph -> {
@@ -451,6 +457,12 @@ public class ControladorHabitacion {
             DefaultTableModel mTabla;
             mTabla = (DefaultTableModel) vista.getTableTipoHabitacion().getModel();
             mTabla.setNumRows(0); //Limpio la tabla
+            vista.getTableTipoHabitacion().getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 12));
+            vista.getTableTipoHabitacion().getTableHeader().setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+            vista.getTableTipoHabitacion().getTableHeader().setOpaque(false);
+            vista.getTableTipoHabitacion().getTableHeader().setBackground(new Color(32, 136, 203));
+            vista.getTableTipoHabitacion().getTableHeader().setForeground(new Color(255, 255, 255));
+            vista.getTableTipoHabitacion().setRowHeight(25);
 
             listah.stream().forEach(tp -> {
                 String[] fila = {String.valueOf(tp.getId_tha()), tp.getNombre_tha(), String.valueOf(tp.getNumeroCamas_tha()), String.valueOf(tp.getCapacidad_tha()), String.valueOf(tp.getPrecio_tha())};
@@ -575,8 +587,8 @@ public class ControladorHabitacion {
             combo.setSelectedIndex(0);
         }
     }
-    
-    private void showHelp(){
+
+    private void showHelp() {
         JOptionPane.showMessageDialog(null, "No olvide seleccionar uno de los botones de la izquierda para iniciar con el funcionamiento", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
     }
 }

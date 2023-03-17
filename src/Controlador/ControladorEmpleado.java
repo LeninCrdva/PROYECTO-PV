@@ -4,7 +4,9 @@ import Modelo.*;
 import Vista.*;
 import Vista.VistaCuenta;
 import com.toedter.calendar.JDateChooser;
+import java.awt.Color;
 import java.awt.Component;
+import java.awt.Font;
 import java.awt.event.KeyAdapter;
 import java.sql.Date;
 import java.text.ParseException;
@@ -23,6 +25,7 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
+import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -305,6 +308,12 @@ public class ControladorEmpleado {
         DefaultTableModel df;
         df = (DefaultTableModel) ve.getTblempleados().getModel();
         df.setNumRows(0);
+        ve.getTblempleados().getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 12));
+        ve.getTblempleados().getTableHeader().setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        ve.getTblempleados().getTableHeader().setOpaque(false);
+        ve.getTblempleados().getTableHeader().setBackground(new Color(32, 136, 203));
+        ve.getTblempleados().getTableHeader().setForeground(new Color(255, 255, 255));
+        ve.getTblempleados().setRowHeight(25);
 
         listaper.stream().forEach(pe -> {
             listaemp.stream().forEach(em -> {
@@ -340,6 +349,12 @@ public class ControladorEmpleado {
         DefaultTableModel df;
         df = (DefaultTableModel) ve.getTblempleados().getModel();
         df.setNumRows(0);
+        ve.getTblempleados().getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 12));
+        ve.getTblempleados().getTableHeader().setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        ve.getTblempleados().getTableHeader().setOpaque(false);
+        ve.getTblempleados().getTableHeader().setBackground(new Color(32, 136, 203));
+        ve.getTblempleados().getTableHeader().setForeground(new Color(255, 255, 255));
+        ve.getTblempleados().setRowHeight(25);
         listaper.stream().forEach(pe -> {
             listaemp.stream().forEach(em -> {
                 if (pe.getId_per() == em.getId_per()) {
@@ -534,7 +549,6 @@ public class ControladorEmpleado {
             }
             ve.getRdfemenino().setEnabled(true);
             ve.getRdmasculino().setEnabled(true);
-            ve.getChkdoctipo().setEnabled(true);
         }
     }
 
@@ -552,7 +566,6 @@ public class ControladorEmpleado {
             }
             ve.getRdfemenino().setEnabled(false);
             ve.getRdmasculino().setEnabled(false);
-            ve.getChkdoctipo().setEnabled(false);
         }
     }
 

@@ -418,6 +418,12 @@ public class ControladorFactura {
         DefaultTableModel df;
         df = (DefaultTableModel) vista.getTblClientes().getModel();
         df.setNumRows(0);
+        vista.getTblClientes().getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 12));
+        vista.getTblClientes().getTableHeader().setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        vista.getTblClientes().getTableHeader().setOpaque(false);
+        vista.getTblClientes().getTableHeader().setBackground(new Color(32, 136, 203));
+        vista.getTblClientes().getTableHeader().setForeground(new Color(255, 255, 255));
+        vista.getTblClientes().setRowHeight(25);
 
         listaclie.stream().forEach(cli -> {
             String[] Nuevo = {

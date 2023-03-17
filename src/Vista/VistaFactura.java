@@ -1,7 +1,6 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package Vista;
 
@@ -14,17 +13,17 @@ import javax.swing.JTextField;
 
 /**
  *
- * @author santi
+ * @author Lenin
  */
-public class VistaFactura extends javax.swing.JInternalFrame {
+public class VistaFactura extends javax.swing.JPanel {
 
     /**
-     * Creates new form VistaPersona
+     * Creates new form VistaFactura1
      */
     public VistaFactura() {
         initComponents();
     }
-
+    
     public JDialog getDlgSeleccionarReserva() {
         return DlgSeleccionarReserva;
     }
@@ -312,8 +311,6 @@ public class VistaFactura extends javax.swing.JInternalFrame {
     public void setLblidemp(JLabel lblidemp) {
         this.lblidemp = lblidemp;
     }
-    
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -588,7 +585,6 @@ public class VistaFactura extends javax.swing.JInternalFrame {
         tblClientes.setFocusable(false);
         tblClientes.setIntercellSpacing(new java.awt.Dimension(0, 0));
         tblClientes.setRowHeight(25);
-        tblClientes.setRowMargin(0);
         tblClientes.setSelectionBackground(new java.awt.Color(232, 57, 95));
         tblClientes.setShowVerticalLines(false);
         tblClientes.getTableHeader().setReorderingAllowed(false);
@@ -649,7 +645,6 @@ public class VistaFactura extends javax.swing.JInternalFrame {
         tblServicios.setFocusable(false);
         tblServicios.setIntercellSpacing(new java.awt.Dimension(0, 0));
         tblServicios.setRowHeight(25);
-        tblServicios.setRowMargin(0);
         tblServicios.setSelectionBackground(new java.awt.Color(232, 57, 95));
         tblServicios.setShowVerticalLines(false);
         tblServicios.getTableHeader().setReorderingAllowed(false);
@@ -658,11 +653,6 @@ public class VistaFactura extends javax.swing.JInternalFrame {
         jLabel14.setText("Buscar:");
 
         btnBuscarServicio.setText("BUSCAR");
-        btnBuscarServicio.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBuscarServicioActionPerformed(evt);
-            }
-        });
 
         btnSalirServicio.setText("SALIR");
 
@@ -721,11 +711,6 @@ public class VistaFactura extends javax.swing.JInternalFrame {
         jLabel15.setText("Buscar:");
 
         btnBuscarReserva.setText("BUSCAR");
-        btnBuscarReserva.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBuscarReservaActionPerformed(evt);
-            }
-        });
 
         btnSalirReserva.setText("SALIR");
 
@@ -742,11 +727,11 @@ public class VistaFactura extends javax.swing.JInternalFrame {
                 .addComponent(btnBuscarReserva)
                 .addGap(48, 48, 48)
                 .addComponent(btnSalirReserva)
-                .addContainerGap(152, Short.MAX_VALUE))
+                .addContainerGap(292, Short.MAX_VALUE))
             .addGroup(DlgSeleccionarReservaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(DlgSeleccionarReservaLayout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 559, Short.MAX_VALUE)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 701, Short.MAX_VALUE)
                     .addContainerGap()))
         );
         DlgSeleccionarReservaLayout.setVerticalGroup(
@@ -758,15 +743,13 @@ public class VistaFactura extends javax.swing.JInternalFrame {
                     .addComponent(txtBuscarReserva, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBuscarReserva)
                     .addComponent(btnSalirReserva))
-                .addContainerGap(266, Short.MAX_VALUE))
+                .addContainerGap(234, Short.MAX_VALUE))
             .addGroup(DlgSeleccionarReservaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(DlgSeleccionarReservaLayout.createSequentialGroup()
                     .addGap(43, 43, 43)
                     .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(43, Short.MAX_VALUE)))
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
-
-        setClosable(true);
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
 
@@ -884,8 +867,8 @@ public class VistaFactura extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -894,17 +877,7 @@ public class VistaFactura extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
-
-        pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnBuscarServicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarServicioActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnBuscarServicioActionPerformed
-
-    private void btnBuscarReservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarReservaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnBuscarReservaActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
