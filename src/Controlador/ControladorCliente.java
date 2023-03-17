@@ -755,13 +755,18 @@ public class ControladorCliente {
                 if (vc.getDlgCrudClientes().getName().equals("eliminar")) {
                     try {
                         int id_per = Integer.parseInt(vc.getLblIdPer().getText());
-                        ModeloPersona persona = new ModeloPersona();
-                        persona.setId_per(id_per);
-                        if (persona.EliminarPersonaDB(id_per) == null) {
-                            vc.getDlgCrudClientes().setVisible(false);
-                            JOptionPane.showMessageDialog(vc, "cliente  eliminado con éxito");
+                        if (!mc.ClienteRegistrado(id_per)) {
+                            ModeloPersona persona = new ModeloPersona();
+                            persona.setId_per(id_per);
+                            if (persona.EliminarPersonaDB(id_per) == null) {
+                                vc.getDlgCrudClientes().setVisible(false);
+                                JOptionPane.showMessageDialog(vc, "cliente  eliminado con éxito");
+                            } else {
+                                JOptionPane.showMessageDialog(vc, "No se pudo eliminar");
+                            }
                         } else {
-                            JOptionPane.showMessageDialog(vc, "No se pudo eliminar");
+                            JOptionPane.showMessageDialog(vc, "Imposible borrar el registro\n"
+                                    + "Este cliente tiene reservas y facturas a su nombre");
                         }
                     } catch (NumberFormatException | NullPointerException e) {
                         System.out.print(e);
