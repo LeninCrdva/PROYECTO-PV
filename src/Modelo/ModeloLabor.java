@@ -54,9 +54,9 @@ public class ModeloLabor extends Labor {
         }
     }
 
-    public List<Labor> LlenaComboBD() {
+    public List<Labor> LlenaComboLabBD() {
         List<Labor> lista = new ArrayList<>();
-        String sql = "SELECT id_lab, nombre_lab FROM labor";
+        String sql = "SELECT id_lab, nombre_lab FROM labor ORDER BY 1";
         ConnectionPG con = new ConnectionPG();
         ResultSet rs = con.Consulta(sql);
         try {
@@ -73,23 +73,23 @@ public class ModeloLabor extends Labor {
         }
     }
 
-    public int ConsultaIDBD(String name) {
-        int id_tip = 0;
-        String sql = "SELECT id_lab FROM labor WHERE nombre_lab LIKE '%" + name + "%'";
-        ConnectionPG con = new ConnectionPG();
-        ResultSet rs = con.Consulta(sql);
-
-        try {
-            if (rs.next()) {
-                id_tip = rs.getInt(1);
-            }
-            rs.close();
-            return id_tip;
-        } catch (SQLException e) {
-            System.err.print(e);
-            return id_tip;
-        }
-    }
+//    public String ConsultaLaborBD(int id_lab) {
+//        String nombre_lab = null;
+//        String sql = "SELECT id_lab FROM labor WHERE nombre_lab = " + id_lab;
+//        ConnectionPG con = new ConnectionPG();
+//        ResultSet rs = con.Consulta(sql);
+//
+//        try {
+//            if (rs.next()) {
+//                id_tip = rs.getInt(1);
+//            }
+//            rs.close();
+//            return id_tip;
+//        } catch (SQLException e) {
+//            System.err.print(e);
+//            return id_tip;
+//        }
+//    }
 
     public SQLException InsertarLaborBD() {
         String sql = "INSERT INTO labor (id_lab, nombre_lab, horaslaborales_lab, sueldo) "
@@ -139,11 +139,28 @@ public class ModeloLabor extends Labor {
         }
     }
 
+    public String GetNombreBD(int id_lab) {
+        String sql = "SELECT nombre_lab FROM labor WHERE id_lab = " + id_lab;
+        ConnectionPG con = new ConnectionPG();
+        ResultSet rs = con.Consulta(sql);
+        String nombre_lab = null;
+        try {
+            if (rs.next()) {
+                nombre_lab = rs.getString(1);
+            }
+            rs.close();
+            return nombre_lab;
+        } catch (SQLException ex) {
+            Logger.getLogger(ModeloLabor.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+
     public SQLException ModificaLaborBD(int id_lab) {
-        String slq = "UPDATE labor SET nombre_lab = '" + getNombre_lab() + "', horaslaborales_lab = " + getHoraslaborales_lab()
+        String sql = "UPDATE labor SET nombre_lab = '" + getNombre_lab() + "', horaslaborales_lab = " + getHoraslaborales_lab()
                 + ", sueldo = " + getSueldo_lab() + " WHERE id_lab = " + id_lab;
         ConnectionPG con = new ConnectionPG();
-        SQLException ex = con.Accion(slq);
+        SQLException ex = con.Accion(sql);
         return ex;
     }
 

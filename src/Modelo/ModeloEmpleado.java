@@ -5,6 +5,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class ModeloEmpleado extends Empleado {
 
@@ -119,6 +121,30 @@ public class ModeloEmpleado extends Empleado {
         }
     }
 
+    public List<Empleado> LlenarComboEmBD() {
+        List<Empleado> lista = new ArrayList<>();
+        String sql = "SELECT e.id_emp, p.nombre_per, p.apellido_per, p.numeroidentificacion_per FROM persona p "
+                + "INNER JOIN empleado e USING (id_per) LEFT JOIN cuenta c "
+                + "ON e.id_emp = c.id_emp WHERE c.id_cue IS NULL";
+        ConnectionPG conpq = new ConnectionPG();
+        ResultSet rs = conpq.Consulta(sql);
+        try {
+            while (rs.next()) {
+                Empleado per = new Empleado();
+                per.setId_emp(rs.getInt(1));
+                per.setNombre_per(rs.getString(2));
+                per.setApellido_per(rs.getString(3));
+                per.setNumeroidentificacion_per(rs.getString(4));
+                lista.add(per);
+            }
+            rs.close();
+            return lista;
+        } catch (SQLException ex) {
+            Logger.getLogger(ModeloPersona.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+
     public SQLException InsertaEmpleadoBD() {
         String sql = "INSERT INTO empleado (id_emp, id_per, idlabor_emp, fecha_contratacion_emp) VALUES "
                 + "(" + getId_emp() + ", " + getId_per() + ", " + getIdlabor_emp() + ", '" + getFecha_contratacion_emp() + "')";
@@ -165,5 +191,23 @@ public class ModeloEmpleado extends Empleado {
         } catch (SQLException e) {
             return id_per_emp;
         }
+    }
+
+    public int ObtenerIDEMBD(String user) {
+        int id_emp = 0;
+        String sql = "SELECT e.id_emp from empleado e INNER JOIN persona p USING(id_per) "
+                + "INNER JOIN cuenta c ON e.id_emp = c.id_emp WHERE c.username_cue = '" + user + "'";
+        ConnectionPG con = new ConnectionPG();
+        ResultSet rs = con.Consulta(sql);
+        try {
+            if (rs.next()) {
+                id_emp = rs.getInt(1);
+            }
+            rs.close();
+            return id_emp;
+        } catch (SQLException e) {
+            return id_emp;
+        }
+
     }
 }

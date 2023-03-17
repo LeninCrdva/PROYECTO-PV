@@ -15,6 +15,7 @@ import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JRadioButton;
 import javax.swing.JTable;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 /**
@@ -102,11 +103,11 @@ public class VistaEmpleados extends javax.swing.JInternalFrame {
         this.btngpgenero = btngpgenero;
     }
 
-    public JComboBox<Object> getCbtipodoc() {
+    public JComboBox getCbtipodoc() {
         return cbtipodoc;
     }
 
-    public void setCbtipodoc(JComboBox<Object> cbtipodoc) {
+    public void setCbtipodoc(JComboBox cbtipodoc) {
         this.cbtipodoc = cbtipodoc;
     }
 
@@ -206,11 +207,11 @@ public class VistaEmpleados extends javax.swing.JInternalFrame {
         this.txtdocnum = txtdocnum;
     }
 
-    public JComboBox<Object> getCblabor() {
+    public JComboBox getCblabor() {
         return cblabor;
     }
 
-    public void setCblabor(JComboBox<Object> cblabor) {
+    public void setCblabor(JComboBox cblabor) {
         this.cblabor = cblabor;
     }
 
@@ -236,6 +237,62 @@ public class VistaEmpleados extends javax.swing.JInternalFrame {
 
     public void setDtefechaingreso(JDateChooser dtefechaingreso) {
         this.dtefechaingreso = dtefechaingreso;
+    }
+
+    public JDialog getDlgreporteemp() {
+        return dlgreporteemp;
+    }
+
+    public void setDlgreporteemp(JDialog dlgreporteemp) {
+        this.dlgreporteemp = dlgreporteemp;
+    }
+
+    public JTextArea getTxtdescripción() {
+        return txtdescripción;
+    }
+
+    public void setTxtdescripción(JTextArea txtdescripción) {
+        this.txtdescripción = txtdescripción;
+    }
+
+    public JFormattedTextField getTxtsueldo() {
+        return txtsueldo;
+    }
+
+    public void setTxtsueldo(JFormattedTextField txtsueldo) {
+        this.txtsueldo = txtsueldo;
+    }
+
+    public JTextField getTxttitle() {
+        return txttitle;
+    }
+
+    public void setTxttitle(JTextField txttitle) {
+        this.txttitle = txttitle;
+    }
+
+    public JComboBox<String> getCborder() {
+        return cborder;
+    }
+
+    public void setCborder(JComboBox<String> cborder) {
+        this.cborder = cborder;
+    }
+
+    public JButton getBtnacceptreport() {
+        return btnacceptreport;
+    }
+
+    public void setBtnacceptreport(JButton btnacceptreport) {
+        this.btnacceptreport = btnacceptreport;
+    }
+
+    public JButton getBtncancelreport() {
+        return btncancelreport;
+    }
+
+    public void setBtncancelreport(JButton btncancelreport) {
+        this.btncancelreport = btncancelreport;
     }
 
     @SuppressWarnings("unchecked")
@@ -266,8 +323,8 @@ public class VistaEmpleados extends javax.swing.JInternalFrame {
         jLabel13 = new javax.swing.JLabel();
         btnaceptar = new javax.swing.JButton();
         btncancelar = new javax.swing.JButton();
-        cbtipodoc = new javax.swing.JComboBox<>();
-        cblabor = new javax.swing.JComboBox<>();
+        cbtipodoc = new javax.swing.JComboBox();
+        cblabor = new javax.swing.JComboBox();
         jLabel14 = new javax.swing.JLabel();
         txtdocnum = new javax.swing.JFormattedTextField();
         chkdoctipo = new javax.swing.JCheckBox();
@@ -279,6 +336,17 @@ public class VistaEmpleados extends javax.swing.JInternalFrame {
         dlgreporteemp = new javax.swing.JDialog();
         jPanel5 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        txtsueldo = new javax.swing.JFormattedTextField();
+        txttitle = new javax.swing.JTextField();
+        jLabel16 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        txtdescripción = new javax.swing.JTextArea();
+        jLabel17 = new javax.swing.JLabel();
+        cborder = new javax.swing.JComboBox<>();
+        jLabel19 = new javax.swing.JLabel();
+        btnacceptreport = new javax.swing.JButton();
+        btncancelreport = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
@@ -488,30 +556,98 @@ public class VistaEmpleados extends javax.swing.JInternalFrame {
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel2.setText("REPORTE PERSONALIZADO");
+
+        jLabel15.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel15.setText("Sueldo:");
+
+        txtsueldo.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
+        txtsueldo.setToolTipText("Ingrese la base a tomar en cuenta");
+
+        txttitle.setToolTipText("El título del documento");
+
+        jLabel16.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel16.setText("Título:");
+
+        txtdescripción.setColumns(20);
+        txtdescripción.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
+        txtdescripción.setRows(5);
+        jScrollPane2.setViewportView(txtdescripción);
+
+        jLabel17.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel17.setText("Descripción:");
+
+        cborder.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Número de identificación", "Nombres", "Apellidos", "Número de teléfono", "Género", "Puesto", "Sueldo" }));
+
+        jLabel19.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel19.setText("Ordenar por:");
+
+        btnacceptreport.setText("Aceptar");
+
+        btncancelreport.setText("Cancelar");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(158, 158, 158)
-                .addComponent(jLabel2)
-                .addContainerGap(165, Short.MAX_VALUE))
+                .addContainerGap(24, Short.MAX_VALUE)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGap(50, 50, 50))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addComponent(btnacceptreport)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btncancelreport))
+                            .addComponent(jLabel15)
+                            .addComponent(jLabel16)
+                            .addComponent(txttitle, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE)
+                            .addComponent(jLabel17)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE)
+                            .addComponent(txtsueldo, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE)
+                            .addComponent(jLabel19)
+                            .addComponent(cborder, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(21, 21, 21))))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel2)
-                .addContainerGap(286, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txttitle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel17)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtsueldo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(5, 5, 5)
+                .addComponent(cborder, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnacceptreport)
+                    .addComponent(btncancelreport))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout dlgreporteempLayout = new javax.swing.GroupLayout(dlgreporteemp.getContentPane());
         dlgreporteemp.getContentPane().setLayout(dlgreporteempLayout);
         dlgreporteempLayout.setHorizontalGroup(
             dlgreporteempLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(dlgreporteempLayout.createSequentialGroup()
+                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         dlgreporteempLayout.setVerticalGroup(
             dlgreporteempLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -664,17 +800,20 @@ public class VistaEmpleados extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnacceptreport;
     private javax.swing.JButton btnaceptar;
     private javax.swing.JButton btnaddlab;
     private javax.swing.JButton btnaddtipodoc;
     private javax.swing.JButton btncancelar;
+    private javax.swing.JButton btncancelreport;
     private javax.swing.JButton btncrear;
     private javax.swing.JButton btneditar;
     private javax.swing.JButton btneliminar;
     private javax.swing.ButtonGroup btngpgenero;
     private javax.swing.JButton btnprint;
-    private javax.swing.JComboBox<Object> cblabor;
-    private javax.swing.JComboBox<Object> cbtipodoc;
+    private javax.swing.JComboBox cblabor;
+    private javax.swing.JComboBox<String> cborder;
+    private javax.swing.JComboBox cbtipodoc;
     private javax.swing.JCheckBox chkdoctipo;
     private javax.swing.JDialog dlgcrudempleado;
     private javax.swing.JDialog dlgreporteemp;
@@ -686,6 +825,10 @@ public class VistaEmpleados extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -702,16 +845,20 @@ public class VistaEmpleados extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblidper;
     private javax.swing.JRadioButton rdfemenino;
     private javax.swing.JRadioButton rdmasculino;
     private javax.swing.JTable tblempleados;
     private javax.swing.JTextField txtapellidoper;
     private javax.swing.JTextField txtbuscar;
+    private javax.swing.JTextArea txtdescripción;
     private javax.swing.JTextField txtdireccion;
     private javax.swing.JFormattedTextField txtdocnum;
     private javax.swing.JTextField txtemail;
     private javax.swing.JTextField txtnombreper;
+    private javax.swing.JFormattedTextField txtsueldo;
     private javax.swing.JTextField txttelefono;
+    private javax.swing.JTextField txttitle;
     // End of variables declaration//GEN-END:variables
 }

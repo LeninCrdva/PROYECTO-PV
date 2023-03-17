@@ -8,6 +8,10 @@ public class TipoDocumento {
     public TipoDocumento() {
     }
 
+    public TipoDocumento(String nombre_doc) {
+        this.nombre_doc = nombre_doc;
+    }
+
     public TipoDocumento(int id_tip, String nombre_doc) {
         this.id_tip = id_tip;
         this.nombre_doc = nombre_doc;
