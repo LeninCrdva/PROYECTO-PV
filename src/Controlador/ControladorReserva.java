@@ -18,14 +18,18 @@ import com.toedter.calendar.JDateChooser;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
+import java.beans.PropertyChangeEvent;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.BorderFactory;
@@ -85,7 +89,11 @@ public class ControladorReserva {
     }
 
     private void cargarEncabezado() {
+        ModeloPersona mp = new ModeloPersona();
+
         List<Enc_reserva> lista = mdEnc.ListEnc();
+        List<Cliente> listac = mcl.listarclientes();
+        List<Persona> listap = mp.ListarPersonas();
 
         DefaultTableModel mTabla;
         mTabla = (DefaultTableModel) vista.getTablaReserva().getModel();
@@ -98,8 +106,14 @@ public class ControladorReserva {
         vista.getTablaReserva().setRowHeight(25);
 
         lista.stream().forEach(ec -> {
-            String[] fila = {String.valueOf(ec.getId_res()), String.valueOf(ec.getIdCliente_res()), String.valueOf(ec.getFechaIngreso_res()), String.valueOf(ec.getFechaSalida_res()), String.valueOf(ec.getTotal_res()), String.valueOf(ec.isEstado_res())};
-            mTabla.addRow(fila);
+            listap.stream().forEach(pe -> {
+                listac.stream().forEach(cl -> {
+                    if (pe.getId_per() == cl.getId_per() && cl.getId_cli() == ec.getIdCliente_res()) {
+                        String[] fila = {String.valueOf(ec.getId_res()), pe.getNombre_per() + ' ' + pe.getApellido_per(), String.valueOf(ec.getFechaIngreso_res()), String.valueOf(ec.getFechaSalida_res()), String.valueOf(ec.getTotal_res()), String.valueOf(ec.isEstado_res())};
+                        mTabla.addRow(fila);
+                    }
+                });
+            });
         });
     }
 
@@ -112,10 +126,19 @@ public class ControladorReserva {
             EnableFields(InitClean());
             vista.getDialogReserva().setName("crear");
             openwindow = true;
+            vista.getTablaClientes().setVisible(true);
+            vista.getBtnAddClient().setEnabled(true);
+            vista.getBtnRemoveRow().setEnabled(true);
+            vista.getComboHabitacion().setEnabled(true);
         } else {
             title = "Editar Reserva";
             EnableFields(InitClean());
             vista.getDialogReserva().setName("editar");
+            vista.getTablaClientes().setVisible(false);
+            vista.getBtnAddClient().setEnabled(false);
+            vista.getBtnRemoveRow().setEnabled(false);
+            vista.getComboHabitacion().setEnabled(false);
+            JOptionPane.showMessageDialog(null, "Por políticas, se han privado algunos campos");
             try {
                 openwindow = uploadDates(vista.getTablaReserva());
             } catch (ParseException ex) {
@@ -151,10 +174,12 @@ public class ControladorReserva {
                 hb.setTotal_res(total);
 
                 if (success()) {
-                    if (fechaValidator()) {
+                    if (validarFechas()) {
                         try {
                             int id_reserva = hb.CrearReserva();
                             Habitacion hab = (Habitacion) vista.getComboHabitacion().getSelectedItem();
+                            System.out.println(hb.getIdCliente_res());
+                            System.out.println(hab.getId_hab());
                             if (id_reserva != 0) {
                                 for (int i = 0; i < vista.getTablaClientes().getRowCount(); i++) {
                                     det.setIdCliente_rha(Integer.parseInt(vista.getTablaClientes().getValueAt(i, 0).toString()));
@@ -198,9 +223,9 @@ public class ControladorReserva {
             hb.setTotal_res(total);
 
             if (hb.EditarReserva() == null) {
-                JOptionPane.showMessageDialog(null, "SE HA EDITADO LOS DATOS DE LA HABITACIÓN CON ÉXITO");
+                JOptionPane.showMessageDialog(null, "SE HA EDITADO LOS DATOS DE LA RESERVA CON ÉXITO");
             } else {
-                JOptionPane.showMessageDialog(null, "NO SE HA PODIDO EDITAR LA HABITACIÓN SELECCIONADA");
+                JOptionPane.showMessageDialog(null, "NO SE HA PODIDO EDITAR LA RESERVA SELECCIONADA");
             }
         }
         cleanCamps();
@@ -249,7 +274,7 @@ public class ControladorReserva {
 
         ModeloHabitación mha = new ModeloHabitación();
 
-        List<Habitacion> listah = mha.ListHabitacion();
+        List<Habitacion> listah = mha.ListHabitacionActive();
 
         listah.stream().forEach(ha -> {
             vista.getComboHabitacion().addItem(new Habitacion(ha.getId_hab(), ha.getIdTipo_hab(), ha.getNumero_hab(), ha.isEstado_hab()));
@@ -264,7 +289,7 @@ public class ControladorReserva {
             SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
 
             vista.getLabelId().setText(table.getValueAt(table.getSelectedRow(), 0).toString());
-            vista.getComboClientes().setSelectedIndex(Integer.parseInt(table.getValueAt(table.getSelectedRow(), 1).toString()) - 1);
+            vista.getComboClientes().getModel().setSelectedItem(mcl.getCliente(table.getValueAt(table.getSelectedRow(), 1).toString()));
             vista.getDtchoEntrada().setDate(formato.parse(table.getValueAt(table.getSelectedRow(), 2).toString()));
             vista.getDtchSalida().setDate(formato.parse(table.getValueAt(table.getSelectedRow(), 3).toString()));
             vista.getTxtTotalRes().setText(table.getValueAt(table.getSelectedRow(), 4).toString());
@@ -396,18 +421,34 @@ public class ControladorReserva {
             listath.stream().forEach(tha -> {
                 if (tha.getId_tha() == ha.getIdTipo_hab()) {
                     Double valor = tha.getPrecio_tha();
-                    int dif = vista.getDtchSalida().getDate().getDay() - vista.getDtchoEntrada().getDate().getDay();
-                    System.out.println(dif);
-                    vista.getTxtTotalRes().setText(String.valueOf(valor * dif));
+                    long diffInMillies = Math.abs(vista.getDtchSalida().getDate().getTime() - vista.getDtchoEntrada().getDate().getTime());
+                    long diffInDays = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
+                    if (diffInDays == 0) {
+                        vista.getTxtTotalRes().setText(String.valueOf(valor));
+                    } else {
+                        vista.getTxtTotalRes().setText(String.valueOf(valor * diffInDays));
+                    }
                 }
             });
         }
     }
 
     private void precioRes() {
-        vista.getComboHabitacion().addActionListener(l -> calcularTotal());
-        vista.getDtchSalida().getCalendarButton().addActionListener(l -> calcularTotal());
-        vista.getDtchoEntrada().getCalendarButton().addActionListener(l -> calcularTotal());
+        vista.getDtchoEntrada().getDateEditor().addPropertyChangeListener((PropertyChangeEvent e) -> {
+            if (e.getPropertyName().equals("date") && validarFechas()) {
+                calcularTotal();
+            }
+        });
+        vista.getDtchSalida().getDateEditor().addPropertyChangeListener((PropertyChangeEvent e) -> {
+            if (e.getPropertyName().equals("date") && validarFechas()) {
+                calcularTotal();
+            }
+        });
+        vista.getComboHabitacion().addActionListener((ActionEvent e) -> {
+            if (validarFechas()) {
+                calcularTotal();
+            }
+        });
     }
 
     private void imprimirReserva() {
@@ -450,16 +491,18 @@ public class ControladorReserva {
         }
     }
 
-    private boolean fechaValidator() {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+    private boolean validarFechas() {
         Date fechaEntrada = vista.getDtchoEntrada().getDate();
         Date fechaSalida = vista.getDtchSalida().getDate();
-        if (fechaEntrada != null && fechaSalida != null) {
-            String strFechaEntrada = sdf.format(fechaEntrada);
-            String strFechaSalida = sdf.format(fechaSalida);
-            return strFechaEntrada.compareTo(strFechaSalida) <= 0;
+        if (fechaEntrada != null && fechaSalida != null && fechaSalida.before(fechaEntrada)) {
+            JOptionPane.showMessageDialog(null, "La fecha de salida no puede ser anterior a la fecha de entrada.");
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(fechaEntrada);
+            calendar.add(Calendar.DATE, 1);
+            vista.getDtchSalida().setDate(calendar.getTime());
+            return false;
         }
-        return false;
+        return true;
     }
 
     private void CleanFields(Component[] components) {

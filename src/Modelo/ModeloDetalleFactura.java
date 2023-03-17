@@ -21,8 +21,8 @@ public class ModeloDetalleFactura extends DetalleFactura{
     public ModeloDetalleFactura() {
     }
 
-    public ModeloDetalleFactura(int id_det, int idEncabezado_det, int idServicio_det, int idReserva_det, String observaciones_det, double costo_det) {
-        super(id_det, idEncabezado_det, idServicio_det, idReserva_det, observaciones_det, costo_det);
+    public ModeloDetalleFactura(int idEncabezado_det, int idServicio_det, int idReserva_det, String observaciones_det, double costo_det) {
+        super(idEncabezado_det, idServicio_det, idReserva_det, observaciones_det, costo_det);
     }
     public List<DetalleFactura> listaDetalleFactura(){
         try{
@@ -31,8 +31,14 @@ public class ModeloDetalleFactura extends DetalleFactura{
             ConnectionPG con=new ConnectionPG();
             ResultSet result=con.Consulta(sql);
             while (result.next()) {
-                DetalleFactura enc=new DetalleFactura(result.getInt("id_det"),result.getInt("idencabezado_det"),result.getInt("idservicio_det"),result.getInt("idreserva_enc"),result.getString("observaciones_det"),result.getDouble("costo_det"));
-                lista.add(enc);
+                DetalleFactura det=new DetalleFactura();
+                det.setId_det(result.getInt("id_det"));
+                det.setIdEncabezado_det(result.getInt("idencabezado_det"));
+                det.setIdServicio_det(result.getInt("idservicio_det"));
+                det.setIdReserva_det(result.getInt("idreserva_enc"));
+                det.setObservaciones_det(result.getString("observaciones_det"));
+                det.setCosto_det(result.getDouble("costo_det"));
+                lista.add(det);
             }
             result.close();
             return lista;
@@ -49,8 +55,14 @@ public class ModeloDetalleFactura extends DetalleFactura{
             ConnectionPG con=new ConnectionPG();
             ResultSet result=con.Consulta(sql);
             while (result.next()) {
-                DetalleFactura enc=new DetalleFactura(result.getInt("id_det"),result.getInt("idencabezado_det"),result.getInt("idservicio_det"),result.getInt("idreserva_enc"),result.getString("observaciones_det"),result.getDouble("costo_det"));
-                lista.add(enc);
+                DetalleFactura det=new DetalleFactura();
+                det.setId_det(result.getInt("id_det"));
+                det.setIdEncabezado_det(result.getInt("idencabezado_det"));
+                det.setIdServicio_det(result.getInt("idservicio_det"));
+                det.setIdReserva_det(result.getInt("idreserva_enc"));
+                det.setObservaciones_det(result.getString("observaciones_det"));
+                det.setCosto_det(result.getDouble("costo_det"));
+                lista.add(det);
             }
             result.close();
             return lista;
@@ -61,8 +73,8 @@ public class ModeloDetalleFactura extends DetalleFactura{
     }
     public SQLException grabarDetalleF(){
         ConnectionPG con=new ConnectionPG();
-        String sql="INSERT INTO det_factura(id_det,idencabezado_det,idservicio_det,idreserva_enc,observaciones_det,costo_det) "
-                + "VALUES("+getId_det()+","+getIdEncabezado_det()+","+getIdServicio_det()+","+getIdReserva_det()+",'"+getObservaciones_det()+"',"+getCosto_det()+")";
+        String sql="INSERT INTO det_factura(idencabezado_det,idservicio_det,idreserva_enc,observaciones_det,costo_det) "
+                + "VALUES("+getIdEncabezado_det()+","+getIdServicio_det()+","+getIdReserva_det()+",'"+getObservaciones_det()+"',"+getCosto_det()+")";
         SQLException ex=con.Accion(sql);
         return ex;
     }
@@ -84,9 +96,9 @@ public class ModeloDetalleFactura extends DetalleFactura{
         ConnectionPG con=new ConnectionPG();
         String sql="SELECT id_det FROM det_factura WHERE id_det="+id+";";
         ResultSet re=con.Consulta(sql);
-        if (con.Consulta(sql).wasNull()) {
-            test=false;
-        }else{test=true;}
+        if (re.next()) {
+            test=true;
+        }else{test=false;}
         return test;
     }
 }

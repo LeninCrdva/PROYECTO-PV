@@ -104,7 +104,7 @@ public class ControladorPrincipal {
         ModeloEncabezadoFactura modeloE = new ModeloEncabezadoFactura();
         ModeloDetalleFactura modeloD = new ModeloDetalleFactura();
 
-        ControladorFactura control = new ControladorFactura(modeloE, modeloD, vistaF);
+        ControladorFactura control = new ControladorFactura(modeloE, modeloD, vistaF,vistaPrincipal);
 
         vistaPrincipal.getPanelPrincipal().add(vistaF);
 
