@@ -314,7 +314,7 @@ public class VistaHabitacion extends javax.swing.JInternalFrame {
         btnPrint = new javax.swing.JButton();
         txtBuscarHab = new javax.swing.JTextField();
         txtBuscarTip = new javax.swing.JTextField();
-        comboTipo = new javax.swing.JComboBox();
+        comboTipo = new javax.swing.JComboBox<>();
         jLabel4 = new javax.swing.JLabel();
         btnReserva = new javax.swing.JButton();
 
@@ -478,6 +478,8 @@ public class VistaHabitacion extends javax.swing.JInternalFrame {
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
+
+        setClosable(true);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -648,8 +650,8 @@ public class VistaHabitacion extends javax.swing.JInternalFrame {
                 .addContainerGap())
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -658,6 +660,8 @@ public class VistaHabitacion extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
+
+        pack();
     }// </editor-fold>//GEN-END:initComponents
 
 
@@ -673,7 +677,7 @@ public class VistaHabitacion extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnPrint;
     private javax.swing.JButton btnReserva;
     private javax.swing.JCheckBox checkDisponible;
-    private javax.swing.JComboBox comboTipo;
+    private javax.swing.JComboBox<String> comboTipo;
     private javax.swing.JComboBox comboTipoHab;
     private javax.swing.JDialog dialogHabi;
     private javax.swing.JDialog dialogTipo;

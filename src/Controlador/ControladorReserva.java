@@ -31,12 +31,9 @@ import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
-import javax.swing.JLabel;
-import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.ListCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -154,7 +151,7 @@ public class ControladorReserva {
                 hb.setTotal_res(total);
 
                 if (success()) {
-                    if (!fechaValidator()) {
+                    if (fechaValidator()) {
                         try {
                             int id_reserva = hb.CrearReserva();
                             Habitacion hab = (Habitacion) vista.getComboHabitacion().getSelectedItem();
@@ -400,6 +397,7 @@ public class ControladorReserva {
                 if (tha.getId_tha() == ha.getIdTipo_hab()) {
                     Double valor = tha.getPrecio_tha();
                     int dif = vista.getDtchSalida().getDate().getDay() - vista.getDtchoEntrada().getDate().getDay();
+                    System.out.println(dif);
                     vista.getTxtTotalRes().setText(String.valueOf(valor * dif));
                 }
             });
