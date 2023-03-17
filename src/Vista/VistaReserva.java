@@ -4,7 +4,6 @@
  */
 package Vista;
 
-import Modelo.Habitacion;
 import com.toedter.calendar.JDateChooser;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -532,7 +531,13 @@ public class VistaReserva extends javax.swing.JInternalFrame {
                 "Id Huesped", "No Identificación", "Nombre", "Apellido"
             }
         ));
+        tablaClientes.setFocusable(false);
+        tablaClientes.setIntercellSpacing(new java.awt.Dimension(0, 0));
         tablaClientes.setName("listSelectClientes"); // NOI18N
+        tablaClientes.setRowHeight(25);
+        tablaClientes.setRowMargin(0);
+        tablaClientes.setSelectionBackground(new java.awt.Color(232, 57, 95));
+        tablaClientes.setShowVerticalLines(false);
         tablaClientes.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setViewportView(tablaClientes);
 
@@ -644,7 +649,7 @@ public class VistaReserva extends javax.swing.JInternalFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(comboHabitacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel18))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnRemoveRow)
                     .addComponent(btnAddClient))
@@ -692,7 +697,13 @@ public class VistaReserva extends javax.swing.JInternalFrame {
                 "Id", "No Identificacion", "Nombre", "Apellido"
             }
         ));
+        tblClientes.setFocusable(false);
+        tblClientes.setIntercellSpacing(new java.awt.Dimension(0, 0));
         tblClientes.setName("listClientes"); // NOI18N
+        tblClientes.setRowHeight(25);
+        tblClientes.setRowMargin(0);
+        tblClientes.setSelectionBackground(new java.awt.Color(232, 57, 95));
+        tblClientes.setShowVerticalLines(false);
         tblClientes.getTableHeader().setReorderingAllowed(false);
         jScrollPane3.setViewportView(tblClientes);
 

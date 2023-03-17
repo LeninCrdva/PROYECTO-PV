@@ -20,8 +20,7 @@ public class DetalleFactura {
     public DetalleFactura() {
     }
 
-    public DetalleFactura(int id_det, int idEncabezado_det, int idServicio_det, int idReserva_det, String observaciones_det, double costo_det) {
-        this.id_det = id_det;
+    public DetalleFactura(int idEncabezado_det, int idServicio_det, int idReserva_det, String observaciones_det, double costo_det) {
         this.idEncabezado_det = idEncabezado_det;
         this.idServicio_det = idServicio_det;
         this.idReserva_det = idReserva_det;

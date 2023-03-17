@@ -158,4 +158,23 @@ public class ModeloCliente extends Cliente {
             return id_cli;
         }
     }
+
+    public Cliente getCliente(String nombre) {
+        Cliente cli = new Cliente();
+        String sql = "SELECT c.id_cli, p.numeroidentificacion_per, p.nombre_per, p.apellido_per from cliente c join persona p "
+                + "on (c.id_per = p.id_per) where p.nombre_per || ' ' || p.apellido_per = '" + nombre + "'";
+        ConnectionPG con = new ConnectionPG();
+        ResultSet rs = con.Consulta(sql);
+        try {
+            rs.next();
+            cli.setId_cli(rs.getInt(1));
+            cli.setNumeroidentificacion_per(rs.getString(2));
+            cli.setNombre_per(rs.getString(3));
+            cli.setApellido_per(rs.getString(4));
+            rs.close();
+            return cli;
+        } catch (SQLException e) {
+            return cli;
+        }
+    }
 }

@@ -54,6 +54,7 @@ public class ControladorHabitacion {
         vista.getBtnEliminar().addActionListener(l -> eliminarDate());
         vista.getTxtBuscarHab().addActionListener(l -> buscarHabitacion());
         vista.getTxtBuscarTip().addActionListener(l -> buscarTpHabitacion());
+        vista.getBtnInfo().addActionListener(l -> showHelp());
     }
 
     private void cargarHabitacion() {
@@ -165,15 +166,17 @@ public class ControladorHabitacion {
             //EDITAR
             if (successHab()) {
                 int idhab = Integer.parseInt(vista.getLabelIDHabi().getText().trim());
-                Tipo_Habitacion tipo = (Tipo_Habitacion) vista.getComboTipoHab().getSelectedItem();
+                int idtip = ((Tipo_Habitacion) vista.getComboTipoHab().getSelectedItem()).getId_tha();
                 int numhab = Integer.parseInt(vista.getTxtNumHab().getText().trim());
                 boolean estado = vista.getCheckDisponible().isSelected();
 
                 ModeloHabitación hb = new ModeloHabitación();
+                hb.setIdTipo_hab(hb.getId(vista.getComboTipoHab().getSelectedItem().toString()));
                 hb.setId_hab(idhab);
-                hb.setIdTipo_hab(tipo.getId_tha());
                 hb.setNumero_hab(numhab);
                 hb.setEstado_hab(estado);
+                
+                System.out.println(idtip);
 
                 if (hb.existHab() == 0) {
                     if (hb.EditHabitacionDB() == null) {
@@ -370,7 +373,7 @@ public class ControladorHabitacion {
                 thb.setCapacidad_tha(capacidad);
                 thb.setPrecio_tha(precio);
 
-                if (thb.existHab() == 0) {
+                if (thb.existHabi() != 0) {
                     if (thb.EditTipHab() == null) {
                         JOptionPane.showMessageDialog(null, "Se han editado correctamente los datos");
                     } else {
@@ -549,10 +552,10 @@ public class ControladorHabitacion {
     }
 
     private boolean successTip() {
-        boolean nombre = vista.getTxtNombreTipo().getText().trim().isEmpty();
-        boolean camas = vista.getTxtNumCama().getText().isEmpty();
-        boolean capacidad = vista.getTxtCapacidad().getText().isEmpty();
-        boolean precio = vista.getTxtPrecio().getText().isEmpty();
+        boolean nombre = !vista.getTxtNombreTipo().getText().trim().isEmpty();
+        boolean camas = !vista.getTxtNumCama().getText().isEmpty();
+        boolean capacidad = !vista.getTxtCapacidad().getText().isEmpty();
+        boolean precio = !vista.getTxtPrecio().getText().isEmpty();
 
         return nombre && camas && capacidad && precio;
     }
@@ -571,5 +574,9 @@ public class ControladorHabitacion {
         if (combo.getItemCount() > 0) {
             combo.setSelectedIndex(0);
         }
+    }
+    
+    private void showHelp(){
+        JOptionPane.showMessageDialog(null, "No olvide seleccionar uno de los botones de la izquierda para iniciar con el funcionamiento", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
     }
 }

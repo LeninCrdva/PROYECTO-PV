@@ -122,6 +122,22 @@ public class ModeloTipo_Habitacion extends Tipo_Habitacion{
         }
     }
     
+    public int existHabi(){
+        int cant = 0;
+        String sql = "Select count(nombre_tha) from tipo_habitacion where nombre_tha = '" + getNombre_tha() + "' AND id_tha = " + getId_tha();
+        ConnectionPG con = new ConnectionPG();
+        ResultSet rs = con.Consulta(sql);
+        try{
+            rs.next();
+            cant = rs.getInt(1);
+            rs.close();
+            return cant;
+        } catch (SQLException ex) {
+            Logger.getLogger(ModeloPersona.class.getName()).log(Level.SEVERE, null, ex);
+            return cant;
+        }
+    }
+    
     public int cancelDelete(){
         int cant = 0;
         String sql = "Select count(idTipo_hab) from habitacion where idTipo_hab = " + getId_tha();

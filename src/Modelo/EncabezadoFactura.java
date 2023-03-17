@@ -22,8 +22,7 @@ public class EncabezadoFactura {
     public EncabezadoFactura() {
     }
 
-    public EncabezadoFactura(int id_enc, int idCliente_enc, int idEmpleado_enc, Date fecha_enc, double total_enc, boolean estado_enc) {
-        this.id_enc = id_enc;
+    public EncabezadoFactura(int idCliente_enc, int idEmpleado_enc, Date fecha_enc, double total_enc, boolean estado_enc) {
         this.idCliente_enc = idCliente_enc;
         this.idEmpleado_enc = idEmpleado_enc;
         this.fecha_enc = fecha_enc;
