@@ -271,14 +271,6 @@ public class VistaEmpleados extends javax.swing.JInternalFrame {
         this.txttitle = txttitle;
     }
 
-    public JComboBox<String> getCborder() {
-        return cborder;
-    }
-
-    public void setCborder(JComboBox<String> cborder) {
-        this.cborder = cborder;
-    }
-
     public JButton getBtnacceptreport() {
         return btnacceptreport;
     }
@@ -343,8 +335,6 @@ public class VistaEmpleados extends javax.swing.JInternalFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         txtdescripción = new javax.swing.JTextArea();
         jLabel17 = new javax.swing.JLabel();
-        cborder = new javax.swing.JComboBox<>();
-        jLabel19 = new javax.swing.JLabel();
         btnacceptreport = new javax.swing.JButton();
         btncancelreport = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
@@ -578,11 +568,6 @@ public class VistaEmpleados extends javax.swing.JInternalFrame {
         jLabel17.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel17.setText("Descripción:");
 
-        cborder.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Número de identificación", "Nombres", "Apellidos", "Número de teléfono", "Género", "Puesto", "Sueldo" }));
-
-        jLabel19.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel19.setText("Ordenar por:");
-
         btnacceptreport.setText("Aceptar");
 
         btncancelreport.setText("Cancelar");
@@ -608,9 +593,7 @@ public class VistaEmpleados extends javax.swing.JInternalFrame {
                             .addComponent(txttitle, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE)
                             .addComponent(jLabel17)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE)
-                            .addComponent(txtsueldo, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE)
-                            .addComponent(jLabel19)
-                            .addComponent(cborder, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(txtsueldo, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE))
                         .addGap(21, 21, 21))))
         );
         jPanel5Layout.setVerticalGroup(
@@ -630,11 +613,7 @@ public class VistaEmpleados extends javax.swing.JInternalFrame {
                 .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtsueldo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(5, 5, 5)
-                .addComponent(cborder, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(15, 15, 15)
+                .addGap(24, 24, 24)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnacceptreport)
                     .addComponent(btncancelreport))
@@ -812,7 +791,6 @@ public class VistaEmpleados extends javax.swing.JInternalFrame {
     private javax.swing.ButtonGroup btngpgenero;
     private javax.swing.JButton btnprint;
     private javax.swing.JComboBox cblabor;
-    private javax.swing.JComboBox<String> cborder;
     private javax.swing.JComboBox cbtipodoc;
     private javax.swing.JCheckBox chkdoctipo;
     private javax.swing.JDialog dlgcrudempleado;
@@ -828,7 +806,6 @@ public class VistaEmpleados extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

@@ -120,20 +120,21 @@ public class ModeloPersona extends Persona {
         return id_per;
     }
 
-    public String ObtieneID(int id_per) {
-        String sql = "SELECT d.nombre_doc FROM persona p "
+    public TipoDocumento ObtieneDocBD(int id_per) {
+        TipoDocumento td = new ModeloTipoDocumento();
+        String sql = "SELECT d.id_tip, d.nombre_doc FROM persona p "
                 + "INNER JOIN tipo_doc d ON p.tipo_doc = d.id_tip WHERE p.id_per = " + id_per;
         ConnectionPG con = new ConnectionPG();
         ResultSet rs = con.Consulta(sql);
-        String nombre_doc = null;
         try {
-            if (rs.next()) {
-                nombre_doc = rs.getString(1);
+            while (rs.next()) {
+                td.setId_tip(rs.getInt(1));
+                td.setNombre_doc(rs.getString(2));
             }
             rs.close();
-            return nombre_doc;
+            return td;
         } catch (SQLException e) {
-            return nombre_doc;
+            return td;
         }
     }
 

@@ -76,6 +76,8 @@ public class ControladorCliente {
         /*Cliente*/
         vc.getBtnAgregarTipoDoc().addActionListener(l -> AbreSubDialogo(1));
         vc.getBtnAgregarTipoCliente().addActionListener(l -> AbreSubDialogo(2));
+        vtd.getBtnaceptar().addActionListener(l -> UsaSubDialogo());
+        vtd.getBtncancelar().addActionListener(l -> vtd.getDlgtipodoc().dispose());
         vtc.getBtnAceptar().addActionListener(l -> UsaSubDialogo());
         vtc.getBtnCancelar().addActionListener(l -> vtc.getDlgCrudTipoCliente().dispose());
         vc.getTxtbuscar().addKeyListener(new KeyAdapter() {
@@ -97,11 +99,11 @@ public class ControladorCliente {
         addTextKeyListenerNotNumber(vc.getTxtNombre(), 50);
         addTextKeyListenerNotNumber(vc.getTxtApellido(), 50);
         MaxLengthOnly(vc.getTxtNumDoc(), 20);
-        MaxLengthOnly(vc.getTxtApellido(), 200);
+        MaxLengthOnly(vc.getTxtApellido(), 30);
         MaxLengthOnly(vc.getTxtEmail(), 200);
         addTextKeyListenerNotText(vc.getTxtTelefono(), 20);
         addTextKeyListenerNotNumber(vtd.getTxtdocname(), 20);
-        addTextKeyListenerNotText(vtc.getTxtNombreTipoCliente(), 50);
+        addTextKeyListenerNotNumber(vtc.getTxtNombreTipoCliente(), 50);
     }
 
     private void AbreSubDialogo(int ce) {
@@ -115,7 +117,7 @@ public class ControladorCliente {
         } else {
             vtc.getDlgCrudTipoCliente().setName("tipo_emp");
             vtc.getLblIdTipoCliente().setText(Integer.toString(IncrementaIDtipoCliente()));
-            vtc.getDlgCrudTipoCliente().setSize(580, 280);
+            vtc.getDlgCrudTipoCliente().setSize(330, 215);
             vtc.getDlgCrudTipoCliente().setModal(true);
             vtc.getDlgCrudTipoCliente().setLocationRelativeTo(vc);
             vtc.getDlgCrudTipoCliente().setVisible(true);
@@ -125,25 +127,30 @@ public class ControladorCliente {
     public void UsaSubDialogo() {
         if (vtc.getDlgCrudTipoCliente().getName().equals("tipo_emp")) {
             int id_tipoC = Integer.parseInt(vtc.getLblIdTipoCliente().getText());
-            String nombre_tipoCliente = vtc.getTxtNombreTipoCliente().getText();
+            String nombre_tipoCliente = vtc.getTxtNombreTipoCliente().getText().trim();
+            if (nombre_tipoCliente.isEmpty()) {
+                JOptionPane.showMessageDialog(vtc, "El campo de nombre no puede quedar vacío");
+                return;
+            }
             if (!mtc.ExisteNombreTipoDocBD(nombre_tipoCliente)) {
                 ModeloTipoCliente mtcli = new ModeloTipoCliente();
                 mtcli.setId_tip(id_tipoC);
                 mtcli.setNombre_tip(nombre_tipoCliente);
 
-                if (mtc.InsertarTipoCliente() == null) {
+                if (mtcli.InsertarTipoCliente() == null) {
                     vtc.getDlgCrudTipoCliente().dispose();
                     LlenarComboTipoCliente();
-                    JOptionPane.showMessageDialog(vc, "tipo de cliente añadido correctamente");
+                    JOptionPane.showMessageDialog(vc, "Tipo de cliente añadido correctamente");
                 } else {
                     JOptionPane.showMessageDialog(vc, "No se puedo añadir  el tipo cliente");
                 }
             } else {
-                JOptionPane.showMessageDialog(vc, "el nombre que ingresaste ya existe ");
+                JOptionPane.showMessageDialog(vc, "El nombre que ingresado ya existe");
             }
-        } else if (vtd.getDlgtipodoc().getName().equals("documento")){
+        } else if (vtd.getDlgtipodoc().getName().equals("documento")) {
             int id_doc = Integer.parseInt(vtd.getLblnumdoc().getText());
-            String nombre_doc = vtd.getTxtdocname().getText();
+            String nombre_doc = vtd.getTxtdocname().getText().trim();
+
             if (!nombre_doc.isEmpty()) {
                 if (!mtd.ExisteNombreTipoDocBD(nombre_doc)) {
                     ModeloTipoDocumento mt = new ModeloTipoDocumento();
@@ -181,16 +188,6 @@ public class ControladorCliente {
         } else {
         }
         return id_tip;
-    }
-
-    private void ValidarCampo() {
-        vc.getDatFechanaci().setDateFormatString("yyyy-MM-dd");
-        addTextKeyListenerNotNumber(vc.getTxtNombre(), 50);
-        addTextKeyListenerNotNumber(vc.getTxtApellido(), 50);
-        MaxLengthOnly(vc.getTxtApellido(), 200);
-        MaxLengthOnly(vc.getTxtEmail(), 200);
-        addTextKeyListenerNotText(vc.getTxtTelefono(), 20);
-
     }
 
     private void addTextKeyListenerNotNumber(JTextField text, int maxLength) {
@@ -443,14 +440,13 @@ public class ControladorCliente {
 
                 int id_per = Integer.parseInt(vc.getTblClientes().getValueAt(vc.getTblClientes().getSelectedRow(), 0).toString());
 
-                ModeloPersona mp = new ModeloPersona();
-                TipoDocumento tp = new TipoDocumento();
+                TipoDocumento tp;
 
-                tp.setNombre_doc(mp.ObtieneID(id_per));
+                tp = mp.ObtieneDocBD(id_per);
                 vc.getCmbTipoDoc().getModel().setSelectedItem(tp);
 
-                TipoCliente tc = new TipoCliente();
-                tc.setNombre_tip(vc.getTblClientes().getValueAt(vc.getTblClientes().getSelectedRow(), 9).toString());
+                TipoCliente tc;
+                tc = mtc.ObtieneTipoClienteBD(vc.getTblClientes().getValueAt(vc.getTblClientes().getSelectedRow(), 9).toString());
                 vc.getCmbTipoCliente().getModel().setSelectedItem(tc);
 
             } else {
@@ -604,8 +600,7 @@ public class ControladorCliente {
                 String email = vc.getTxtEmail().getText();
                 TipoCliente tipoclie = (TipoCliente) vc.getCmbTipoCliente().getSelectedItem();
                 int id_tipcli = tipoclie.getId_tip();
-                System.out.println(id_tipcli);
-                System.out.println(id_tipdoc);
+
                 if (tipodoc.toString().equalsIgnoreCase("Cédula")) {
                     if (!Cedula.validarCedula(numerodeindentificacion)) {
                         JOptionPane.showMessageDialog(vc, "ingrese un número de cedula válido");
@@ -699,23 +694,23 @@ public class ControladorCliente {
                     String email = vc.getTxtEmail().getText();
 
                     if (!ValidaData(numeroidentificacion)) {
-                        JOptionPane.showMessageDialog(vc, "el numero de documento no puede quedar vacio ");
+                        JOptionPane.showMessageDialog(vc, "el numero de documento no puede quedar vacio");
                         return;
                     }
                     if (!ValidaData(nombre)) {
-                        JOptionPane.showMessageDialog(vc, "el campo del nombre no puede quedar vacio  ");
+                        JOptionPane.showMessageDialog(vc, "el campo del nombre no puede quedar vacio");
                         return;
                     }
                     if (!ValidaData(apellido)) {
-                        JOptionPane.showMessageDialog(vc, "el campo del apellido no puede quedar vacio ");
+                        JOptionPane.showMessageDialog(vc, "el campo del apellido no puede quedar vacío");
                         return;
                     }
                     if (!ValidaData(telefono)) {
-                        JOptionPane.showMessageDialog(vc, "El campo del telefono no puede  vacio ");
+                        JOptionPane.showMessageDialog(vc, "El campo del telefono no puede quedar vacio");
                         return;
                     }
                     if (!ValidaData(sexo)) {
-                        JOptionPane.showMessageDialog(vc, "Elija el sexo ");
+                        JOptionPane.showMessageDialog(vc, "Elija el sexo");
                         return;
                     }
                     if (!validadate(fechanac)) {
@@ -733,9 +728,6 @@ public class ControladorCliente {
                     if (!ValidarCorreo()) {
                         JOptionPane.showMessageDialog(vc, "ingrese un correo valido ");
                         return;
-                    }
-                    if (!Cedula.validarCedula(numeroidentificacion)) {
-                        JOptionPane.showMessageDialog(vc, "ingrese un numero de cedula  ");
                     }
 
                     ModeloPersona persona = new ModeloPersona();

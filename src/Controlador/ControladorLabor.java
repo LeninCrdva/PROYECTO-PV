@@ -204,31 +204,36 @@ public class ControladorLabor {
                 String sueldo = vl.getTxtsueldo().getText();
 
                 if (nombre.isEmpty()) {
-                    JOptionPane.showMessageDialog(vl, "El campo de nombre no puede estar vacío.");
+                    JOptionPane.showMessageDialog(vl, "El campo de nombre no puede estar vacío");
                     return;
                 }
 
                 if (String.valueOf(sueldo).isEmpty()) {
-                    JOptionPane.showMessageDialog(vl, "El campo de sueldo no puede estar vacío.");
+                    JOptionPane.showMessageDialog(vl, "El campo de sueldo no puede estar vacío");
                     return;
                 }
                 if (ml.ExisteNombreLaborBD(nombre)) {
-                    JOptionPane.showMessageDialog(vl, "El nombre que intenta registrar ya existe.");
+                    JOptionPane.showMessageDialog(vl, "El nombre que intenta registrar ya existe");
                     return;
                 }
 
+                double sal = Double.parseDouble(sueldo);
+                if (sal < 100 || sal > 5000) {
+                    JOptionPane.showMessageDialog(vl, "Ingrese un salario razonable\n"
+                            + "Rango de: 100 a 5000 $");
+                    return;
+                }
                 ModeloLabor labor = new ModeloLabor();
                 labor.setId_lab(id_lab);
                 labor.setNombre_lab(nombre);
                 labor.setHoraslaborales_lab(horas_laborales);
-                labor.setSueldo_lab(Double.parseDouble(sueldo));
+                labor.setSueldo_lab(sal);
                 if (labor.InsertarLaborBD() == null) {
                     JOptionPane.showMessageDialog(vl, "Registro de labor añadido correctamente");
                     vl.getDlgcrudlabor().dispose();
                 } else {
                     JOptionPane.showMessageDialog(vl, "No se pudo añadir el registro");
                 }
-
             } catch (NullPointerException | NumberFormatException e) {
                 System.err.println(e);
             }
@@ -246,6 +251,12 @@ public class ControladorLabor {
                 }
                 if (String.valueOf(sueldo).isEmpty()) {
                     JOptionPane.showMessageDialog(vl, "El campo de sueldo no puede estar vacío.");
+                    return;
+                }
+                double sal = Double.parseDouble(sueldo);
+                if (sal < 100 || sal > 5000) {
+                    JOptionPane.showMessageDialog(vl, "Ingrese un salario razonable\n"
+                            + "Rango de: 100 a 5000 $");
                     return;
                 }
 
@@ -279,14 +290,19 @@ public class ControladorLabor {
             break;
 
             case "eliminar":
+                
                 try {
                 int id_lab = Integer.parseInt(vl.getLblidlab().getText());
                 ModeloLabor labor = new ModeloLabor();
-                if (labor.EliminarLaborBD(id_lab) == null) {
-                    JOptionPane.showMessageDialog(vl, "Registro de labor eliminado correctamente");
-                    vl.getDlgcrudlabor().dispose();
+                if (!labor.LaborAsociadaBD(id_lab)) {
+                    if (labor.EliminarLaborBD(id_lab) == null) {
+                        JOptionPane.showMessageDialog(vl, "Registro de labor eliminado correctamente");
+                        vl.getDlgcrudlabor().dispose();
+                    } else {
+                        JOptionPane.showMessageDialog(vl, "No se pudo eliminar el registro");
+                    }
                 } else {
-                    JOptionPane.showMessageDialog(vl, "No se pudo eliminar el registro");
+                    JOptionPane.showMessageDialog(vl, "La actividad que intenta eliminar está asignada a uno o varios empleados");
                 }
             } catch (NullPointerException | NumberFormatException e) {
                 System.err.println(e);

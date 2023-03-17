@@ -177,8 +177,9 @@ public class VistaLabor extends javax.swing.JInternalFrame {
 
         jLabel4.setText("Horas laborales:");
 
-        sldhoras.setMajorTickSpacing(4);
-        sldhoras.setMaximum(24);
+        sldhoras.setMajorTickSpacing(1);
+        sldhoras.setMaximum(12);
+        sldhoras.setMinimum(1);
         sldhoras.setPaintLabels(true);
         sldhoras.setPaintTicks(true);
         sldhoras.setSnapToTicks(true);
@@ -201,9 +202,9 @@ public class VistaLabor extends javax.swing.JInternalFrame {
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addGap(18, 18, 18)
-                        .addComponent(sldhoras, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(sldhoras, javax.swing.GroupLayout.PREFERRED_SIZE, 391, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblhoraslab, javax.swing.GroupLayout.DEFAULT_SIZE, 91, Short.MAX_VALUE))
+                        .addComponent(lblhoraslab, javax.swing.GroupLayout.DEFAULT_SIZE, 8, Short.MAX_VALUE))
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
