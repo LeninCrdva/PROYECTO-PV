@@ -106,11 +106,11 @@ public class VistaCuenta extends javax.swing.JInternalFrame {
         this.txtusername = txtusername;
     }
 
-    public JComboBox<Object> getCbempleado() {
+    public JComboBox getCbempleado() {
         return cbempleado;
     }
 
-    public void setCbempleado(JComboBox<Object> cbempleado) {
+    public void setCbempleado(JComboBox cbempleado) {
         this.cbempleado = cbempleado;
     }
 
@@ -130,6 +130,14 @@ public class VistaCuenta extends javax.swing.JInternalFrame {
         this.dlgcrudcuenta = dlgcrudcuenta;
     }
 
+    public JLabel getLblemp() {
+        return lblemp;
+    }
+
+    public void setLblemp(JLabel lblemp) {
+        this.lblemp = lblemp;
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -139,8 +147,8 @@ public class VistaCuenta extends javax.swing.JInternalFrame {
         jPanel6 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         lblidcuenta = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        cbempleado = new javax.swing.JComboBox<>();
+        lblemp = new javax.swing.JLabel();
+        cbempleado = new javax.swing.JComboBox();
         jLabel4 = new javax.swing.JLabel();
         txtusername = new javax.swing.JTextField();
         txtpassword = new javax.swing.JPasswordField();
@@ -165,7 +173,7 @@ public class VistaCuenta extends javax.swing.JInternalFrame {
 
         jLabel2.setText("N° Cuenta:");
 
-        jLabel3.setText("Empleado:");
+        lblemp.setText("Empleado:");
 
         jLabel4.setText("UserName:");
 
@@ -184,25 +192,25 @@ public class VistaCuenta extends javax.swing.JInternalFrame {
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtpassword)
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
-                            .addComponent(jLabel3)
+                            .addComponent(lblemp)
                             .addComponent(jLabel4))
                         .addGap(21, 21, 21)
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(cbempleado, 0, 170, Short.MAX_VALUE)
-                            .addComponent(txtusername)
-                            .addComponent(lblidcuenta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(lblidcuenta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtusername, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
+                            .addComponent(cbempleado, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addComponent(jLabel5)
                     .addComponent(jLabel6)
-                    .addComponent(txtconfirmpassword)
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addComponent(btnaceptar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 99, Short.MAX_VALUE)
-                        .addComponent(btncancelar)))
-                .addContainerGap(13, Short.MAX_VALUE))
+                        .addComponent(btncancelar))
+                    .addComponent(txtpassword)
+                    .addComponent(txtconfirmpassword))
+                .addGap(13, 13, 13))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -216,7 +224,7 @@ public class VistaCuenta extends javax.swing.JInternalFrame {
                     .addComponent(cbempleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addGap(3, 3, 3)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(lblemp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -291,27 +299,28 @@ public class VistaCuenta extends javax.swing.JInternalFrame {
 
         tblcuenta.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "N°", "Nombre de usuario", "Empleado"
+                "N°", "Nombre de usuario", "Identificación", "Nombre", "Apellido"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
+        tblcuenta.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(tblcuenta);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -407,11 +416,10 @@ public class VistaCuenta extends javax.swing.JInternalFrame {
     private javax.swing.JButton btncrearcuenta;
     private javax.swing.JButton btndeletecuenta;
     private javax.swing.JButton btneditcuenta;
-    private javax.swing.JComboBox<Object> cbempleado;
+    private javax.swing.JComboBox cbempleado;
     private javax.swing.JDialog dlgcrudcuenta;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -422,6 +430,7 @@ public class VistaCuenta extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblemp;
     private javax.swing.JLabel lblidcuenta;
     private javax.swing.JTable tblcuenta;
     private javax.swing.JTextField txtbuscarcuenta;

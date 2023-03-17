@@ -8,6 +8,7 @@ public class Empleado extends Persona {
     private int id_per;
     private int idlabor_emp;
     private Date fecha_contratacion_emp;
+
     public Empleado() {
     }
 
@@ -26,6 +27,11 @@ public class Empleado extends Persona {
         this.fecha_contratacion_emp = fecha_contratacion_emp;
     }
 
+    public Empleado(int id_emp, String numeroIdentificacion, String nombre_per, String apellido_per) {
+        super(numeroIdentificacion, nombre_per, apellido_per);
+        this.id_emp = id_emp;
+    }
+
     public int getId_emp() {
         return id_emp;
     }
@@ -40,6 +46,16 @@ public class Empleado extends Persona {
 
     public void setFecha_contratacion_emp(Date fecha_contratacion_emp) {
         this.fecha_contratacion_emp = fecha_contratacion_emp;
+    }
+
+    @Override
+    public void setNumeroidentificacion_per(String numeroidentificacion_per) {
+        super.setNumeroidentificacion_per(numeroidentificacion_per); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public String getNumeroidentificacion_per() {
+        return super.getNumeroidentificacion_per(); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
@@ -62,6 +78,6 @@ public class Empleado extends Persona {
 
     @Override
     public String toString() {
-        return "" + id_emp;
+        return "" + getNumeroidentificacion_per() + " - " + getNombre_per() + " " + getApellido_per();
     }
 }

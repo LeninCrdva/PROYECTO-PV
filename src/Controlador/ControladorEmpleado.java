@@ -6,11 +6,13 @@ import Vista.VistaCuenta;
 import com.toedter.calendar.JDateChooser;
 import java.awt.Component;
 import java.awt.event.KeyAdapter;
+import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JButton;
@@ -21,6 +23,7 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
+import javax.swing.DefaultComboBoxModel;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -52,6 +55,7 @@ public class ControladorEmpleado {
 
     public void IniciarControl() {
         CargaEmpleados();
+        SetModelCombos();
         LlenaComboLabor();
         LlenaComboTipoDoc();
         LlenaComboempleado();
@@ -88,6 +92,8 @@ public class ControladorEmpleado {
         MaxLengthOnly(ve.getTxtdireccion(), 250);
         MaxLengthOnly(ve.getTxtemail(), 250);
         addTextKeyListenerNotText(ve.getTxttelefono(), 15);
+        addTextKeyListenerNotNumber(vd.getTxtdocname(), 20);
+        addTextKeyListenerNotNumber(vl.getTxtnombrelab(), 40);
     }
 
     private void addTextKeyListenerNotNumber(JTextField text, int maxLength) {
@@ -126,6 +132,13 @@ public class ControladorEmpleado {
         });
     }
 
+    private void SetModelCombos() {
+        DefaultComboBoxModel<TipoDocumento> modeltipodoc = new DefaultComboBoxModel<>();
+        ve.getCbtipodoc().setModel(modeltipodoc);
+        DefaultComboBoxModel<Labor> modellabor = new DefaultComboBoxModel<>();
+        ve.getCblabor().setModel(modellabor);
+    }
+
     private int IncrementaIDtipodoc() {
         int id_tip = mtd.ObtenerIDTDBD();
         if (id_tip >= 1) {
@@ -147,12 +160,14 @@ public class ControladorEmpleado {
     private void AbreSubDialogo(int ce) {
         if (ce == 1) {
             vd.getDlgtipodoc().setName("documento");
+            vd.getLblnumdoc().setText(Integer.toString(IncrementaIDtipodoc()));
             vd.getDlgtipodoc().setSize(290, 200);
             vd.getDlgtipodoc().setModal(true);
             vd.getDlgtipodoc().setLocationRelativeTo(ve);
             vd.getDlgtipodoc().setVisible(true);
         } else {
             vl.getDlgcrudlabor().setName("labor");
+            vl.getLblidlab().setText(Integer.toString(IncrementaIDlabor()));
             vl.getDlgcrudlabor().setSize(580, 280);
             vl.getDlgcrudlabor().setModal(true);
             vl.getDlgcrudlabor().setLocationRelativeTo(ve);
@@ -161,7 +176,7 @@ public class ControladorEmpleado {
     }
 
     private void AbreDialogCuenta() {
-        vcc.getDlgcrudcuenta().setSize(320, 350);
+        vcc.getDlgcrudcuenta().setSize(330, 350);
         vcc.getDlgcrudcuenta().setLocationRelativeTo(vcc);
         vcc.getDlgcrudcuenta().setModal(true);
         vcc.getDlgcrudcuenta().setVisible(true);
@@ -170,8 +185,6 @@ public class ControladorEmpleado {
     private void UsaSubDialogo() {
         if (vl.getDlgcrudlabor().getName().equals("labor")) {
             try {
-                vl.getLblidlab().setText(Integer.toString(IncrementaIDlabor()));
-
                 int id_lab = Integer.parseInt(vl.getLblidlab().getText());
                 String nombre = vl.getTxtnombrelab().getText().toUpperCase().trim();
                 int horas_laborales = vl.getSldhoras().getValue();
@@ -195,7 +208,7 @@ public class ControladorEmpleado {
                         } else {
                             JOptionPane.showMessageDialog(vl, "El nombre que intenta registrar ya existe.");
                         }
-                        //}
+
                     } else {
                         JOptionPane.showMessageDialog(vl, "El campo de sueldo no puede estar vacío.");
                     }
@@ -206,8 +219,6 @@ public class ControladorEmpleado {
                 System.out.println(e);
             }
         } else if (vd.getDlgtipodoc().getName().equals("documento")) {
-
-            vd.getLblnumdoc().setText(Integer.toString(IncrementaIDtipodoc()));
             int id_doc = IncrementaIDtipodoc();
             String nombre_doc = vd.getTxtdocname().getText();
             if (!nombre_doc.isEmpty()) {
@@ -354,16 +365,21 @@ public class ControladorEmpleado {
     }
 
     private void LlenaComboLabor() {
+        ModeloLabor mdl = new ModeloLabor();
         ve.getCblabor().removeAllItems();
-        List<Labor> list = ml.LlenaComboBD();
+
+        DefaultComboBoxModel<Labor> modellabor = new DefaultComboBoxModel<>();
+        ve.getCblabor().setModel(modellabor);
+        List<Labor> list = mdl.LlenaComboLabBD();
         list.stream().forEach(la -> {
             ve.getCblabor().addItem(new Labor(la.getId_lab(), la.getNombre_lab()));
         });
     }
 
     private void LlenaComboTipoDoc() {
+        ModeloTipoDocumento mtdc = new ModeloTipoDocumento();
         ve.getCbtipodoc().removeAllItems();
-        List<TipoDocumento> list = mtd.LlenaComboBD();
+        List<TipoDocumento> list = mtdc.LlenaComboBD();
         list.stream().forEach(doc -> {
             ve.getCbtipodoc().addItem(new TipoDocumento(doc.getId_tip(), doc.getNombre_doc()));
         });
@@ -392,6 +408,9 @@ public class ControladorEmpleado {
                 title = "Editar empleado";
                 ve.getDlgcrudempleado().setName("editar");
                 EnableFields(InitClean());
+                ve.getTxtdocnum().setEnabled(false);
+                ve.getTxtemail().setEnabled(false);
+                ve.getTxttelefono().setEnabled(false);
                 RowSelected = MousePressed(ve.getTblempleados());
                 break;
 
@@ -405,7 +424,7 @@ public class ControladorEmpleado {
 
         if (RowSelected) {
             ve.getDlgcrudempleado().setLocationRelativeTo(ve);
-            ve.getDlgcrudempleado().setSize(425, 550);
+            ve.getDlgcrudempleado().setSize(420, 575);
             ve.getDlgcrudempleado().setTitle(title);
             ve.getDlgcrudempleado().setVisible(true);
         }
@@ -437,15 +456,18 @@ public class ControladorEmpleado {
                 ve.getDtefechanac().setDate((formatter.parse(ve.getTblempleados().getValueAt(ve.getTblempleados().getSelectedRow(), 8).toString())));
 
                 int id_per = Integer.parseInt(ve.getTblempleados().getValueAt(ve.getTblempleados().getSelectedRow(), 0).toString());
-                System.out.println(id_per);
-                ModeloPersona mp = new ModeloPersona();
-                int id_doc = mp.ObtieneID(id_per);
-                System.out.println(id_doc);
-                ve.getCbtipodoc().setSelectedIndex(id_doc - 1);
-                int id_lab = ml.ConsultaIDBD((ve.getTblempleados().getValueAt(ve.getTblempleados().getSelectedRow(), 9).toString()));
-                System.out.println(id_lab);
-                ve.getCblabor().setSelectedIndex(id_lab - 1);
 
+                ModeloPersona mp = new ModeloPersona();
+                TipoDocumento tp = new TipoDocumento();
+
+                tp.setNombre_doc(mp.ObtieneID(id_per));
+                ve.getCbtipodoc().getModel().setSelectedItem(tp);
+
+                Labor lab = new Labor();
+                lab.setNombre_lab(ve.getTblempleados().getValueAt(ve.getTblempleados().getSelectedRow(), 9).toString());
+                ve.getCblabor().getModel().setSelectedItem(lab);
+
+                ve.getDtefechaingreso().setDate((formatter.parse(ve.getTblempleados().getValueAt(ve.getTblempleados().getSelectedRow(), 10).toString())));
             } else {
                 JOptionPane.showMessageDialog(ve, "Seleccione una fila primero");
             }
@@ -549,7 +571,9 @@ public class ControladorEmpleado {
             emailAddr.validate();
             valid = true;
         } catch (AddressException ex) {
-            JOptionPane.showMessageDialog(null, "El correo ingresado no existe");
+            JOptionPane.showMessageDialog(null, "El correo proporcionado es incorrecto\n"
+                    + "-Recuerde que debe contener un @ y un punto\n"
+                    + "+'ejemplo1@gmail.com'");
         }
         return valid;
     }
@@ -562,7 +586,7 @@ public class ControladorEmpleado {
         return isvalid;
     }
 
-    private boolean validateDate(Date fecha) {
+    private boolean validateDate(java.sql.Date fecha) {
         Calendar cal = Calendar.getInstance();
         cal.setTime(fecha);
 
@@ -579,12 +603,71 @@ public class ControladorEmpleado {
         return anio >= 18 && anio <= 80;
     }
 
+    private boolean validateDateEnter(java.sql.Date fecha) {
+        java.sql.Date TodayDate = new Date(System.currentTimeMillis());
+        java.sql.Date maxDate = new Date(TodayDate.getTime() - (10L * 365 * 24 * 60 * 60 * 1000));
+
+        return fecha.before(TodayDate) && fecha.after(maxDate);
+    }
+
+    private Map<String, Object> Parametros() {
+        Map<String, Object> datos = new HashMap<>();
+        try {
+            String titulo = ve.getTxttitle().getText().trim();
+            String descripcion = ve.getTxtdescripción().getText().trim();
+            double sueldo = Double.parseDouble(ve.getTxtsueldo().getText().trim());
+            //int order = ve.getCborder().getSelectedIndex() + 1;
+
+            datos.put("Titulo", titulo);
+            datos.put("Descripción", descripcion);
+            datos.put("Sueldo", sueldo);
+            return datos;
+        } catch (NumberFormatException e) {
+            System.out.println(e);
+        }
+        return datos;
+    }
+
     private void Reportes() {
+        ConnectionPG con = new ConnectionPG();
+        int option = JOptionPane.showConfirmDialog(ve, "¿Desea generar un reporte con datos personalizados?",
+                "Reportes", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        try {
+            if (option == JOptionPane.YES_OPTION) {
+
+                ve.getDlgreporteemp().setVisible(true);
+                ve.getDlgreporteemp().setSize(280, 420);
+                String titulo = ve.getTxttitle().getText().trim();
+                String descripcion = ve.getTxtdescripción().getText().trim();
+                double sueldo = Double.parseDouble(ve.getTxtsueldo().getText().trim());
+                //int order = ve.getCborder().getSelectedIndex() + 1;
+                Map<String, Object> datos = new HashMap<>();
+                datos.put("Titulo", titulo);
+                datos.put("Descripción", descripcion);
+                datos.put("Sueldo", sueldo);
+                ve.getBtnacceptreport().addActionListener(l -> ReportePersonalizado(datos));
+                ve.getBtncancelreport().addActionListener(l -> ve.getDlgreporteemp().dispose());
+
+            } else {
+
+                JasperReport jr = (JasperReport) JRLoader.loadObject(getClass().getResource("/Vista/Reportes/Empleados.jasper"));
+                //Map<String, Object> parametros = Parametros();
+                JasperPrint jp = JasperFillManager.fillReport(jr, null, con.getCon());
+                JasperViewer jv = new JasperViewer(jp, false);
+
+                jv.setVisible(true);
+
+            }
+        } catch (JRException | NumberFormatException ex) {
+            Logger.getLogger(ControladorEmpleado.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void ReportePersonalizado(Map<String, Object> parametros) {
         ConnectionPG con = new ConnectionPG();
         try {
             JasperReport jr = (JasperReport) JRLoader.loadObject(getClass().getResource("/Vista/Reportes/Empleados.jasper"));
-            //Map<String, Object> parametros = Parametros();
-            JasperPrint jp = JasperFillManager.fillReport(jr, null, con.getCon());
+            JasperPrint jp = JasperFillManager.fillReport(jr, parametros, con.getCon());
             JasperViewer jv = new JasperViewer(jp, false);
 
             jv.setVisible(true);
@@ -594,10 +677,17 @@ public class ControladorEmpleado {
     }
 
     //SQL PARA BORRAR TABLAS RELACIONADAS
+
     /*
     ALTER TABLE EMPLEADO DROP CONSTRAINT fk_persona,
 	ADD CONSTRAINT fk_persona
 	FOREIGN KEY (id_per) REFERENCES PERSONA (id_per)
+	ON DELETE CASCADE
+    
+    
+    ALTER TABLE cuenta DROP CONSTRAINT fk_empleado,
+	ADD CONSTRAINT fk_empleado
+	FOREIGN KEY (id_emp) REFERENCES empleado (id_emp)
 	ON DELETE CASCADE
      */
     private void crearEditarEliminarEmpleado() {
@@ -607,7 +697,7 @@ public class ControladorEmpleado {
                 String numeroidentificacion = ve.getTxtdocnum().getText().trim();
                 String nombre = ve.getTxtnombreper().getText().trim();
                 String apellido = ve.getTxtapellidoper().getText().trim();
-                Date fechanac = ve.getDtefechanac().getDate();
+                java.sql.Date fechanac = new java.sql.Date(ve.getDtefechanac().getDate().getTime());
                 String telefono = ve.getTxttelefono().getText().trim();
                 String sexo = null;
                 if (ve.getRdmasculino().isSelected()) {
@@ -615,8 +705,10 @@ public class ControladorEmpleado {
                 } else if (ve.getRdfemenino().isSelected()) {
                     sexo = "Femenino";
                 }
+
                 TipoDocumento tipodoc = (TipoDocumento) ve.getCbtipodoc().getSelectedItem();
-                int id_tipo = mtd.ConsultaIDBD(tipodoc.toString());
+                int id_tipo = tipodoc.getId_tip();
+
                 String direccion = ve.getTxtdireccion().getText().trim();
                 String email = ve.getTxtemail().getText().toLowerCase().trim();
 
@@ -664,6 +756,12 @@ public class ControladorEmpleado {
                     return;
                 }
 
+                java.sql.Date fecha_cont = new java.sql.Date(ve.getDtefechaingreso().getDate().getTime());
+                if (!validateDateEnter(fecha_cont)) {
+                    JOptionPane.showMessageDialog(ve, "Ingrese una fecha de ingreso válida\n"
+                            + "-No puede ser una fecha futura ni una menor a 10 años");
+                    return;
+                }
                 ModeloPersona persona = new ModeloPersona();
 
                 persona.setId_per(id_per);
@@ -680,16 +778,16 @@ public class ControladorEmpleado {
                 if (persona.InsertaPersonaBD() == null) {
                     ModeloEmpleado empleado = new ModeloEmpleado();
                     empleado.setId_emp(IncrementaIDE());
+
                     Labor lab = (Labor) ve.getCblabor().getSelectedItem();
 
-                    int labor = ml.ConsultaIDBD(lab.toString());
-                    Date fecha_cont = ve.getDtefechaingreso().getDate();
+                    int labor = lab.getId_lab();
 
                     empleado.setIdlabor_emp(labor);
                     empleado.setId_per(id_per);
                     empleado.setFecha_contratacion_emp(fecha_cont);
                     if (empleado.InsertaEmpleadoBD() == null) {
-                        ve.getDlgcrudempleado().setVisible(false);
+                        ve.getDlgcrudempleado().dispose();
                         int create_account = JOptionPane.showConfirmDialog(ve, "Empleado añadido correctamente.\n¿Desea crear un cuenta para este usuario?",
                                 "Creación de cuenta", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 
@@ -722,7 +820,7 @@ public class ControladorEmpleado {
                     String numeroidentificacion = ve.getTxtdocnum().getText();
                     String nombre = ve.getTxtnombreper().getText();
                     String apellido = ve.getTxtapellidoper().getText();
-                    Date fechanac = ve.getDtefechanac().getDate();
+                    java.sql.Date fechanac = new java.sql.Date(ve.getDtefechanac().getDate().getTime());
                     String telefono = ve.getTxttelefono().getText();
                     String sexo = null;
                     if (ve.getRdmasculino().isSelected()) {
@@ -731,7 +829,8 @@ public class ControladorEmpleado {
                         sexo = "Femenino";
                     }
                     TipoDocumento tipodoc = (TipoDocumento) ve.getCbtipodoc().getSelectedItem();
-                    int id_tipo = mtd.ConsultaIDBD(tipodoc.toString());
+                    int id_tipo = tipodoc.getId_tip();
+
                     String direccion = ve.getTxtdireccion().getText();
                     String email = ve.getTxtemail().getText();
 
@@ -795,15 +894,13 @@ public class ControladorEmpleado {
                         ModeloEmpleado empleado = new ModeloEmpleado();
                         empleado.setId_emp(me.ObtieneIDBD(id_per));
                         Labor lab = (Labor) ve.getCblabor().getSelectedItem();
-
-                        int labor = ml.ConsultaIDBD(lab.toString());
-                        Date fecha_cont = ve.getDtefechaingreso().getDate();
-
+                        int labor = lab.getId_lab();
+                        java.sql.Date fecha_cont = new java.sql.Date(ve.getDtefechaingreso().getDate().getTime());
                         empleado.setIdlabor_emp(labor);
                         empleado.setId_per(id_per);
                         empleado.setFecha_contratacion_emp(fecha_cont);
                         if (empleado.ModificarEmpleadoBD(empleado.getId_emp()) == null) {
-                            ve.getDlgcrudempleado().setVisible(false);
+                            ve.getDlgcrudempleado().dispose();
                             JOptionPane.showMessageDialog(ve, "Empleado editado correctamente");
                         } else {
                             JOptionPane.showMessageDialog(ve, "No se pudo editar al empleado");
@@ -811,7 +908,6 @@ public class ControladorEmpleado {
                     } else {
                         JOptionPane.showMessageDialog(ve, "No se pudo editar el registro");
                     }
-
                 } catch (NumberFormatException | NullPointerException e) {
                     System.out.println(e);
                 }
@@ -823,11 +919,16 @@ public class ControladorEmpleado {
 
                         ModeloPersona persona = new ModeloPersona();
                         persona.setId_per(id_per);
-                        if (persona.EliminarPersonaDB(id_per) == null) {
-                            ve.getDlgcrudempleado().setVisible(false);
-                            JOptionPane.showMessageDialog(ve, "Empleado eliminado con éxito");
-                        } else {
-                            JOptionPane.showMessageDialog(ve, "No se pudo eliminar al empleado");
+                        int op = JOptionPane.showConfirmDialog(ve, "¿Está seguro que desea eliminar el registro?\n"
+                                + "-Esta acción también borrará la cuenta asociada a este empleado \n-Esta acción no es reversible",
+                                "Confirmación", JOptionPane.YES_NO_OPTION);
+                        if (op == JOptionPane.YES_OPTION) {
+                            if (persona.EliminarPersonaDB(id_per) == null) {
+                                ve.getDlgcrudempleado().setVisible(false);
+                                JOptionPane.showMessageDialog(ve, "Empleado eliminado con éxito");
+                            } else {
+                                JOptionPane.showMessageDialog(ve, "No se pudo eliminar al empleado");
+                            }
                         }
 
                     } catch (NumberFormatException | NullPointerException e) {

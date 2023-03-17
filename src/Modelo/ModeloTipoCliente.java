@@ -12,10 +12,6 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-
-
-
-
 public class ModeloTipoCliente extends TipoCliente {
 
     public ModeloTipoCliente() {
@@ -46,59 +42,78 @@ public class ModeloTipoCliente extends TipoCliente {
         return lista;
 
     }
-   public  int ObtenerIdTipoCliente(){
-   int id_tip =0 ;
-   String sql = "select max(id_tip) from tipo_cliente";
-   ConnectionPG con =new ConnectionPG(); 
-   ResultSet rs = con.Consulta(sql);
-   
-       try {
-           if (rs.next()) {
-               id_tip= rs.getInt(1);
-               
-           }
-           rs.close();
-           return id_tip;
-       } catch (SQLException e) {
-           System.err.println(e);
-           return id_tip;
-       }
-   }
-   public int  ConsularIDBDTipocliente(String nombre){
-       int id_tip= 0;
-       String sql ="select id_tip  from tipo_cliente where nombre_tip like '%"+nombre+"%'";
-       ConnectionPG con = new ConnectionPG();
-       ResultSet rs = con.Consulta(sql);
-       
-       try {
-           if (rs.next()) {
-               id_tip = rs.getInt(1);
-           }
-           rs.close();
-           return id_tip;
-       } catch (SQLException e) {
-           System.err.println();
-           return id_tip;
-       }
-   
-   }
 
-    public List<TipoCliente> LlenarCombo() {
+        public List<TipoCliente> ListaTipoCliBD() {
         List<TipoCliente> lista = new ArrayList<>();
-        String sql = "SELECT  nombre_tip FROM tipo_cliente";
+        String sql = "SELECT id_tip, nombre_tip FROM tipo_cliente";
+        ConnectionPG con = new ConnectionPG();
+        ResultSet rs = con.Consulta(sql);
+        try {
+            while (rs.next()) {
+                TipoCliente tipc = new TipoCliente();
+                tipc.setId_tip(rs.getInt(1));
+                tipc.setNombre_tip(rs.getString(2));
+                lista.add(tipc);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return lista;
+    }
+    
+    public int ObtenerIdTipoCliente() {
+        int id_tip = 0;
+        String sql = "select max(id_tip) from tipo_cliente";
+        ConnectionPG con = new ConnectionPG();
+        ResultSet rs = con.Consulta(sql);
+
+        try {
+            if (rs.next()) {
+                id_tip = rs.getInt(1);
+
+            }
+            rs.close();
+            return id_tip;
+        } catch (SQLException e) {
+            System.err.println(e);
+            return id_tip;
+        }
+    }
+
+    public int ConsularIDBDTipocliente(String nombre) {
+        int id_tip = 0;
+        String sql = "select id_tip  from tipo_cliente where nombre_tip like '%" + nombre + "%'";
+        ConnectionPG con = new ConnectionPG();
+        ResultSet rs = con.Consulta(sql);
+
+        try {
+            if (rs.next()) {
+                id_tip = rs.getInt(1);
+            }
+            rs.close();
+            return id_tip;
+        } catch (SQLException e) {
+            System.err.println();
+            return id_tip;
+        }
+
+    }
+
+    public List<TipoCliente> LlenarComboTipoCliBD() {
+        List<TipoCliente> lista = new ArrayList<>();
+        String sql = "SELECT id_tip, nombre_tip FROM tipo_cliente";
 
         ConnectionPG con = new ConnectionPG();
         ResultSet rs = con.Consulta(sql);
         try {
             while (rs.next()) {
                 TipoCliente clitip = new TipoCliente();
-                clitip.setNombre_tip(rs.getString(1));
+                clitip.setId_tip(rs.getInt(1));
+                clitip.setNombre_tip(rs.getString(2));
                 lista.add(clitip);
-
             }
             rs.close();
             return lista;
-
         } catch (SQLException e) {
             return null;
         }
@@ -148,28 +163,26 @@ public class ModeloTipoCliente extends TipoCliente {
         ConnectionPG con = new ConnectionPG();
         SQLException ex = con.Accion(sql);
         return ex;
-
     }
     
-    public  boolean  ExisteNombreTipoDocBD (String nombre_tipocl){
-        String sql = "SELECT COUNT(*) FROM tipo_cliente  WHERE nombre_tip  = '"+nombre_tipocl+"'";
+    public boolean ExisteNombreTipoDocBD(String nombre_tipocl) {
+        String sql = "SELECT COUNT(*) FROM tipo_cliente  WHERE nombre_tip  = '" + nombre_tipocl + "'";
         ConnectionPG con = new ConnectionPG();
         ResultSet rs = con.Consulta(sql);
         try {
             if (rs.next()) {
-                int count =rs.getInt(1);
-                return  count > 0;
-                
-            }else {
-            return  false;
-            
+                int count = rs.getInt(1);
+                return count > 0;
+
+            } else {
+                return false;
+
             }
         } catch (SQLException e) {
-            Logger.getLogger(ModeloTipoCliente.class.getName()).log(Level.SEVERE,null,e);
-            return  true ;
+            Logger.getLogger(ModeloTipoCliente.class.getName()).log(Level.SEVERE, null, e);
+            return true;
         }
-    
-    
+
     }
 
 }

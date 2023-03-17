@@ -11,6 +11,10 @@ public class Labor {
     public Labor() {
     }
 
+    public Labor(String nombre_lab) {
+        this.nombre_lab = nombre_lab;
+    }
+
     public Labor(int id_lab, String nombre_lab) {
         this.id_lab = id_lab;
         this.nombre_lab = nombre_lab;

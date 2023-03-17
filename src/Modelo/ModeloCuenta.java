@@ -128,8 +128,8 @@ public class ModeloCuenta extends Cuenta {
             }
             rs.close();
             return id_cue;
-        } catch (Exception e) {
-            System.out.println(e);
+        } catch (SQLException ex) {
+            Logger.getLogger(ModeloLabor.class.getName()).log(Level.SEVERE, null, ex);
             return id_cue;
         }
     }
