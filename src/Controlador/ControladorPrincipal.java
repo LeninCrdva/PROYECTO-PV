@@ -128,7 +128,7 @@ public class ControladorPrincipal {
         
         ControladorServicio control = new ControladorServicio(vistaS, modeloS);
         
-        vistaPrincipal.getPanelPrincipal();
+        vistaPrincipal.getPanelPrincipal().add(vistaS);
 
         control.IniciarControl();
     }
