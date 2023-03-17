@@ -59,11 +59,12 @@ public class ControladorPrincipal {
 
         VistaClientes vista = new VistaClientes();
         VistaTipoCliente vc = new VistaTipoCliente();
+        VistaTipoDocumento vt = new VistaTipoDocumento();
         ModeloTipoDocumento modelotipodoc = new ModeloTipoDocumento();
 
         vistaPrincipal.getPanelPrincipal().add(vista);
 
-        ControladorCliente contro = new ControladorCliente(modelop, modelo, vista, modelol, modelotipodoc, vc);
+        ControladorCliente contro = new ControladorCliente(modelop, modelo, vista, modelol, vt, modelotipodoc, vc);
 //        ControladorCliente control =new ControladorCliente(modelop, modelo, vista, modelol);
         contro.IniciarControl();
     }
