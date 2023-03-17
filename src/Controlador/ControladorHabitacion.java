@@ -1,5 +1,6 @@
 package Controlador;
 
+import Modelo.ConnectionPG;
 import Modelo.Habitacion;
 import Modelo.ModeloHabitación;
 import Modelo.ModeloTipo_Habitacion;
@@ -22,6 +23,12 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 public class ControladorHabitacion {
 
@@ -55,6 +62,7 @@ public class ControladorHabitacion {
         vista.getTxtBuscarHab().addActionListener(l -> buscarHabitacion());
         vista.getTxtBuscarTip().addActionListener(l -> buscarTpHabitacion());
         vista.getBtnInfo().addActionListener(l -> showHelp());
+        vista.getBtnPrint().addActionListener(l -> Reportes());
     }
 
     private void cargarHabitacion() {
@@ -586,6 +594,25 @@ public class ControladorHabitacion {
         if (combo.getItemCount() > 0) {
             combo.setSelectedIndex(0);
         }
+    }
+
+    private void Reportes() {
+        if (vista.getRdHab().isSelected()) {
+            ConnectionPG con = new ConnectionPG();
+            try {
+                JasperReport jr = (JasperReport) JRLoader.loadObject(getClass().getResource("/Vista/Reportes/Habitacion.jasper"));
+                JasperPrint jp = JasperFillManager.fillReport(jr, null, con.getCon());
+                JasperViewer jv = new JasperViewer(jp, false);
+
+                jv.setVisible(true);
+
+            } catch (JRException | NumberFormatException ex) {
+                Logger.getLogger(ControladorEmpleado.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Esta función está disponible únicamente para la habitación.","Información" ,JOptionPane.WARNING_MESSAGE);
+        }
+
     }
 
     private void showHelp() {

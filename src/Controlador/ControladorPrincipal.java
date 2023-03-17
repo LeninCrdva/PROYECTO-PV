@@ -38,7 +38,7 @@ public class ControladorPrincipal {
         vistaPrincipal.getPnlBody().removeAll();
         vistaPrincipal.getPnlBody().repaint();
         vistaPrincipal.getPnlBody().revalidate();
-        vistaPrincipal.getPnlBody().add(vcc);
+        vistaPrincipal.getPnlBody().add(vista);
         vistaPrincipal.getPnlBody().repaint();
         vistaPrincipal.getPnlBody().revalidate();
 
