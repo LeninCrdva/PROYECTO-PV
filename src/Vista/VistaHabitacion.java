@@ -100,14 +100,6 @@ public class VistaHabitacion extends javax.swing.JPanel {
         this.btnPrint = btnPrint;
     }
 
-    public JButton getBtnReserva() {
-        return btnReserva;
-    }
-
-    public void setBtnReserva(JButton btnReserva) {
-        this.btnReserva = btnReserva;
-    }
-
     public JCheckBox getCheckDisponible() {
         return checkDisponible;
     }
@@ -315,7 +307,6 @@ public class VistaHabitacion extends javax.swing.JPanel {
         txtBuscarTip = new javax.swing.JTextField();
         comboTipo = new javax.swing.JComboBox<>();
         jLabel4 = new javax.swing.JLabel();
-        btnReserva = new javax.swing.JButton();
 
         jLabel5.setText("ID:");
 
@@ -557,17 +548,10 @@ public class VistaHabitacion extends javax.swing.JPanel {
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel4.setText("Seleccione uno para utilizar los siguientes botones:");
 
-        btnReserva.setBackground(new java.awt.Color(255, 255, 255));
-        btnReserva.setText("Realizar Reserva");
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(278, 278, 278)
-                .addComponent(btnReserva)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -640,8 +624,6 @@ public class VistaHabitacion extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(13, 13, 13)
-                .addComponent(btnReserva)
                 .addContainerGap())
         );
 
@@ -668,7 +650,6 @@ public class VistaHabitacion extends javax.swing.JPanel {
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnInfo;
     private javax.swing.JButton btnPrint;
-    private javax.swing.JButton btnReserva;
     private javax.swing.JCheckBox checkDisponible;
     private javax.swing.JComboBox<String> comboTipo;
     private javax.swing.JComboBox comboTipoHab;

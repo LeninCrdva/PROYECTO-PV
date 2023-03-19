@@ -2,7 +2,7 @@ package Controlador;
 
 import Modelo.ConnectionPG;
 import Modelo.Habitacion;
-import Modelo.ModeloHabitación;
+import Modelo.ModeloHabitacion;
 import Modelo.ModeloTipo_Habitacion;
 import Modelo.Tipo_Habitacion;
 import Vista.VistaHabitacion;
@@ -32,14 +32,14 @@ import net.sf.jasperreports.view.JasperViewer;
 
 public class ControladorHabitacion {
 
-    private ModeloHabitación mdHab;
+    private ModeloHabitacion mdHab;
     private ModeloTipo_Habitacion mdTip;
     private VistaHabitacion vista;
 
     public ControladorHabitacion() {
     }
 
-    public ControladorHabitacion(ModeloHabitación mdHab, ModeloTipo_Habitacion mdTip, VistaHabitacion vista) {
+    public ControladorHabitacion(ModeloHabitacion mdHab, ModeloTipo_Habitacion mdTip, VistaHabitacion vista) {
         this.mdHab = mdHab;
         this.mdTip = mdTip;
         this.vista = vista;
@@ -149,7 +149,7 @@ public class ControladorHabitacion {
                 int numhab = Integer.parseInt(vista.getTxtNumHab().getText().trim());
                 boolean estado = vista.getCheckDisponible().isSelected();
 
-                ModeloHabitación hb = new ModeloHabitación();
+                ModeloHabitacion hb = new ModeloHabitacion();
                 hb.setIdTipo_hab(tipo.getId_tha());
                 hb.setNumero_hab(numhab);
                 hb.setEstado_hab(estado);
@@ -178,7 +178,7 @@ public class ControladorHabitacion {
                 int numhab = Integer.parseInt(vista.getTxtNumHab().getText().trim());
                 boolean estado = vista.getCheckDisponible().isSelected();
 
-                ModeloHabitación hb = new ModeloHabitación();
+                ModeloHabitacion hb = new ModeloHabitacion();
                 hb.setIdTipo_hab(hb.getId(vista.getComboTipoHab().getSelectedItem().toString()));
                 hb.setId_hab(idhab);
                 hb.setNumero_hab(numhab);
@@ -206,7 +206,7 @@ public class ControladorHabitacion {
     }
 
     private void eliminarHabitacion(JTable table) {
-        ModeloHabitación habitacion = new ModeloHabitación();
+        ModeloHabitacion habitacion = new ModeloHabitacion();
         if (table.getSelectedRowCount() == 1) {
             habitacion.setId_hab(Integer.parseInt(String.valueOf(table.getValueAt(table.getSelectedRow(), 0))));
             if (habitacion.cancelDelete() == 0) {
@@ -229,7 +229,7 @@ public class ControladorHabitacion {
     }
 
     private void buscarHabitacion() {
-        ModeloHabitación hab = new ModeloHabitación();
+        ModeloHabitacion hab = new ModeloHabitacion();
         ModeloTipo_Habitacion tip = new ModeloTipo_Habitacion();
         hab.setNumero_hab(Integer.parseInt(vista.getTxtBuscarHab().getText().trim()));
 

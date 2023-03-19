@@ -8,7 +8,7 @@ import Modelo.Habitacion;
 import Modelo.ModeloCliente;
 import Modelo.ModeloDetReserva;
 import Modelo.ModeloEncReserva;
-import Modelo.ModeloHabitación;
+import Modelo.ModeloHabitacion;
 import Modelo.ModeloPersona;
 import Modelo.ModeloTipo_Habitacion;
 import Modelo.Persona;
@@ -278,7 +278,7 @@ public class ControladorReserva {
         DefaultComboBoxModel<Habitacion> modelo = new DefaultComboBoxModel<>();
         vista.getComboHabitacion().setModel(modelo);
 
-        ModeloHabitación mha = new ModeloHabitación();
+        ModeloHabitacion mha = new ModeloHabitacion();
 
         List<Habitacion> listah = mha.ListHabitacionActive();
 

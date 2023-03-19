@@ -99,7 +99,7 @@ public class ControladorPrincipal {
     }
 
     private void crudHabitacion() {
-        ModeloHabitación modelohab = new ModeloHabitación();
+        ModeloHabitacion modelohab = new ModeloHabitacion();
         ModeloTipo_Habitacion modelotip = new ModeloTipo_Habitacion();
         VistaHabitacion vista = new VistaHabitacion();
 
