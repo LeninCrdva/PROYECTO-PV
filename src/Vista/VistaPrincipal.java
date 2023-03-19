@@ -11,6 +11,7 @@ import java.awt.Graphics2D;
 import javax.swing.JButton;
 import javax.swing.JDesktopPane;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 /**
  *
@@ -97,20 +98,45 @@ public class VistaPrincipal extends javax.swing.JFrame {
         this.lblfechaDiaria = lblfechaDiaria;
     }
 
-    public JDesktopPane getPanelPrincipal() {
-        return panelPrincipal;
+    public JButton getBtnLabor() {
+        return btnLabor;
     }
 
-    public void setPanelPrincipal(JDesktopPane panelPrincipal) {
-        this.panelPrincipal = panelPrincipal;
+    public void setBtnLabor(JButton btnLabor) {
+        this.btnLabor = btnLabor;
     }
+
+    public JButton getBtnCuenta() {
+        return btnCuenta;
+    }
+
+    public void setBtnCuenta(JButton btnCuenta) {
+        this.btnCuenta = btnCuenta;
+    }
+
+    public JPanel getPnlBody() {
+        return pnlBody;
+    }
+
+    public void setPnlBody(JPanel pnlBody) {
+        this.pnlBody = pnlBody;
+    }
+    
+    
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
+        pnlHeader = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        lblfechaDiaria = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        lblNameUser = new javax.swing.JLabel();
+        btnCuenta = new javax.swing.JButton();
+        pnlMenu = new javax.swing.JPanel();
         jToolBar1 = new javax.swing.JToolBar();
         btnHome = new javax.swing.JButton();
         btnEmpleado = new javax.swing.JButton();
@@ -119,13 +145,8 @@ public class VistaPrincipal extends javax.swing.JFrame {
         btnReserva = new javax.swing.JButton();
         btnFactura = new javax.swing.JButton();
         btnServicio = new javax.swing.JButton();
-        jPanel4 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        lblfechaDiaria = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        lblNameUser = new javax.swing.JLabel();
-        panelPrincipal = new javax.swing.JDesktopPane();
+        btnLabor = new javax.swing.JButton();
+        pnlBody = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -151,8 +172,64 @@ public class VistaPrincipal extends javax.swing.JFrame {
         };
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel2.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        pnlHeader.setBackground(new java.awt.Color(255, 255, 255));
+        pnlHeader.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icono/LogoHotel.png"))); // NOI18N
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icono/Calendario.png"))); // NOI18N
+        jLabel2.setToolTipText("Fecha de hoy");
+
+        lblfechaDiaria.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icono/Usuario.png"))); // NOI18N
+
+        btnCuenta.setBackground(new java.awt.Color(255, 255, 255));
+        btnCuenta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icono/configuracion.png"))); // NOI18N
+        btnCuenta.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        btnCuenta.setBorderPainted(false);
+        btnCuenta.setFocusPainted(false);
+
+        javax.swing.GroupLayout pnlHeaderLayout = new javax.swing.GroupLayout(pnlHeader);
+        pnlHeader.setLayout(pnlHeaderLayout);
+        pnlHeaderLayout.setHorizontalGroup(
+            pnlHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlHeaderLayout.createSequentialGroup()
+                .addGap(31, 31, 31)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 451, Short.MAX_VALUE)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblfechaDiaria, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(52, 52, 52)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(pnlHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlHeaderLayout.createSequentialGroup()
+                        .addComponent(lblNameUser, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(69, 69, 69))
+                    .addComponent(btnCuenta, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
+        );
+        pnlHeaderLayout.setVerticalGroup(
+            pnlHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addGroup(pnlHeaderLayout.createSequentialGroup()
+                .addGroup(pnlHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlHeaderLayout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addGroup(pnlHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblfechaDiaria, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(pnlHeaderLayout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(lblNameUser, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addComponent(btnCuenta))
+                .addContainerGap())
+        );
+
+        pnlMenu.setBackground(new java.awt.Color(255, 255, 255));
+        pnlMenu.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
         jToolBar1.setBackground(new java.awt.Color(255, 255, 255));
         jToolBar1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
@@ -163,6 +240,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
         btnHome.setFont(new java.awt.Font("Palatino Linotype", 0, 14)); // NOI18N
         btnHome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icono/HomePV.png"))); // NOI18N
         btnHome.setText("Inicio");
+        btnHome.setBorderPainted(false);
         btnHome.setFocusable(false);
         btnHome.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         btnHome.setIconTextGap(40);
@@ -174,6 +252,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
         btnEmpleado.setFont(new java.awt.Font("Palatino Linotype", 0, 14)); // NOI18N
         btnEmpleado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icono/empleados.png"))); // NOI18N
         btnEmpleado.setText("Empleado");
+        btnEmpleado.setBorderPainted(false);
         btnEmpleado.setFocusable(false);
         btnEmpleado.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         btnEmpleado.setIconTextGap(40);
@@ -185,6 +264,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
         btnCliente.setFont(new java.awt.Font("Palatino Linotype", 0, 14)); // NOI18N
         btnCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icono/Clientes.png"))); // NOI18N
         btnCliente.setText("Cliente");
+        btnCliente.setBorderPainted(false);
         btnCliente.setFocusable(false);
         btnCliente.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         btnCliente.setIconTextGap(40);
@@ -197,6 +277,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
         btnHabitacion.setFont(new java.awt.Font("Palatino Linotype", 0, 14)); // NOI18N
         btnHabitacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icono/Habitaciones.png"))); // NOI18N
         btnHabitacion.setText("Habitación");
+        btnHabitacion.setBorderPainted(false);
         btnHabitacion.setFocusable(false);
         btnHabitacion.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         btnHabitacion.setIconTextGap(40);
@@ -208,6 +289,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
         btnReserva.setFont(new java.awt.Font("Palatino Linotype", 0, 14)); // NOI18N
         btnReserva.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icono/Reservas.png"))); // NOI18N
         btnReserva.setText("Reserva");
+        btnReserva.setBorderPainted(false);
         btnReserva.setFocusable(false);
         btnReserva.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         btnReserva.setIconTextGap(40);
@@ -219,6 +301,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
         btnFactura.setFont(new java.awt.Font("Palatino Linotype", 0, 14)); // NOI18N
         btnFactura.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icono/Facturas.png"))); // NOI18N
         btnFactura.setText("Factura");
+        btnFactura.setBorderPainted(false);
         btnFactura.setFocusable(false);
         btnFactura.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         btnFactura.setIconTextGap(40);
@@ -230,6 +313,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
         btnServicio.setFont(new java.awt.Font("Palatino Linotype", 0, 14)); // NOI18N
         btnServicio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icono/Servicios.png"))); // NOI18N
         btnServicio.setText("Servicio");
+        btnServicio.setBorderPainted(false);
         btnServicio.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnServicio.setFocusable(false);
         btnServicio.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
@@ -238,114 +322,53 @@ public class VistaPrincipal extends javax.swing.JFrame {
         btnServicio.setMaximumSize(new java.awt.Dimension(185, 35));
         jToolBar1.add(btnServicio);
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        btnLabor.setBackground(new java.awt.Color(255, 255, 255));
+        btnLabor.setFont(new java.awt.Font("Palatino Linotype", 0, 14)); // NOI18N
+        btnLabor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icono/Labor.png"))); // NOI18N
+        btnLabor.setText("Labor");
+        btnLabor.setBorderPainted(false);
+        btnLabor.setFocusable(false);
+        btnLabor.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        btnLabor.setIconTextGap(40);
+        btnLabor.setMargin(new java.awt.Insets(5, 5, 5, 45));
+        btnLabor.setMaximumSize(new java.awt.Dimension(185, 35));
+        btnLabor.setMinimumSize(new java.awt.Dimension(153, 39));
+        jToolBar1.add(btnLabor);
+
+        javax.swing.GroupLayout pnlMenuLayout = new javax.swing.GroupLayout(pnlMenu);
+        pnlMenu.setLayout(pnlMenuLayout);
+        pnlMenuLayout.setHorizontalGroup(
+            pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE)
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        pnlMenuLayout.setVerticalGroup(
+            pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlMenuLayout.createSequentialGroup()
                 .addGap(43, 43, 43)
                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(113, Short.MAX_VALUE))
         );
 
-        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel4.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icono/HotelLogo.png"))); // NOI18N
-
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icono/Calendario.png"))); // NOI18N
-        jLabel2.setToolTipText("Fecha de hoy");
-
-        lblfechaDiaria.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
-
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icono/Usuario.png"))); // NOI18N
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblfechaDiaria, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(52, 52, 52)
-                .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lblNameUser, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(lblfechaDiaria, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(lblNameUser, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))))
-        );
-
-        lblfechaDiaria.getAccessibleContext().setAccessibleName("");
-
-        panelPrincipal = new javax.swing.JDesktopPane(){
-            protected void paintComponent(Graphics g) {
-                super.paintComponent(g);
-                Graphics2D g2d = (Graphics2D) g;
-
-                int width = getWidth();
-                int height = getHeight();
-
-                Color color1 = new Color(255,196,0);
-                Color color2 = new Color(198,11,29);
-
-                GradientPaint gp = new GradientPaint(
-                    0, 0, color1,
-                    width / 2, height , color2);
-
-                g2d.setPaint(gp);
-                g2d.fillRect(0, 0, width, height);
-            }
-        };
-        panelPrincipal.setBackground(new java.awt.Color(255, 255, 255));
-
-        javax.swing.GroupLayout panelPrincipalLayout = new javax.swing.GroupLayout(panelPrincipal);
-        panelPrincipal.setLayout(panelPrincipalLayout);
-        panelPrincipalLayout.setHorizontalGroup(
-            panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 650, Short.MAX_VALUE)
-        );
-        panelPrincipalLayout.setVerticalGroup(
-            panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 422, Short.MAX_VALUE)
-        );
+        pnlBody.setBackground(new java.awt.Color(255, 255, 255));
+        pnlBody.setLayout(new java.awt.CardLayout());
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(pnlHeader, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(pnlMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(panelPrincipal))
+                .addComponent(pnlBody, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(pnlHeader, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(panelPrincipal)))
+                    .addComponent(pnlMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(pnlBody, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -364,21 +387,23 @@ public class VistaPrincipal extends javax.swing.JFrame {
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCliente;
+    private javax.swing.JButton btnCuenta;
     private javax.swing.JButton btnEmpleado;
     private javax.swing.JButton btnFactura;
     private javax.swing.JButton btnHabitacion;
     private javax.swing.JButton btnHome;
+    private javax.swing.JButton btnLabor;
     private javax.swing.JButton btnReserva;
     private javax.swing.JButton btnServicio;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel4;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JLabel lblNameUser;
     private javax.swing.JLabel lblfechaDiaria;
-    private javax.swing.JDesktopPane panelPrincipal;
+    private javax.swing.JPanel pnlBody;
+    private javax.swing.JPanel pnlHeader;
+    private javax.swing.JPanel pnlMenu;
     // End of variables declaration//GEN-END:variables
 }
